@@ -1,0 +1,45 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+// Ported mostly from https://github.com/browserify/path-browserify/
+// This module is browser compatible.
+
+/**
+ * Utilities for working with OS-specific file paths.
+ *
+ * Codes in the examples uses POSIX path but it automatically use Windows path
+ * on Windows. Use methods under `posix` or `win32` object instead to handle non
+ * platform specific path like:
+ * ```ts
+ * import { posix, win32 } from "@std/path";
+ * const p1 = posix.fromFileUrl("file:///home/foo");
+ * const p2 = win32.fromFileUrl("file:///home/foo");
+ * console.log(p1); // "/home/foo"
+ * console.log(p2); // "\\home\\foo"
+ * ```
+ *
+ * This module is browser compatible.
+ *
+ * @module
+ */
+export * from "./basename.ts";
+export * from "./constants.ts";
+export * from "./dirname.ts";
+export * from "./extname.ts";
+export * from "./format.ts";
+export * from "./from_file_url.ts";
+export * from "./is_absolute.ts";
+export * from "./join.ts";
+export * from "./normalize.ts";
+export * from "./parse.ts";
+export * from "./relative.ts";
+export * from "./resolve.ts";
+export * from "./to_file_url.ts";
+export * from "./to_namespaced_path.ts";
+export * from "./common.ts";
+export * from "../_interface.ts";
+export * from "./glob_to_regexp.ts";
+export * from "./is_glob.ts";
+export * from "./join_globs.ts";
+export * from "./normalize_glob.ts";
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","x-goog-stored-content-length":"1429","expires":"Mon, 06 Oct 2025 20:47:19 GMT","cache-control":"public, max-age=31536000, immutable","x-guploader-uploadid":"AHmUCY19SGrAo7bpJ0Dda3fuo39YdEb6ZTMSbDNYKBzCY8gZr58_l7cOLvh9xvtBYjIoXpCD0A","access-control-expose-headers":"*","via":"1.1 google","last-modified":"Thu, 28 Mar 2024 00:04:18 GMT","x-jsr-cache-status":"miss","content-type":"text/typescript","x-goog-storage-class":"STANDARD","access-control-allow-origin":"*","x-goog-metageneration":"1","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","date":"Sun, 06 Oct 2024 20:47:19 GMT","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-hash":"crc32c=ndUygg==,md5=59N6is3rkbDVhLjJ0WIEkA==","content-length":"1429","x-goog-stored-content-encoding":"identity","server":"UploadServer","x-goog-generation":"1711584258806594","etag":"\"e7d37a8acdeb91b0d584b8c9d1620490\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","accept-ranges":"bytes"},"url":"https://jsr.io/@std/path/0.221.0/windows/mod.ts","time":1728247639}

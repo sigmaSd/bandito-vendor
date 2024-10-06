@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** The type of the result of parsing JSON. */
+export type JsonValue =
+  | { [key: string]: JsonValue | undefined }
+  | JsonValue[]
+  | string
+  | number
+  | boolean
+  | null;
+
+/**
+ * Options for {@linkcode JsonParseStream} and
+ * {@linkcode ConcatenatedJsonParseStream}.
+ */
+export interface ParseStreamOptions {
+  /**
+   * Controls the buffer of the {@linkcode TransformStream} used internally.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#writablestrategy}
+   */
+  readonly writableStrategy?: QueuingStrategy<string>;
+  /**
+   * Controls the buffer of the {@linkcode TransformStream} used internally.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#readablestrategy}
+   */
+  readonly readableStrategy?: QueuingStrategy<JsonValue>;
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"ce1fb9ba4c5e756c0d816c6d3f1e29d7\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-generation":"1706296093948517","cache-control":"public, max-age=31536000, immutable","x-goog-hash":"crc32c=qnATKg==,md5=zh+5ukxedWwNgWxtPx4p1w==","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","last-modified":"Fri, 26 Jan 2024 19:08:13 GMT","content-length":"963","x-jsr-cache-status":"revalidated","x-jsr-cache-id":"MRS-e5589c6c","content-type":"text/typescript","x-robots-tag":"noindex","x-guploader-uploadid":"AHmUCY0XuyYfPTIUXluzIhaPL-c0rB8DhAQ9iMSPnrTF1q3zkTGC-XUt7VRgR7g0xDMZk-BVJiJeMd27AQ","x-goog-stored-content-length":"963","accept-ranges":"bytes","x-goog-stored-content-encoding":"identity","x-goog-metageneration":"1","cross-origin-resource-policy":"cross-origin","via":"1.1 google","access-control-expose-headers":"*","x-goog-storage-class":"STANDARD","server":"UploadServer","expires":"Mon, 06 Oct 2025 20:47:50 GMT","age":"0","date":"Sun, 06 Oct 2024 20:47:50 GMT","access-control-allow-origin":"*","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/json/0.213.1/common.ts","time":1728247670}

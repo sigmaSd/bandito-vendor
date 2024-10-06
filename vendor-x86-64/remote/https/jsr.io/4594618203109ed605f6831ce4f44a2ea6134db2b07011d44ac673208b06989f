@@ -1,0 +1,213 @@
+{
+  "manifest": {
+    "/examples/ssr/main.ts": {
+      "size": 370,
+      "checksum": "sha256-351793fc79019aa32770b0f7789d5ef97566071bc2655357cc3866d6b5608973"
+    },
+    "/examples/bind.ts": {
+      "size": 537,
+      "checksum": "sha256-b74e8925a5c0cb38cd01a3f74fbd1a1ee4b3d37b66d5cb6aa065266ffd71bde0"
+    },
+    "/images/webview_deno.png": {
+      "size": 113104,
+      "checksum": "sha256-d003f293a2ece788ed15efeb43d77db3eaeff2793529d3ff5e575373c3222e83"
+    },
+    "/examples/run.ts": {
+      "size": 86,
+      "checksum": "sha256-d4f8874734265eb0c5277525b62fad6feee8f6f0a9994de98a887f8991f419ee"
+    },
+    "/examples/multi-window/main.ts": {
+      "size": 2513,
+      "checksum": "sha256-2eb289eca9cef04cd3349ea0dbb276bea9a8dc0bc4d5c3e5f663916338c53c64"
+    },
+    "/README.md": {
+      "size": 5923,
+      "checksum": "sha256-a3aea940253b1c495cc150d2cb9d27f91db2ae479e533436d73cdd27056c33c4"
+    },
+    "/deno.json": {
+      "size": 671,
+      "checksum": "sha256-4651eca7ce6639d14b7bfb28e940f6e118e915a8003757193da2d9e9f47defc7"
+    },
+    "/mod.ts": {
+      "size": 533,
+      "checksum": "sha256-281b770b148b97ad17f675e7a1dff9f5d13b879d08c611c133391d5a45a791c0"
+    },
+    "/examples/multiple.ts": {
+      "size": 371,
+      "checksum": "sha256-8a27aea1ffd58d7cbd192b2c0796639caf6a1414568771fc56ac3ecc57604241"
+    },
+    "/CHANGELOG.md": {
+      "size": 5719,
+      "checksum": "sha256-b49ba5b96f0bc5ef3b5e837f303eb56cd1266a7fc48d1b2c0c586ccf733e63f7"
+    },
+    "/examples/multi-window/window-localhost.ts": {
+      "size": 355,
+      "checksum": "sha256-106b9f24d868bd552d18317ca0a2527e8a53eb57cb4679a270405a714be9b897"
+    },
+    "/examples/ssr/worker.tsx": {
+      "size": 761,
+      "checksum": "sha256-768edc2ab6a9def6dd5b90c0bebbc14823eae9be39e3ed97e240e2ecf41d5afa"
+    },
+    "/examples/local.ts": {
+      "size": 259,
+      "checksum": "sha256-3f85fb06b4790790a9916d4e62cad7f1ada008a8f3b524541c6b23fc57831215"
+    },
+    "/examples/server.ts": {
+      "size": 466,
+      "checksum": "sha256-8d898d7aaa7c6489add09f9dc25aa7e96a497cd4bbaadb961d4752ab3f29e2b9"
+    },
+    "/test_import_map.json": {
+      "size": 111,
+      "checksum": "sha256-62120da3e45ecfa9b21be94af2b1ec82dde170693bd06b4d1a100e4c0e32b05a"
+    },
+    "/script/build.bat": {
+      "size": 3001,
+      "checksum": "sha256-d82a28f7bd9f40b58ba278212ec84f28ab18ba2e35bbd28648a761713ef49a36"
+    },
+    "/src/webview.ts": {
+      "size": 11397,
+      "checksum": "sha256-86b778e001cbfb8dc40f7bd806b7543e59853026f18550c4cd517930c2accf1c"
+    },
+    "/script/build.ts": {
+      "size": 3542,
+      "checksum": "sha256-f38b75e30539e5abaa363e20de184fccfcb83aa55ebad250468c2b6d9ed08196"
+    },
+    "/LICENSE": {
+      "size": 1078,
+      "checksum": "sha256-11f0f8e19bbf93d5f502c18652516f2a5185a46683d3dfe3f9c7c39af5349fd0"
+    },
+    "/examples/ssr/tsconfig.json": {
+      "size": 117,
+      "checksum": "sha256-d1e34866fe35d98f7602a621839d840c884d53b3b82782ad0db15cf0ab63a50e"
+    },
+    "/src/ffi.ts": {
+      "size": 4622,
+      "checksum": "sha256-cc7b414a70814924ca22640e6729bae5002974dd9b89efd87b9f3aaa3dddef0d"
+    },
+    "/examples/multi-window/window-denoland.ts": {
+      "size": 352,
+      "checksum": "sha256-80fb73d1f23e1cb28b52026e534bfc49853fe62c9e281f006847e177a6120735"
+    },
+    "/examples/remote.ts": {
+      "size": 126,
+      "checksum": "sha256-1d3eca2d8e4d7eb770db3b38d7387cb0d05946b8c9b5c7d2fb1a39510e24a5dc"
+    },
+    "/examples/user_agent.ts": {
+      "size": 284,
+      "checksum": "sha256-b3d8aab28257e511613d20e2ea8fe7925d8191616b960b15bd58a306df938a12"
+    }
+  },
+  "moduleGraph1": {
+    "/src/ffi.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./../deno.json",
+          "specifierRange": [
+            [
+              0,
+              21
+            ],
+            [
+              0,
+              37
+            ]
+          ],
+          "importAttributes": {
+            "known": {
+              "type": "json"
+            }
+          }
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:@denosaurs/plug@^1.0.5",
+          "specifierRange": [
+            [
+              2,
+              33
+            ],
+            [
+              2,
+              61
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./webview.ts",
+          "specifierRange": [
+            [
+              3,
+              24
+            ],
+            [
+              3,
+              38
+            ]
+          ]
+        }
+      ]
+    },
+    "/src/webview.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./ffi.ts",
+          "specifierRange": [
+            [
+              0,
+              46
+            ],
+            [
+              0,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./src/webview.ts",
+          "specifierRange": [
+            [
+              25,
+              14
+            ],
+            [
+              25,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./src/ffi.ts",
+          "specifierRange": [
+            [
+              26,
+              32
+            ],
+            [
+              26,
+              46
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"x-goog-metageneration":"1","via":"1.1 google","x-jsr-cache-id":"MRS-e5589c6c","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","accept-ranges":"bytes","x-goog-hash":"crc32c=90zm4A==,md5=T7l55pJFaAq4/9rDYixNEQ==","x-goog-storage-class":"STANDARD","server":"UploadServer","content-type":"application/json","expires":"Mon, 06 Oct 2025 20:47:16 GMT","last-modified":"Sun, 03 Mar 2024 15:07:08 GMT","x-goog-stored-content-length":"5645","date":"Sun, 06 Oct 2024 20:47:16 GMT","vary":"Accept-Encoding","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","access-control-expose-headers":"*","x-jsr-cache-status":"miss","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-guploader-uploadid":"AHmUCY15P90Q2e0bt9rmjX3Sv5zDDbSbkuX3yvXTMTIzMrjeA3Sl8iOSb5M_7FbZ5AoVCfMX-w","x-goog-stored-content-encoding":"identity","x-goog-generation":"1709478428734958"},"url":"https://jsr.io/@webview/webview/0.8.0_meta.json","time":1728247636}

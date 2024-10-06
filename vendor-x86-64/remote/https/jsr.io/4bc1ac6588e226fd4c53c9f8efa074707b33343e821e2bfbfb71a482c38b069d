@@ -1,0 +1,47 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+import { basename } from "jsr:/@std/path@^0.221.0/basename";
+import { normalize } from "jsr:/@std/path@^0.221.0/normalize";
+import { toPathString } from "./_to_path_string.ts";
+
+/**
+ * Walk entry for {@linkcode walk}, {@linkcode walkSync},
+ * {@linkcode expandGlob} and {@linkcode expandGlobSync}.
+ */
+export interface WalkEntry extends Deno.DirEntry {
+  /** Full path of the entry. */
+  path: string;
+}
+
+/** Create {@linkcode WalkEntry} for the `path` synchronously. */
+export function createWalkEntrySync(path: string | URL): WalkEntry {
+  path = toPathString(path);
+  path = normalize(path);
+  const name = basename(path);
+  const info = Deno.statSync(path);
+  return {
+    path,
+    name,
+    isFile: info.isFile,
+    isDirectory: info.isDirectory,
+    isSymlink: info.isSymlink,
+  };
+}
+
+/** Create {@linkcode WalkEntry} for the `path` asynchronously. */
+export async function createWalkEntry(path: string | URL): Promise<WalkEntry> {
+  path = toPathString(path);
+  path = normalize(path);
+  const name = basename(path);
+  const info = await Deno.stat(path);
+  return {
+    path,
+    name,
+    isFile: info.isFile,
+    isDirectory: info.isDirectory,
+    isSymlink: info.isSymlink,
+  };
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","x-jsr-cache-status":"miss","via":"1.1 google","last-modified":"Thu, 28 Mar 2024 00:04:30 GMT","content-length":"1318","access-control-allow-origin":"*","expires":"Mon, 06 Oct 2025 20:47:20 GMT","etag":"\"b1e1166e9eb3657d360abbcf5d081816\"","x-guploader-uploadid":"AHmUCY3LmRPsc4O4WWtNWT8P7e9P950-y4gk59h7a8LcSrwr5717aHt_USCXIjrOywLtVqjN7w","server":"UploadServer","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"1318","x-jsr-cache-id":"MRS-e5589c6c","x-goog-hash":"crc32c=RMOHIA==,md5=seEWbp6zZX02CrvPXQgYFg==","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","x-goog-storage-class":"STANDARD","cross-origin-resource-policy":"cross-origin","x-goog-metageneration":"1","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","date":"Sun, 06 Oct 2024 20:47:20 GMT","x-goog-generation":"1711584269975419","accept-ranges":"bytes","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","content-type":"text/typescript"},"url":"https://jsr.io/@std/fs/0.221.0/_create_walk_entry.ts","time":1728247640}

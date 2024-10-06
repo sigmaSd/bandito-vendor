@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertArg } from "./../_common/from_file_url.ts";
+
+/**
+ * Converts a file URL to a path string.
+ *
+ * ```ts
+ * import { fromFileUrl } from "@std/path/windows/from_file_url";
+ *
+ * fromFileUrl("file:///home/foo"); // "\\home\\foo"
+ * fromFileUrl("file:///C:/Users/foo"); // "C:\\Users\\foo"
+ * fromFileUrl("file://localhost/home/foo"); // "\\\\localhost\\home\\foo"
+ * ```
+ * @param url of a file URL
+ */
+export function fromFileUrl(url: URL | string): string {
+  url = assertArg(url);
+  let path = decodeURIComponent(
+    url.pathname.replace(/\//g, "\\").replace(/%(?![0-9A-Fa-f]{2})/g, "%25"),
+  ).replace(/^\\*([A-Za-z]:)(\\|$)/, "$1\\");
+  if (url.hostname !== "") {
+    // Note: The `URL` implementation guarantees that the drive letter and
+    // hostname are mutually exclusive. Otherwise it would not have been valid
+    // to append the hostname and path like this.
+    path = `\\\\${url.hostname}${path}`;
+  }
+  return path;
+}
+
+// denoCacheMetadata={"headers":{"accept-ranges":"bytes","x-goog-hash":"crc32c=0KMqQQ==,md5=94VnbVKcB+os8FmRmW7GCQ==","expires":"Mon, 06 Oct 2025 20:47:29 GMT","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-storage-class":"STANDARD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","access-control-allow-origin":"*","x-goog-generation":"1706296079262859","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","access-control-expose-headers":"*","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-goog-stored-content-encoding":"identity","content-length":"1060","x-goog-stored-content-length":"1060","x-guploader-uploadid":"AHmUCY2SXnxGcAXxhSezjXwpydKiE4StrBAoa1CebdosKQLUQFMdHtzacu4S3LmueG3abecmkkAWZqzV-w","x-goog-metageneration":"1","server":"UploadServer","etag":"\"f785676d529c07ea2cf05991996ec609\"","via":"1.1 google","x-content-type-options":"nosniff","x-jsr-cache-status":"miss","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/path/0.213.1/windows/from_file_url.ts","time":1728247650}

@@ -1,0 +1,37 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Test whether the given string is a glob */
+export function isGlob(str: string): boolean {
+  const chars: Record<string, string> = { "{": "}", "(": ")", "[": "]" };
+  const regex =
+    /\\(.)|(^!|\*|\?|[\].+)]\?|\[[^\\\]]+\]|\{[^\\}]+\}|\(\?[:!=][^\\)]+\)|\([^|]+\|[^\\)]+\))/;
+
+  if (str === "") {
+    return false;
+  }
+
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(str))) {
+    if (match[2]) return true;
+    let idx = match.index + match[0].length;
+
+    // if an open bracket/brace/paren is escaped,
+    // set the index to the next closing character
+    const open = match[1];
+    const close = open ? chars[open] : null;
+    if (open && close) {
+      const n = str.indexOf(close, idx);
+      if (n !== -1) {
+        idx = n + 1;
+      }
+    }
+
+    str = str.slice(idx);
+  }
+
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"referrer-policy":"strict-origin-when-cross-origin","cross-origin-opener-policy":"same-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","accept-ranges":"bytes","cross-origin-embedder-policy":"same-origin","x-amz-cf-id":"ZVNLhIIR_cg3g0BGPqLepDQnvDC2-Rd8FKJVoVIFZtStHX0mk98jaA==","x-amz-version-id":"M.1miKJzilqi_u0Vn7WlAbQEbtCrNwCW","cross-origin-resource-policy":"same-origin","content-length":"938","via":"http/2 edgeproxy-h","x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","access-control-allow-origin":"*","server":"deno/gcp-europe-west3","cache-control":"public, max-age=31536000, immutable","content-type":"application/typescript; charset=utf-8","etag":"\"aadbc2e32508ade85b7cadc05fb2b5d3\"","age":"20274276","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","strict-transport-security":"max-age=63072000; includeSubDomains; preload","date":"Thu, 15 Feb 2024 05:02:49 GMT","x-amz-cf-pop":"FRA56-P5","server-timing":"fetchSource;dur=32","x-frame-options":"DENY","vary":"Accept-Encoding, Origin","x-amz-server-side-encryption":"AES256","x-amz-replication-status":"PENDING"},"url":"https://deno.land/std@0.216.0/path/is_glob.ts","time":1728247645}

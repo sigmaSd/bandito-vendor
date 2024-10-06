@@ -1,0 +1,67 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+// Ported mostly from https://github.com/browserify/path-browserify/
+// This module is browser compatible.
+
+/**
+ * Utilities for working with OS-specific file paths.
+ *
+ * Functions from this module will automatically switch to support the path style
+ * of the current OS, either `windows` for Microsoft Windows, or `posix` for
+ * every other operating system, eg. Linux, MacOS, BSD etc.
+ *
+ * To use functions for a specific path style regardless of the current OS
+ * import the modules from the platform sub directory instead.
+ *
+ * Example, for `posix`:
+ *
+ * ```ts
+ * import { fromFileUrl } from "https://deno.land/std@$STD_VERSION/path/posix/from_file_url.ts";
+ * const p = fromFileUrl("file:///home/foo");
+ * console.log(p); // "/home/foo"
+ * ```
+ *
+ * or, for `windows`:
+ *
+ * ```ts
+ * import { fromFileUrl } from "https://deno.land/std@$STD_VERSION/path/windows/from_file_url.ts";
+ * const p = fromFileUrl("file:///home/foo");
+ * console.log(p); // "\\home\\foo"
+ * ```
+ *
+ * This module is browser compatible.
+ *
+ * @module
+ */
+
+import * as _windows from "./windows/mod.ts";
+import * as _posix from "./posix/mod.ts";
+
+/** @deprecated (will be removed after 1.0.0) Import from {@link https://deno.land/std/path/windows/mod.ts} instead. */
+export const win32: typeof _windows = _windows;
+
+/** @deprecated (will be removed after 1.0.0) Import from {@link https://deno.land/std/posix/mod.ts} instead. */
+export const posix: typeof _posix = _posix;
+
+export * from "./basename.ts";
+export * from "./constants.ts";
+export * from "./dirname.ts";
+export * from "./extname.ts";
+export * from "./format.ts";
+export * from "./from_file_url.ts";
+export * from "./is_absolute.ts";
+export * from "./join.ts";
+export * from "./normalize.ts";
+export * from "./parse.ts";
+export * from "./relative.ts";
+export * from "./resolve.ts";
+export * from "./to_file_url.ts";
+export * from "./to_namespaced_path.ts";
+export * from "./common.ts";
+export * from "./_interface.ts";
+export * from "./glob_to_regexp.ts";
+export * from "./is_glob.ts";
+export * from "./join_globs.ts";
+export * from "./normalize_glob.ts";
+
+// denoCacheMetadata={"headers":{"referrer-policy":"strict-origin-when-cross-origin","x-amz-cf-id":"GWWAHFi5QWdpEUvbq51AoXmJAFkb1y8XEB8_9JfXcgXFTU0i27zZmQ==","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","x-amz-cf-pop":"FRA56-P5","server-timing":"fetchSource;dur=16","x-amz-replication-status":"PENDING","x-amz-version-id":"RpLszR8SgT.PTWUYfGOin6tjDK7wujNx","x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","date":"Thu, 15 Feb 2024 05:02:49 GMT","x-frame-options":"DENY","server":"deno/gcp-europe-west3","vary":"Accept-Encoding, Origin","via":"http/2 edgeproxy-h","cross-origin-embedder-policy":"same-origin","accept-ranges":"bytes","cache-control":"public, max-age=31536000, immutable","content-length":"2223","strict-transport-security":"max-age=63072000; includeSubDomains; preload","age":"20274276","etag":"\"2598e79fb6c55252da4ef4f758572616\"","x-amz-server-side-encryption":"AES256","cross-origin-resource-policy":"same-origin","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","content-type":"application/typescript; charset=utf-8","cross-origin-opener-policy":"same-origin"},"url":"https://deno.land/std@0.216.0/path/mod.ts","time":1728247644}

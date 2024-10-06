@@ -1,0 +1,27 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertPath } from "./../_common/assert_path.ts";
+import { normalize } from "./normalize.ts";
+
+/**
+ * Join all given a sequence of `paths`,then normalizes the resulting path.
+ * @param paths to be joined and normalized
+ */
+export function join(...paths: string[]): string {
+  if (paths.length === 0) return ".";
+
+  let joined: string | undefined;
+  for (let i = 0, len = paths.length; i < len; ++i) {
+    const path = paths[i];
+    assertPath(path);
+    if (path.length > 0) {
+      if (!joined) joined = path;
+      else joined += `/${path}`;
+    }
+  }
+  if (!joined) return ".";
+  return normalize(joined);
+}
+
+// denoCacheMetadata={"headers":{"accept-ranges":"bytes","date":"Sun, 06 Oct 2024 20:47:29 GMT","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-metageneration":"1","etag":"\"e7b882a4c359308aea4673b6564c60b0\"","cache-control":"public, max-age=31536000, immutable","expires":"Mon, 06 Oct 2025 20:47:29 GMT","x-goog-stored-content-length":"733","x-goog-hash":"crc32c=YEJiBA==,md5=57iCpMNZMIrqRnO2VkxgsA==","content-length":"733","server":"UploadServer","x-jsr-cache-status":"miss","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","x-content-type-options":"nosniff","access-control-expose-headers":"*","x-goog-generation":"1706296079083468","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","access-control-allow-origin":"*","content-type":"text/typescript","x-guploader-uploadid":"AHmUCY1yikq3vHqx3pGhc0UxkdMyvQamhWvMMqBQfYNzP1nC0YSilBb7OhJd4kmzmOeAlKJBjSlngSZWAQ","via":"1.1 google","x-jsr-cache-id":"MRS-e5589c6c","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-storage-class":"STANDARD","x-goog-stored-content-encoding":"identity"},"url":"https://jsr.io/@std/path/0.213.1/posix/join.ts","time":1728247649}

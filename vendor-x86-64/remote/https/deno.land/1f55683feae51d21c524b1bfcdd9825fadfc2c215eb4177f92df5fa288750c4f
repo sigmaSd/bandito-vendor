@@ -1,0 +1,66 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { format } from "./_format.ts";
+import { AssertionError } from "./assertion_error.ts";
+import { buildMessage, diff, diffstr } from "./_diff.ts";
+import { CAN_NOT_DISPLAY } from "./_constants.ts";
+import { red } from "../fmt/colors.ts";
+
+/**
+ * Make an assertion that `actual` and `expected` are strictly equal. If
+ * not then throw.
+ *
+ * @example
+ * ```ts
+ * import { assertStrictEquals } from "https://deno.land/std@$STD_VERSION/assert/assert_strict_equals.ts";
+ *
+ * const a = {};
+ * const b = a;
+ * assertStrictEquals(a, b); // Doesn't throw
+ *
+ * const c = {};
+ * const d = {};
+ * assertStrictEquals(c, d); // Throws
+ * ```
+ */
+export function assertStrictEquals<T>(
+  actual: unknown,
+  expected: T,
+  msg?: string,
+): asserts actual is T {
+  if (Object.is(actual, expected)) {
+    return;
+  }
+
+  const msgSuffix = msg ? `: ${msg}` : ".";
+  let message: string;
+
+  const actualString = format(actual);
+  const expectedString = format(expected);
+
+  if (actualString === expectedString) {
+    const withOffset = actualString
+      .split("\n")
+      .map((l) => `    ${l}`)
+      .join("\n");
+    message =
+      `Values have the same structure but are not reference-equal${msgSuffix}\n\n${
+        red(withOffset)
+      }\n`;
+  } else {
+    try {
+      const stringDiff = (typeof actual === "string") &&
+        (typeof expected === "string");
+      const diffResult = stringDiff
+        ? diffstr(actual as string, expected as string)
+        : diff(actualString.split("\n"), expectedString.split("\n"));
+      const diffMsg = buildMessage(diffResult, { stringDiff }).join("\n");
+      message = `Values are not strictly equal${msgSuffix}\n${diffMsg}`;
+    } catch {
+      message = `\n${red(CAN_NOT_DISPLAY)} + \n\n`;
+    }
+  }
+
+  throw new AssertionError(message);
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-opener-policy":"same-origin","content-length":"1857","via":"http/2 edgeproxy-h","x-amz-cf-pop":"FRA56-P5","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","x-frame-options":"DENY","etag":"\"0198388623d3a537c241ef82d4b8558e\"","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","server-timing":"fetchSource;dur=4","access-control-allow-origin":"*","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-server-side-encryption":"AES256","cross-origin-resource-policy":"same-origin","accept-ranges":"bytes","age":"20273860","referrer-policy":"strict-origin-when-cross-origin","server":"deno/gcp-europe-west3","cross-origin-embedder-policy":"same-origin","x-amz-cf-id":"oz1eGtvYE8twvPBV43Q3ESfEZxQMxhUv9khw25wsA3awwtYjXJjSsQ==","date":"Thu, 15 Feb 2024 05:09:46 GMT","x-amz-version-id":"FGTzEuhlBHwtK5K.XBNwoAi2j5vsScV2","last-modified":"Thu, 15 Feb 2024 05:02:27 GMT","x-cache":"Hit from cloudfront","x-amz-replication-status":"COMPLETED","vary":"Accept-Encoding, Origin","content-type":"application/typescript; charset=utf-8"},"url":"https://deno.land/std@0.216.0/assert/assert_strict_equals.ts","time":1728247645}

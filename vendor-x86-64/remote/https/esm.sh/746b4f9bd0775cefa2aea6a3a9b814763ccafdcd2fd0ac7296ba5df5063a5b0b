@@ -1,0 +1,4 @@
+/* esm.sh - esbuild bundle(preact@10.19.6/devtools) denonext production */
+import{options as o,Fragment as _,Component as a}from"/stable/preact@10.19.6/denonext/preact.mjs";function r(n,t){return o.__a&&o.__a(t),n}typeof window<"u"&&window.__PREACT_DEVTOOLS__&&window.__PREACT_DEVTOOLS__.attachPreact("10.19.6",o,{Fragment:_,Component:a});export{r as addHookName};
+//# sourceMappingURL=devtools.js.map
+// denoCacheMetadata={"headers":{"content-type":"application/javascript; charset=utf-8","cf-ray":"8ce881a6add05bce-TUN","vary":"Origin, Accept-Encoding","date":"Sun, 06 Oct 2024 20:47:25 GMT","x-content-source":"esm-worker","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","access-control-allow-methods":"*"},"url":"https://esm.sh/stable/preact@10.19.6/denonext/devtools.js","time":1728247645}

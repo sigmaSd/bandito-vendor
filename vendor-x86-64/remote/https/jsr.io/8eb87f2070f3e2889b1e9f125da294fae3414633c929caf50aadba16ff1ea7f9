@@ -1,0 +1,57 @@
+export interface SpecifierMap {
+  [url: string]: string | null;
+}
+export interface Scopes {
+  [url: string]: SpecifierMap;
+}
+export interface ImportMap {
+  imports?: SpecifierMap;
+  scopes?: Scopes;
+}
+
+export function isObject(object: unknown): object is Record<string, unknown> {
+  return typeof object == "object" && object !== null &&
+    object.constructor === Object;
+}
+export function sortObject(
+  normalized: Record<string, unknown>,
+): Record<string, unknown> {
+  const sorted: Record<string, unknown> = {};
+  const sortedKeys = Object.keys(normalized)
+    .sort((a, b) => b.length - a.length);
+  for (const key of sortedKeys) {
+    sorted[key] = normalized[key];
+  }
+  return sorted;
+}
+export function isImportMap(importMap: unknown): importMap is ImportMap {
+  return isObject(importMap) &&
+    (importMap.imports !== undefined ? isImports(importMap.imports) : true) &&
+    (importMap.scopes !== undefined ? isScopes(importMap.scopes) : true);
+}
+export function isImports(
+  importsMap: unknown,
+): importsMap is ImportMap {
+  return isObject(importsMap);
+}
+export function isScopes(
+  scopes: unknown,
+): scopes is Scopes {
+  return isObject(scopes) &&
+    Object.values(scopes).every((value) => isSpecifierMap(value));
+}
+export function isSpecifierMap(
+  specifierMap: unknown,
+): specifierMap is SpecifierMap {
+  return isObject(specifierMap);
+}
+export function isURL(url: unknown): boolean {
+  try {
+    new URL(url as string);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","etag":"\"810bdec35c6559eca8489d7293196c87\"","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"1496","last-modified":"Fri, 15 Mar 2024 13:26:36 GMT","accept-ranges":"bytes","via":"1.1 google","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","x-robots-tag":"noindex","x-jsr-cache-id":"MRS-e5589c6c","x-goog-metageneration":"1","x-goog-storage-class":"STANDARD","x-guploader-uploadid":"AHmUCY033-4KSAySyM_VMi3OoUDsrqzhUb4xKIQSGonvVQrPKBudEHPBOIuDfekw_TgtLB0aeAyJeLeIpA","expires":"Mon, 06 Oct 2025 20:47:29 GMT","x-goog-generation":"1710509195970141","x-jsr-cache-status":"miss","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","content-length":"1496","date":"Sun, 06 Oct 2024 20:47:29 GMT","server":"UploadServer","x-goog-hash":"crc32c=tvoulQ==,md5=gQvew1xlWeyoSJ1ykxlshw==","access-control-allow-origin":"*"},"url":"https://jsr.io/@luca/esbuild-deno-loader/0.10.3/vendor/x/importmap/_util.ts","time":1728247649}

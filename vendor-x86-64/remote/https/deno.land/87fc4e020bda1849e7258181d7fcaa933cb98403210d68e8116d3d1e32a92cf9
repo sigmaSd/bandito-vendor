@@ -1,0 +1,36 @@
+export {
+  EsbuildBuilder,
+  type EsbuildBuilderOptions,
+  EsbuildSnapshot,
+} from "./esbuild.ts";
+export { AotSnapshot } from "./aot_snapshot.ts";
+export interface Builder {
+  build(): Promise<BuildSnapshot>;
+}
+
+export interface BuildSnapshot {
+  /** The list of files contained in this snapshot, not prefixed by a slash. */
+  readonly paths: string[];
+
+  /** For a given file, return it's contents.
+   * @throws If the file is not contained in this snapshot. */
+  read(
+    path: string,
+  ):
+    | ReadableStream<Uint8Array>
+    | Uint8Array
+    | null
+    | Promise<ReadableStream<Uint8Array> | Uint8Array | null>;
+
+  /** For a given entrypoint, return it's list of dependencies.
+   *
+   * Returns an empty array if the entrypoint does not exist. */
+  dependencies(path: string): string[];
+}
+
+export interface BuildSnapshotJson {
+  build_id: string;
+  files: Record<string, string[]>;
+}
+
+// denoCacheMetadata={"headers":{"x-amz-cf-id":"OhkxwylaHdIey35Gtc8RCntDn3knxCNHlwuwlvgKNuKV6NT7xDVJxg==","x-amz-server-side-encryption":"AES256","x-amz-version-id":"EPH6Qhm53qmv2AP.9hBgM3g_phuuvFpM","x-cache":"Hit from cloudfront","referrer-policy":"strict-origin-when-cross-origin","content-type":"application/typescript; charset=utf-8","accept-ranges":"bytes","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","access-control-allow-origin":"*","server-timing":"fetchSource;dur=14","vary":"Accept-Encoding, Origin","cross-origin-embedder-policy":"same-origin","strict-transport-security":"max-age=63072000; includeSubDomains; preload","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT","server":"deno/gcp-europe-west3","x-frame-options":"DENY","age":"17103959","via":"http/2 edgeproxy-h","x-amz-cf-pop":"FRA56-P5","x-amz-replication-status":"COMPLETED","x-content-type-options":"nosniff","etag":"\"18adb50c58b562bf992752a8bc7f22aa\"","cross-origin-resource-policy":"same-origin","content-length":"891","date":"Fri, 22 Mar 2024 21:41:26 GMT","cache-control":"public, max-age=31536000, immutable","cross-origin-opener-policy":"same-origin"},"url":"https://deno.land/x/fresh@1.6.8/src/build/mod.ts","time":1728247644}

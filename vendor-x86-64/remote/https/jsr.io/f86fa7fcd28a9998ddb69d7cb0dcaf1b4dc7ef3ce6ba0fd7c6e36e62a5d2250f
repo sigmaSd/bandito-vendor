@@ -1,0 +1,12 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+export function assertPath(path?: string) {
+  if (typeof path !== "string") {
+    throw new TypeError(
+      `Path must be a string. Received ${JSON.stringify(path)}`,
+    );
+  }
+}
+
+// denoCacheMetadata={"headers":{"x-goog-generation":"1711584258880452","x-goog-stored-content-encoding":"identity","content-type":"text/typescript","x-guploader-uploadid":"AHmUCY1QQlp_YATeORST2i8RtQFNB3T-tKM2pvxb8LfVm-jfjQuOhGd0xtIvfx5zDtix2mu0pA","via":"1.1 google","expires":"Mon, 06 Oct 2025 20:47:21 GMT","x-goog-stored-content-length":"307","x-jsr-cache-status":"miss","x-goog-hash":"crc32c=9sIOIg==,md5=min1FiCji6oiE472icqTrg==","server":"UploadServer","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","access-control-allow-origin":"*","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-content-type-options":"nosniff","last-modified":"Thu, 28 Mar 2024 00:04:18 GMT","x-goog-metageneration":"1","date":"Sun, 06 Oct 2024 20:47:21 GMT","x-jsr-cache-id":"MRS-e5589c6c","accept-ranges":"bytes","content-length":"307","x-goog-storage-class":"STANDARD","cache-control":"public, max-age=31536000, immutable","etag":"\"9a29f51620a38baa22138ef689ca93ae\""},"url":"https://jsr.io/@std/path/0.221.0/_common/assert_path.ts","time":1728247641}

@@ -1,0 +1,64 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { CHAR_DOT } from "./../_common/constants.ts";
+import { assertPath } from "./../_common/assert_path.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Return the extension of the `path` with leading period.
+ * @param path with extension
+ * @returns extension (ex. for `file.ts` returns `.ts`)
+ */
+export function extname(path: string): string {
+  assertPath(path);
+
+  let startDot = -1;
+  let startPart = 0;
+  let end = -1;
+  let matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  let preDotState = 0;
+  for (let i = path.length - 1; i >= 0; --i) {
+    const code = path.charCodeAt(i);
+    if (isPosixPathSeparator(code)) {
+      // If we reached a path separator that was not part of a set of path
+      // separators at the end of the string, stop now
+      if (!matchedSlash) {
+        startPart = i + 1;
+        break;
+      }
+      continue;
+    }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === CHAR_DOT) {
+      // If this is our first dot, mark it as the start of our extension
+      if (startDot === -1) startDot = i;
+      else if (preDotState !== 1) preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (
+    startDot === -1 ||
+    end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    (preDotState === 1 && startDot === end - 1 && startDot === startPart + 1)
+  ) {
+    return "";
+  }
+  return path.slice(startDot, end);
+}
+
+// denoCacheMetadata={"headers":{"x-guploader-uploadid":"AHmUCY0tRu4LgdxCY5IqFTDPEcPl_MkS4DCQ8Zcx8rn6tNe4GO5qR4iy6BHp_9y5YYR9wwRAsW-vHPVVmA","x-goog-generation":"1706296079238082","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-status":"miss","x-goog-metageneration":"1","x-goog-stored-content-length":"1980","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","x-jsr-cache-id":"MRS-e5589c6c","access-control-expose-headers":"*","x-content-type-options":"nosniff","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-goog-storage-class":"STANDARD","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","content-length":"1980","server":"UploadServer","accept-ranges":"bytes","content-type":"text/typescript","x-goog-hash":"crc32c=KfmsYA==,md5=JN5hKSiRf4oc+Tmxfxh6+Q==","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-robots-tag":"noindex","expires":"Mon, 06 Oct 2025 20:47:29 GMT","via":"1.1 google","x-goog-stored-content-encoding":"identity","etag":"\"24de612928917f8a1cf939b17f187af9\""},"url":"https://jsr.io/@std/path/0.213.1/posix/extname.ts","time":1728247649}

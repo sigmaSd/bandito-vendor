@@ -1,0 +1,4 @@
+/* esm.sh - preact@10.19.6 */
+export * from "/stable/preact@10.19.6/denonext/preact.mjs";
+
+// denoCacheMetadata={"headers":{"x-typescript-types":"https://esm.sh/v128/preact@10.19.6/src/index.d.ts","content-type":"application/javascript; charset=utf-8","access-control-allow-origin":"*","x-esm-id":"stable/preact@10.19.6/denonext/preact.mjs","x-content-source":"esm-worker","cf-ray":"8ce881a319cd5bce-TUN","date":"Sun, 06 Oct 2024 20:47:24 GMT","cache-control":"public, max-age=31536000, immutable","vary":"Origin, User-Agent, Accept-Encoding","server":"cloudflare","access-control-expose-headers":"X-Esm-Id, X-TypeScript-Types","access-control-allow-methods":"*"},"url":"https://esm.sh/preact@10.19.6","time":1728247644}

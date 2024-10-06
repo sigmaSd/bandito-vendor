@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { assertFalse } from "./assert_false.ts";
+
+/**
+ * Make an assertion that `obj` is not an instance of `type`.
+ * If so, then throw.
+ *
+ * @example
+ * ```ts
+ * import { assertNotInstanceOf } from "https://deno.land/std@$STD_VERSION/assert/assert_not_instance_of.ts";
+ *
+ * assertNotInstanceOf(new Date(), Number); // Doesn't throw
+ * assertNotInstanceOf(new Date(), Date); // Throws
+ * ```
+ */
+export function assertNotInstanceOf<A, T>(
+  actual: A,
+  // deno-lint-ignore no-explicit-any
+  unexpectedType: new (...args: any[]) => T,
+  msg?: string,
+): asserts actual is Exclude<A, T> {
+  const msgSuffix = msg ? `: ${msg}` : ".";
+  msg =
+    `Expected object to not be an instance of "${typeof unexpectedType}"${msgSuffix}`;
+  assertFalse(actual instanceof unexpectedType, msg);
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","last-modified":"Thu, 15 Feb 2024 05:02:27 GMT","cross-origin-opener-policy":"same-origin","x-cache":"Hit from cloudfront","x-amz-version-id":"JBLlJuZgcW7lhbXQQNTVZVIGLuwVXDcg","x-content-type-options":"nosniff","age":"20273860","content-type":"application/typescript; charset=utf-8","vary":"Accept-Encoding, Origin","cache-control":"public, max-age=31536000, immutable","x-frame-options":"DENY","server-timing":"fetchSource;dur=30","x-amz-server-side-encryption":"AES256","cross-origin-resource-policy":"same-origin","referrer-policy":"strict-origin-when-cross-origin","x-amz-cf-id":"5K9ormbN0ixe9O1J1h6C-7oAjp5u1tLjmzC6YrP9ns6ovlUous2_5Q==","content-length":"861","x-amz-cf-pop":"FRA56-P5","strict-transport-security":"max-age=63072000; includeSubDomains; preload","cross-origin-embedder-policy":"same-origin","via":"http/2 edgeproxy-h","date":"Thu, 15 Feb 2024 05:09:46 GMT","x-amz-replication-status":"COMPLETED","access-control-allow-origin":"*","accept-ranges":"bytes","etag":"\"40688430187b46cbbfc8bd963c3bb5ba\"","server":"deno/gcp-europe-west3"},"url":"https://deno.land/std@0.216.0/assert/assert_not_instance_of.ts","time":1728247645}

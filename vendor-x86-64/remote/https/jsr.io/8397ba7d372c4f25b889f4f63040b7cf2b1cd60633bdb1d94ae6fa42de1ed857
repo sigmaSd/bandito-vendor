@@ -1,0 +1,21 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { AssertionError } from "./assertion_error.ts";
+
+/**
+ * Make an assertion, error will be thrown if `expr` does not have truthy value.
+ *
+ * @example
+ * ```ts
+ * import { assert } from "@std/assert/assert";
+ *
+ * assert("hello".includes("ello")); // Doesn't throw
+ * assert("hello".includes("world")); // Throws
+ * ```
+ */
+export function assert(expr: unknown, msg = ""): asserts expr {
+  if (!expr) {
+    throw new AssertionError(msg);
+  }
+}
+
+// denoCacheMetadata={"headers":{"x-goog-storage-class":"STANDARD","x-goog-stored-content-length":"524","etag":"\"1a24577fe67525c15e0168c7227c12f9\"","last-modified":"Thu, 28 Mar 2024 00:04:16 GMT","server":"UploadServer","expires":"Mon, 06 Oct 2025 20:47:20 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-generation":"1711584255991124","x-jsr-cache-id":"MRS-e5589c6c","x-robots-tag":"noindex","via":"1.1 google","accept-ranges":"bytes","x-goog-hash":"crc32c=jhaY5Q==,md5=GiRXf+Z1JcFeAWjHInwS+Q==","content-length":"524","x-goog-stored-content-encoding":"identity","access-control-allow-origin":"*","access-control-expose-headers":"*","date":"Sun, 06 Oct 2024 20:47:20 GMT","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","content-type":"text/typescript","age":"0","x-guploader-uploadid":"AHmUCY1zN09KgJSqZzA5-cFwy55gaX5vrwcxLayPRKL-1P2eEFGbyoyo58R0kF8qtpJcJBRT3aji52Aq7w","x-jsr-cache-status":"revalidated","x-goog-metageneration":"1","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/assert/0.221.0/assert.ts","time":1728247640}

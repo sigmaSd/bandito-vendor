@@ -1,0 +1,29 @@
+/**
+ * Webview is a tiny cross-platform library to make web-based GUIs for desktop
+ * applications.
+ *
+ * @example
+ * ```
+ * import { Webview } from "@webview/webview";
+ *
+ * const html = `
+ *   <html>
+ *   <body>
+ *     <h1>Hello from deno v${Deno.version.deno}</h1>
+ *   </body>
+ *   </html>
+ * `;
+ *
+ * const webview = new Webview();
+ *
+ * webview.navigate(`data:text/html,${encodeURIComponent(html)}`);
+ * webview.run();
+ * ```
+ *
+ * @module
+ */
+
+export * from "./src/webview.ts";
+export { preload, unload } from "./src/ffi.ts";
+
+// denoCacheMetadata={"headers":{"x-jsr-cache-id":"MRS-e5589c6c","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-goog-stored-content-encoding":"identity","x-goog-hash":"crc32c=QUShww==,md5=X9se7cILPsScRiVlgUTq4w==","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-status":"miss","x-goog-generation":"1709478428538211","x-content-type-options":"nosniff","date":"Sun, 06 Oct 2024 20:47:17 GMT","x-goog-storage-class":"STANDARD","expires":"Mon, 06 Oct 2025 20:47:17 GMT","last-modified":"Sun, 03 Mar 2024 15:07:08 GMT","via":"1.1 google","content-type":"text/typescript","x-robots-tag":"noindex","x-guploader-uploadid":"AHmUCY0DKvsdF9EOmXzcVbeSysRT9dA-zWXEvKyMm_lUbZ-7qmoWo7IxdU5f83ukrPXzFjQiLJoITME_ZQ","etag":"\"5fdb1eedc20b3ec49c4625658144eae3\"","cache-control":"public, max-age=31536000, immutable","x-goog-metageneration":"1","server":"UploadServer","accept-ranges":"bytes","content-length":"533","x-goog-stored-content-length":"533"},"url":"https://jsr.io/@webview/webview/0.8.0/mod.ts","time":1728247637}

@@ -1,0 +1,46 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertArg } from "../_common/dirname.ts";
+import { stripTrailingSeparators } from "../_common/strip_trailing_separators.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Return the directory path of a `path`.
+ * @param path - path to extract the directory from.
+ */
+export function dirname(path: string): string {
+  assertArg(path);
+
+  let end = -1;
+  let matchedNonSeparator = false;
+
+  for (let i = path.length - 1; i >= 1; --i) {
+    if (isPosixPathSeparator(path.charCodeAt(i))) {
+      if (matchedNonSeparator) {
+        end = i;
+        break;
+      }
+    } else {
+      matchedNonSeparator = true;
+    }
+  }
+
+  // No matches. Fallback based on provided path:
+  //
+  // - leading slashes paths
+  //     "/foo" => "/"
+  //     "///foo" => "/"
+  // - no slash path
+  //     "foo" => "."
+  if (end === -1) {
+    return isPosixPathSeparator(path.charCodeAt(0)) ? "/" : ".";
+  }
+
+  return stripTrailingSeparators(
+    path.slice(0, end),
+    isPosixPathSeparator,
+  );
+}
+
+// denoCacheMetadata={"headers":{"x-amz-server-side-encryption":"AES256","x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","x-amz-version-id":"tJcfR_R8PN_OPE0rL68ok5d4kJyVcdf3","x-amz-cf-id":"i8-u3CPrn6y4NzEj7wUrZW3KwKrzxanmX8tlgLbeXJFewBjxWq9cfQ==","referrer-policy":"strict-origin-when-cross-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","access-control-allow-origin":"*","content-length":"1109","accept-ranges":"bytes","x-frame-options":"DENY","server-timing":"fetchSource;dur=6","age":"20274276","cache-control":"public, max-age=31536000, immutable","strict-transport-security":"max-age=63072000; includeSubDomains; preload","content-type":"application/typescript; charset=utf-8","cross-origin-resource-policy":"same-origin","via":"http/2 edgeproxy-h","x-amz-replication-status":"PENDING","cross-origin-opener-policy":"same-origin","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","server":"deno/gcp-europe-west3","etag":"\"47ee9fe2dbff06e0a49ee793e8db69c7\"","cross-origin-embedder-policy":"same-origin","date":"Thu, 15 Feb 2024 05:02:50 GMT","vary":"Accept-Encoding, Origin","x-amz-cf-pop":"FRA56-P5"},"url":"https://deno.land/std@0.216.0/path/posix/dirname.ts","time":1728247645}

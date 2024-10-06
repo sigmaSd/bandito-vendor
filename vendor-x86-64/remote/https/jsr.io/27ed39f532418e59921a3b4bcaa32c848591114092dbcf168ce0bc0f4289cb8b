@@ -1,0 +1,19 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { format as posixFormat } from "./posix/format.ts";
+import { format as windowsFormat } from "./windows/format.ts";
+import type { FormatInputPathObject } from "./_interface.ts";
+
+/**
+ * Generate a path from `FormatInputPathObject` object. It does the opposite
+ * of `parse`.
+ *
+ * @param pathObject with path
+ */
+export function format(pathObject: FormatInputPathObject): string {
+  return isWindows ? windowsFormat(pathObject) : posixFormat(pathObject);
+}
+
+// denoCacheMetadata={"headers":{"x-jsr-cache-id":"MRS-e5589c6c","x-jsr-cache-status":"miss","x-robots-tag":"noindex","x-goog-generation":"1711584258854403","cache-control":"public, max-age=31536000, immutable","x-goog-hash":"crc32c=4ye/bQ==,md5=+0h38XMFVzooR38JiTEA2A==","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","access-control-expose-headers":"*","x-goog-stored-content-length":"615","x-content-type-options":"nosniff","expires":"Mon, 06 Oct 2025 20:47:19 GMT","accept-ranges":"bytes","x-goog-metageneration":"1","content-length":"615","last-modified":"Thu, 28 Mar 2024 00:04:18 GMT","server":"UploadServer","via":"1.1 google","etag":"\"fb4877f17305573a28477f09893100d8\"","x-guploader-uploadid":"AD-8ljvWauJhvusNyefPgXMr13bVTOfKKTAvyd6jp7iX_lAyKnJf35dOnC5Bt6idzsyCPWL8IcP7J7-ANg","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-type":"text/typescript","x-goog-storage-class":"STANDARD","cross-origin-resource-policy":"cross-origin","date":"Sun, 06 Oct 2024 20:47:19 GMT","x-goog-stored-content-encoding":"identity"},"url":"https://jsr.io/@std/path/0.221.0/format.ts","time":1728247639}

@@ -1,0 +1,23 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { relative as posixRelative } from "./posix/relative.ts";
+import { relative as windowsRelative } from "./windows/relative.ts";
+
+/**
+ * Return the relative path from `from` to `to` based on current working directory.
+ *
+ * An example in windws, for instance:
+ *  from = 'C:\\orandea\\test\\aaa'
+ *  to = 'C:\\orandea\\impl\\bbb'
+ * The output of the function should be: '..\\..\\impl\\bbb'
+ *
+ * @param from path in current working directory
+ * @param to path in current working directory
+ */
+export function relative(from: string, to: string): string {
+  return isWindows ? windowsRelative(from, to) : posixRelative(from, to);
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"0735763219b351c3520264c14dcdb50e\"","x-goog-stored-content-encoding":"identity","x-guploader-uploadid":"AD-8ljsUAiVm0kf69d5MNBPyrPg3lj4i7_2h1S4VZaynE2G7k9V11izEM_PZiE6uggdMRLe1B4Y01lL0jg","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","last-modified":"Thu, 28 Mar 2024 00:04:19 GMT","content-type":"text/typescript","x-goog-storage-class":"STANDARD","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","via":"1.1 google","cache-control":"public, max-age=31536000, immutable","x-jsr-cache-status":"miss","access-control-allow-origin":"*","x-goog-stored-content-length":"788","x-jsr-cache-id":"MRS-e5589c6c","access-control-expose-headers":"*","x-content-type-options":"nosniff","accept-ranges":"bytes","expires":"Mon, 06 Oct 2025 20:47:19 GMT","server":"UploadServer","x-goog-generation":"1711584259063253","x-goog-hash":"crc32c=riYKjQ==,md5=BzV2MhmzUcNSAmTBTc21Dg==","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","x-goog-metageneration":"1","content-length":"788","date":"Sun, 06 Oct 2024 20:47:19 GMT"},"url":"https://jsr.io/@std/path/0.221.0/relative.ts","time":1728247639}

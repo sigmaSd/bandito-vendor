@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { GlobOptions } from "./../_common/glob_to_reg_exp.ts";
+import { join } from "./join.ts";
+import { SEPARATOR } from "./constants.ts";
+import { normalizeGlob } from "./normalize_glob.ts";
+
+/** Like join(), but doesn't collapse "**\/.." when `globstar` is true. */
+export function joinGlobs(
+  globs: string[],
+  { extended = true, globstar = false }: GlobOptions = {},
+): string {
+  if (!globstar || globs.length === 0) {
+    return join(...globs);
+  }
+  if (globs.length === 0) return ".";
+  let joined: string | undefined;
+  for (const glob of globs) {
+    const path = glob;
+    if (path.length > 0) {
+      if (!joined) joined = path;
+      else joined += `${SEPARATOR}${path}`;
+    }
+  }
+  if (!joined) return ".";
+  return normalizeGlob(joined, { extended, globstar });
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"69c7d9ffc024fa33cf6403cee76d7d50\"","x-goog-stored-content-length":"898","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","access-control-allow-origin":"*","content-length":"898","expires":"Mon, 06 Oct 2025 20:47:29 GMT","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-goog-generation":"1706296079101903","x-goog-stored-content-encoding":"identity","x-goog-storage-class":"STANDARD","via":"1.1 google","x-guploader-uploadid":"AHmUCY3zTAM8ch1Sk331w7K8QYxGk5u2vD5omP3mYdtuRqshuZrjqyQMSmyTRbiUn_4QV80NpE0_ql851Q","x-content-type-options":"nosniff","x-goog-metageneration":"1","content-type":"text/typescript","server":"UploadServer","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","cache-control":"public, max-age=31536000, immutable","x-jsr-cache-id":"MRS-e5589c6c","x-jsr-cache-status":"miss","accept-ranges":"bytes","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-hash":"crc32c=TZa/Jw==,md5=acfZ/8Ak+jPPZAPO5219UA=="},"url":"https://jsr.io/@std/path/0.213.1/posix/join_globs.ts","time":1728247650}

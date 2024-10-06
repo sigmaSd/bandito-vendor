@@ -1,0 +1,5 @@
+/* esm.sh - twind@0.16.17 */
+import "/v135/style-vendorizer@2.2.3/denonext/style-vendorizer.mjs";
+export * from "/v135/twind@0.16.17/denonext/twind.mjs";
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","access-control-expose-headers":"X-Esm-Id, X-TypeScript-Types","cache-control":"public, max-age=604800","vary":"Origin, User-Agent, Accept-Encoding","x-typescript-types":"https://esm.sh/v135/twind@0.16.17/twind.d.ts","x-esm-id":"v135/twind@0.16.17/denonext/twind.mjs","date":"Sun, 06 Oct 2024 20:47:24 GMT","content-type":"application/javascript; charset=utf-8","server":"cloudflare","cf-ray":"8ce881a319ce5bce-TUN","x-content-source":"origin-server","access-control-allow-methods":"*"},"url":"https://esm.sh/twind@0.16.17","time":1728247644}

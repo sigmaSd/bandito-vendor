@@ -1,0 +1,110 @@
+// Copyright 2009 The Go Authors. All rights reserved.
+// https://github.com/golang/go/blob/master/LICENSE
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Port of the Go
+ * {@link https://github.com/golang/go/blob/go1.12.5/src/encoding/hex/hex.go | encoding/hex}
+ * library.
+ *
+ * This module is browser compatible.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   decodeHex,
+ *   encodeHex,
+ * } from "@std/encoding/hex";
+ *
+ * const binary = new TextEncoder().encode("abc");
+ * const encoded = encodeHex(binary);
+ * console.log(encoded);
+ * // => "616263"
+ *
+ * console.log(decodeHex(encoded));
+ * // => Uint8Array(3) [ 97, 98, 99 ]
+ * ```
+ *
+ * @module
+ */
+
+import { validateBinaryLike } from "./_util.ts";
+
+const hexTable = new TextEncoder().encode("0123456789abcdef");
+const textEncoder = new TextEncoder();
+const textDecoder = new TextDecoder();
+
+function errInvalidByte(byte: number) {
+  return new TypeError(`Invalid byte '${String.fromCharCode(byte)}'`);
+}
+
+function errLength() {
+  return new RangeError("Odd length hex string");
+}
+
+/** Converts a hex character into its value. */
+function fromHexChar(byte: number): number {
+  // '0' <= byte && byte <= '9'
+  if (48 <= byte && byte <= 57) return byte - 48;
+  // 'a' <= byte && byte <= 'f'
+  if (97 <= byte && byte <= 102) return byte - 97 + 10;
+  // 'A' <= byte && byte <= 'F'
+  if (65 <= byte && byte <= 70) return byte - 65 + 10;
+
+  throw errInvalidByte(byte);
+}
+
+/**
+ * Converts data into a hex-encoded string.
+ *
+ * @example
+ * ```ts
+ * import { encodeHex } from "@std/encoding/hex";
+ *
+ * encodeHex("abc"); // "616263"
+ * ```
+ */
+export function encodeHex(src: string | Uint8Array | ArrayBuffer): string {
+  const u8 = validateBinaryLike(src);
+
+  const dst = new Uint8Array(u8.length * 2);
+  for (let i = 0; i < dst.length; i++) {
+    const v = u8[i]!;
+    dst[i * 2] = hexTable[v >> 4]!;
+    dst[i * 2 + 1] = hexTable[v & 0x0f]!;
+  }
+  return textDecoder.decode(dst);
+}
+
+/**
+ * Decodes the given hex-encoded string. If the input is malformed, an error is
+ * thrown.
+ *
+ * @example
+ * ```ts
+ * import { decodeHex } from "@std/encoding/hex";
+ *
+ * decodeHex("616263"); // Uint8Array(3) [ 97, 98, 99 ]
+ * ```
+ */
+export function decodeHex(src: string): Uint8Array {
+  const u8 = textEncoder.encode(src);
+  const dst = new Uint8Array(u8.length / 2);
+  for (let i = 0; i < dst.length; i++) {
+    const a = fromHexChar(u8[i * 2]!);
+    const b = fromHexChar(u8[i * 2 + 1]!);
+    dst[i] = (a << 4) | b;
+  }
+
+  if (u8.length % 2 === 1) {
+    // Check for invalid char before reporting bad length,
+    // since the invalid char (if present) is an earlier problem.
+    fromHexChar(u8[dst.length * 2]!);
+    throw errLength();
+  }
+
+  return dst;
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","x-jsr-cache-id":"MRS-e5589c6c","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-stored-content-length":"2769","x-goog-metageneration":"1","x-guploader-uploadid":"AD-8ljvNlUsagk7fUhZ5RR5N8eW2QvEncfNlqNfJfWFScjo5S-Zd92FUSt-C34UHCRBZUGcFgkdhpUUpsg","via":"1.1 google","x-goog-generation":"1711584237839419","x-robots-tag":"noindex","last-modified":"Thu, 28 Mar 2024 00:03:57 GMT","x-goog-hash":"crc32c=7rrlvA==,md5=/tyoSYbjMDrW9oV/gvtGpw==","access-control-expose-headers":"*","etag":"\"fedca84986e3303ad6f6857f82fb46a7\"","server":"UploadServer","expires":"Mon, 06 Oct 2025 20:47:19 GMT","content-type":"text/typescript","x-goog-stored-content-encoding":"identity","x-jsr-cache-status":"miss","content-length":"2769","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","date":"Sun, 06 Oct 2024 20:47:19 GMT","cache-control":"public, max-age=31536000, immutable","x-goog-storage-class":"STANDARD","accept-ranges":"bytes"},"url":"https://jsr.io/@std/encoding/0.221.0/hex.ts","time":1728247639}

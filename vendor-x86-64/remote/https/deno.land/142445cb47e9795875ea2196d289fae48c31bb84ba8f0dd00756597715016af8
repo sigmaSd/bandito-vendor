@@ -1,0 +1,14 @@
+import { INTERNAL_PREFIX } from "../runtime/utils.ts";
+import { BUILD_ID } from "./build_id.ts";
+
+export const DEV_CLIENT_URL = `${INTERNAL_PREFIX}/fresh_dev_client.js`;
+export const DEV_ERROR_OVERLAY_URL = `${INTERNAL_PREFIX}/error_overlay`;
+export const ALIVE_URL = `${INTERNAL_PREFIX}/alive`;
+export const JS_PREFIX = `/js`;
+export const DEBUG = !Deno.env.get("DENO_DEPLOYMENT_ID");
+
+export function bundleAssetUrl(path: string) {
+  return `${INTERNAL_PREFIX}${JS_PREFIX}/${BUILD_ID}${path}`;
+}
+
+// denoCacheMetadata={"headers":{"strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-replication-status":"COMPLETED","x-content-type-options":"nosniff","cross-origin-resource-policy":"same-origin","via":"http/2 edgeproxy-h","cross-origin-opener-policy":"same-origin","x-amz-cf-id":"2MYCkOxjrqrlBt0GXArj4wiXXhLvBiiXMQ9DHSyL4fycppgQcY1kGw==","x-amz-cf-pop":"FRA56-P5","x-frame-options":"DENY","age":"17103958","accept-ranges":"bytes","x-amz-server-side-encryption":"AES256","etag":"\"f668192fe636fa00f969fdfff50affee\"","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","server":"deno/gcp-europe-west3","cache-control":"public, max-age=31536000, immutable","date":"Fri, 22 Mar 2024 21:41:26 GMT","access-control-allow-origin":"*","content-length":"498","referrer-policy":"strict-origin-when-cross-origin","server-timing":"fetchSource;dur=14","vary":"Accept-Encoding, Origin","content-type":"application/typescript; charset=utf-8","x-cache":"Hit from cloudfront","x-amz-version-id":"o_NEK8f0VfirvZ5LxosI_bMN1pnLqwO1","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT","cross-origin-embedder-policy":"same-origin"},"url":"https://deno.land/x/fresh@1.6.8/src/server/constants.ts","time":1728247644}

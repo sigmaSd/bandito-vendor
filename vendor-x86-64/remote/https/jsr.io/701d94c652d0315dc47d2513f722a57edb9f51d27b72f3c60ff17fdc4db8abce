@@ -1,0 +1,9 @@
+{
+  "scope": "webview",
+  "name": "webview",
+  "latest": "0.8.0",
+  "versions": {
+    "0.8.0": {}
+  }
+}
+// denoCacheMetadata={"headers":{"etag":"\"b7af81ee9fe925e51cbb24df0d764829\"","x-goog-generation":"1709478428959324","x-goog-stored-content-encoding":"identity","content-type":"application/json","last-modified":"Sun, 03 Mar 2024 15:07:08 GMT","x-guploader-uploadid":"AHmUCY2hgzIrmAgHn2Zr_4PJFr_wROXgjwO84dPdrMY_bGFc8xRgDx-AqoRXeKQupj9X_wkfrA","date":"Sun, 06 Oct 2024 20:47:16 GMT","server":"UploadServer","accept-ranges":"bytes","via":"1.1 google","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","x-goog-hash":"crc32c=Mf3SMg==,md5=t6+B7p/pJeUcuyTfDXZIKQ==","expires":"Sun, 06 Oct 2024 20:47:16 GMT","cache-control":"no-cache, no-store, max-age=0","x-goog-storage-class":"STANDARD","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-jsr-cache-status":"miss","x-goog-stored-content-length":"103","content-length":"103","x-goog-metageneration":"1","access-control-allow-origin":"*"},"url":"https://jsr.io/@webview/webview/meta.json","time":1728247636}

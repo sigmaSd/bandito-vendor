@@ -1,0 +1,21 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+/**
+ * Error thrown when an assertion fails.
+ *
+ * @example
+ * ```ts
+ * import { AssertionError } from "@std/assert/assertion_error";
+ *
+ * throw new AssertionError("Assertion failed");
+ * ```
+ */
+export class AssertionError extends Error {
+  /** Constructs a new instance. */
+  constructor(message: string) {
+    super(message);
+    this.name = "AssertionError";
+  }
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","x-goog-stored-content-encoding":"identity","expires":"Mon, 06 Oct 2025 20:47:29 GMT","content-type":"text/typescript","x-goog-storage-class":"STANDARD","x-jsr-cache-id":"MRS-e5589c6c","server":"UploadServer","x-jsr-cache-status":"miss","access-control-allow-origin":"*","access-control-expose-headers":"*","x-goog-generation":"1706296076202622","x-robots-tag":"noindex","x-content-type-options":"nosniff","accept-ranges":"bytes","via":"1.1 google","x-goog-hash":"crc32c=UzPLzg==,md5=mnCRQ+I7c7n+alEoH8qTCQ==","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-metageneration":"1","date":"Sun, 06 Oct 2024 20:47:29 GMT","content-length":"446","etag":"\"9a709143e23b73b9fe6a51281fca9309\"","x-goog-stored-content-length":"446","x-guploader-uploadid":"AHmUCY1tgW4ADEGOLIVjV3BqtFtY7L41DgEJ2ZxsLjx8aduwpYYSIAa3h3s3DzYtKIKv6JaYfvtOpLl2WQ","last-modified":"Fri, 26 Jan 2024 19:07:56 GMT","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/assert/0.213.1/assertion_error.ts","time":1728247650}

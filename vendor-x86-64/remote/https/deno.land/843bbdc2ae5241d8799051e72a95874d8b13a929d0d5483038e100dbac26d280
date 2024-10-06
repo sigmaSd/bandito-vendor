@@ -1,0 +1,102 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { getFileInfoType } from "./_get_file_info_type.ts";
+
+/**
+ * Ensures that the directory exists.
+ * If the directory structure does not exist, it is created. Like mkdir -p.
+ * Requires the `--allow-read` and `--allow-write` flag.
+ *
+ * @example
+ * ```ts
+ * import { ensureDir } from "https://deno.land/std@$STD_VERSION/fs/mod.ts";
+ *
+ * ensureDir("./bar"); // returns a promise
+ * ```
+ */
+export async function ensureDir(dir: string | URL) {
+  try {
+    const fileInfo = await Deno.lstat(dir);
+    if (!fileInfo.isDirectory) {
+      throw new Error(
+        `Ensure path exists, expected 'dir', got '${
+          getFileInfoType(fileInfo)
+        }'`,
+      );
+    }
+    return;
+  } catch (err) {
+    if (!(err instanceof Deno.errors.NotFound)) {
+      throw err;
+    }
+  }
+
+  // The dir doesn't exist. Create it.
+  // This can be racy. So we catch AlreadyExists and check lstat again.
+  try {
+    await Deno.mkdir(dir, { recursive: true });
+  } catch (err) {
+    if (!(err instanceof Deno.errors.AlreadyExists)) {
+      throw err;
+    }
+
+    const fileInfo = await Deno.lstat(dir);
+    if (!fileInfo.isDirectory) {
+      throw new Error(
+        `Ensure path exists, expected 'dir', got '${
+          getFileInfoType(fileInfo)
+        }'`,
+      );
+    }
+  }
+}
+
+/**
+ * Ensures that the directory exists.
+ * If the directory structure does not exist, it is created. Like mkdir -p.
+ * Requires the `--allow-read` and `--allow-write` flag.
+ *
+ * @example
+ * ```ts
+ * import { ensureDirSync } from "https://deno.land/std@$STD_VERSION/fs/mod.ts";
+ *
+ * ensureDirSync("./ensureDirSync"); // void
+ * ```
+ */
+export function ensureDirSync(dir: string | URL) {
+  try {
+    const fileInfo = Deno.lstatSync(dir);
+    if (!fileInfo.isDirectory) {
+      throw new Error(
+        `Ensure path exists, expected 'dir', got '${
+          getFileInfoType(fileInfo)
+        }'`,
+      );
+    }
+    return;
+  } catch (err) {
+    if (!(err instanceof Deno.errors.NotFound)) {
+      throw err;
+    }
+  }
+
+  // The dir doesn't exist. Create it.
+  // This can be racy. So we catch AlreadyExists and check lstat again.
+  try {
+    Deno.mkdirSync(dir, { recursive: true });
+  } catch (err) {
+    if (!(err instanceof Deno.errors.AlreadyExists)) {
+      throw err;
+    }
+
+    const fileInfo = Deno.lstatSync(dir);
+    if (!fileInfo.isDirectory) {
+      throw new Error(
+        `Ensure path exists, expected 'dir', got '${
+          getFileInfoType(fileInfo)
+        }'`,
+      );
+    }
+  }
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"12f8984f6b99db3bb1cadff3fac486d7\"","last-modified":"Thu, 15 Feb 2024 05:02:28 GMT","x-amz-cf-id":"MJnMHvJtaK79BoMizrTUQQcDdl1PU_Tsv-o4p7v7fP0z_YripaAMgg==","accept-ranges":"bytes","access-control-allow-origin":"*","cross-origin-embedder-policy":"same-origin","x-amz-server-side-encryption":"AES256","content-length":"2548","age":"20264473","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","date":"Thu, 15 Feb 2024 07:46:13 GMT","referrer-policy":"strict-origin-when-cross-origin","server":"deno/gcp-europe-west3","cross-origin-opener-policy":"same-origin","server-timing":"fetchSource;dur=20","x-amz-cf-pop":"FRA56-P5","x-amz-replication-status":"COMPLETED","x-amz-version-id":"MNpK7xwgYObesOke.knpGV4HV7gIo1wm","content-type":"application/typescript; charset=utf-8","via":"http/2 edgeproxy-h","cache-control":"public, max-age=31536000, immutable","x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","cross-origin-resource-policy":"same-origin","x-frame-options":"DENY","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Accept-Encoding, Origin"},"url":"https://deno.land/std@0.216.0/fs/ensure_dir.ts","time":1728247645}

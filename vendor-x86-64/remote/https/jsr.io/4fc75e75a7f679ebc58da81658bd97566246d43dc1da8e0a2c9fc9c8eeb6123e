@@ -1,0 +1,16 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { dirname as posixDirname } from "./posix/dirname.ts";
+import { dirname as windowsDirname } from "./windows/dirname.ts";
+
+/**
+ * Return the directory path of a `path`.
+ * @param path - path to extract the directory from.
+ */
+export function dirname(path: string): string {
+  return isWindows ? windowsDirname(path) : posixDirname(path);
+}
+
+// denoCacheMetadata={"headers":{"expires":"Mon, 06 Oct 2025 20:47:29 GMT","cache-control":"public, max-age=31536000, immutable","x-goog-storage-class":"STANDARD","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-goog-generation":"1706296079098109","content-type":"text/typescript","server":"UploadServer","via":"1.1 google","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","accept-ranges":"bytes","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-stored-content-encoding":"identity","x-jsr-cache-id":"MRS-e5589c6c","x-goog-hash":"crc32c=vxtc6g==,md5=RiiIH1GbvmVDrjrOYaGmYA==","x-jsr-cache-status":"miss","x-robots-tag":"noindex","etag":"\"4628881f519bbe6543ae3ace61a1a660\"","access-control-allow-origin":"*","x-guploader-uploadid":"AHmUCY3sz7i52axVXaC_6Fs72BTwJotrI8KMHmb6AxJ4EhM2fDl5I5Khb-edhyX11gnxAP5qbxKCluAoaA","cross-origin-resource-policy":"cross-origin","x-goog-stored-content-length":"498","content-length":"498","access-control-expose-headers":"*","x-goog-metageneration":"1","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/path/0.213.1/dirname.ts","time":1728247650}

@@ -1,0 +1,74 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assert } from "jsr:/@std/assert@^0.213.1/assert";
+import { assertPath } from "./../_common/assert_path.ts";
+import { isPathSeparator } from "./_util.ts";
+import { normalize } from "./normalize.ts";
+
+/**
+ * Join all given a sequence of `paths`,then normalizes the resulting path.
+ * @param paths to be joined and normalized
+ */
+export function join(...paths: string[]): string {
+  if (paths.length === 0) return ".";
+
+  let joined: string | undefined;
+  let firstPart: string | null = null;
+  for (let i = 0; i < paths.length; ++i) {
+    const path = paths[i];
+    assertPath(path);
+    if (path.length > 0) {
+      if (joined === undefined) joined = firstPart = path;
+      else joined += `\\${path}`;
+    }
+  }
+
+  if (joined === undefined) return ".";
+
+  // Make sure that the joined path doesn't start with two slashes, because
+  // normalize() will mistake it for an UNC path then.
+  //
+  // This step is skipped when it is very clear that the user actually
+  // intended to point at an UNC path. This is assumed when the first
+  // non-empty string arguments starts with exactly two slashes followed by
+  // at least one more non-slash character.
+  //
+  // Note that for normalize() to treat a path as an UNC path it needs to
+  // have at least 2 components, so we don't filter for that here.
+  // This means that the user can use join to construct UNC paths from
+  // a server name and a share name; for example:
+  //   path.join('//server', 'share') -> '\\\\server\\share\\')
+  let needsReplace = true;
+  let slashCount = 0;
+  assert(firstPart !== null);
+  if (isPathSeparator(firstPart.charCodeAt(0))) {
+    ++slashCount;
+    const firstLen = firstPart.length;
+    if (firstLen > 1) {
+      if (isPathSeparator(firstPart.charCodeAt(1))) {
+        ++slashCount;
+        if (firstLen > 2) {
+          if (isPathSeparator(firstPart.charCodeAt(2))) ++slashCount;
+          else {
+            // We matched a UNC path in the first part
+            needsReplace = false;
+          }
+        }
+      }
+    }
+  }
+  if (needsReplace) {
+    // Find any more consecutive slashes we need to replace
+    for (; slashCount < joined.length; ++slashCount) {
+      if (!isPathSeparator(joined.charCodeAt(slashCount))) break;
+    }
+
+    // Replace the slashes if needed
+    if (slashCount >= 2) joined = `\\${joined.slice(slashCount)}`;
+  }
+
+  return normalize(joined);
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-stored-content-length":"2484","content-length":"2484","expires":"Mon, 06 Oct 2025 20:47:29 GMT","access-control-allow-origin":"*","x-goog-metageneration":"1","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","via":"1.1 google","accept-ranges":"bytes","content-type":"text/typescript","etag":"\"e680e058a1994467e2446e36a6aee372\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","cache-control":"public, max-age=31536000, immutable","server":"UploadServer","access-control-expose-headers":"*","x-goog-hash":"crc32c=rh8i0w==,md5=5oDgWKGZRGfiRG42pq7jcg==","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-content-type-options":"nosniff","x-goog-generation":"1706296079060400","x-goog-storage-class":"STANDARD","cross-origin-resource-policy":"cross-origin","x-jsr-cache-status":"miss","x-goog-stored-content-encoding":"identity","x-robots-tag":"noindex","x-guploader-uploadid":"AHmUCY12WrHTREGSS3gn4TDvWlkHvYbjMawBMuNw2zaNrH8gNU1ZiLJvJLhaGkgB7NdHcKD9NFLTXR-uzA"},"url":"https://jsr.io/@std/path/0.213.1/windows/join.ts","time":1728247649}

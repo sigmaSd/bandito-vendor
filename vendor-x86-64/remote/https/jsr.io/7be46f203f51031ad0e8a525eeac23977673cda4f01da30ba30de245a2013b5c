@@ -1,0 +1,27 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { FormatInputPathObject } from "../_interface.ts";
+
+export function _format(
+  sep: string,
+  pathObject: FormatInputPathObject,
+): string {
+  const dir: string | undefined = pathObject.dir || pathObject.root;
+  const base: string = pathObject.base ||
+    (pathObject.name || "") + (pathObject.ext || "");
+  if (!dir) return base;
+  if (base === sep) return dir;
+  if (dir === pathObject.root) return dir + base;
+  return dir + sep + base;
+}
+
+export function assertArg(pathObject: FormatInputPathObject) {
+  if (pathObject === null || typeof pathObject !== "object") {
+    throw new TypeError(
+      `The "pathObject" argument must be of type Object. Received type ${typeof pathObject}`,
+    );
+  }
+}
+
+// denoCacheMetadata={"headers":{"content-length":"827","x-guploader-uploadid":"AHmUCY2QWm0agzbZlhuUiJQwXFfp7syJfCDund6JSd8xeE8sd-vvLxFAzGmDFUKEgvG4baN6SLPAAQLPHQ","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-storage-class":"STANDARD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","date":"Sun, 06 Oct 2024 20:47:29 GMT","cache-control":"public, max-age=31536000, immutable","x-goog-stored-content-encoding":"identity","content-type":"text/typescript","accept-ranges":"bytes","x-content-type-options":"nosniff","x-goog-generation":"1706296079165464","cross-origin-resource-policy":"cross-origin","x-goog-stored-content-length":"827","via":"1.1 google","x-robots-tag":"noindex","x-jsr-cache-status":"miss","x-jsr-cache-id":"MRS-e5589c6c","x-goog-metageneration":"1","server":"UploadServer","expires":"Mon, 06 Oct 2025 20:47:29 GMT","etag":"\"7cebbe047e5b02bcb4a1136d3f879a94\"","x-goog-hash":"crc32c=zZ7L5Q==,md5=fOu+BH5bAry0oRNtP4ealA==","access-control-allow-origin":"*","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},"url":"https://jsr.io/@std/path/0.213.1/_common/format.ts","time":1728247649}

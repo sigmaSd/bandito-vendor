@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { CHAR_COLON } from "../_common/constants.ts";
+import { assertPath } from "../_common/assert_path.ts";
+import { isPathSeparator, isWindowsDeviceRoot } from "./_util.ts";
+
+/**
+ * Verifies whether provided path is absolute
+ * @param path to be verified as absolute
+ */
+export function isAbsolute(path: string): boolean {
+  assertPath(path);
+
+  const len = path.length;
+  if (len === 0) return false;
+
+  const code = path.charCodeAt(0);
+  if (isPathSeparator(code)) {
+    return true;
+  } else if (isWindowsDeviceRoot(code)) {
+    // Possible device root
+
+    if (len > 2 && path.charCodeAt(1) === CHAR_COLON) {
+      if (isPathSeparator(path.charCodeAt(2))) return true;
+    }
+  }
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"vary":"Accept-Encoding, Origin","referrer-policy":"strict-origin-when-cross-origin","content-length":"818","server-timing":"fetchSource;dur=16","cross-origin-embedder-policy":"same-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","age":"20274276","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","x-cache":"Hit from cloudfront","cross-origin-resource-policy":"same-origin","via":"http/2 edgeproxy-h","strict-transport-security":"max-age=63072000; includeSubDomains; preload","content-type":"application/typescript; charset=utf-8","x-amz-cf-pop":"FRA56-P5","x-frame-options":"DENY","cache-control":"public, max-age=31536000, immutable","etag":"\"b9be1ca91532dbb9bcc80bd73b5434fc\"","x-amz-cf-id":"Kir6OE7RjhRv3c2xYqNH0tJAgS7PE0NAFWS8vmziIjZbwVht8YCQAA==","access-control-allow-origin":"*","cross-origin-opener-policy":"same-origin","date":"Thu, 15 Feb 2024 05:02:50 GMT","x-amz-server-side-encryption":"AES256","accept-ranges":"bytes","server":"deno/gcp-europe-west3","x-amz-replication-status":"PENDING","x-amz-version-id":"U_s7hIgt3z6dla.lXea5cc7BGRzttfxL","x-content-type-options":"nosniff"},"url":"https://deno.land/std@0.216.0/path/windows/is_absolute.ts","time":1728247645}

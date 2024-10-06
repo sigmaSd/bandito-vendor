@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { GlobOptions } from "../_common/glob_to_reg_exp.ts";
+import { join } from "./join.ts";
+import { SEPARATOR } from "./constants.ts";
+import { normalizeGlob } from "./normalize_glob.ts";
+
+export type { GlobOptions };
+
+/** Like join(), but doesn't collapse "**\/.." when `globstar` is true. */
+export function joinGlobs(
+  globs: string[],
+  { extended = true, globstar = false }: GlobOptions = {},
+): string {
+  if (!globstar || globs.length === 0) {
+    return join(...globs);
+  }
+  if (globs.length === 0) return ".";
+  let joined: string | undefined;
+  for (const glob of globs) {
+    const path = glob;
+    if (path.length > 0) {
+      if (!joined) joined = path;
+      else joined += `${SEPARATOR}${path}`;
+    }
+  }
+  if (!joined) return ".";
+  return normalizeGlob(joined, { extended, globstar });
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","accept-ranges":"bytes","server-timing":"fetchSource;dur=6","vary":"Accept-Encoding, Origin","x-amz-server-side-encryption":"AES256","content-type":"application/typescript; charset=utf-8","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","x-frame-options":"DENY","cache-control":"public, max-age=31536000, immutable","age":"20274276","cross-origin-resource-policy":"same-origin","date":"Thu, 15 Feb 2024 05:02:50 GMT","x-amz-cf-pop":"FRA56-P5","server":"deno/gcp-europe-west3","x-amz-cf-id":"9W8bssZoabmR7i3KdW9AA1kXKqu_KzbptUtVQh0c3SG9OCsy12KbFA==","access-control-allow-origin":"*","x-amz-version-id":"80wGKtyLVQ3T9DpRk2gsQES..A_cLsvw","referrer-policy":"strict-origin-when-cross-origin","content-length":"926","x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","etag":"\"e4740af86d7ae5a1da1a7aeef5e6ab59\"","cross-origin-embedder-policy":"same-origin","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-replication-status":"PENDING","via":"http/2 edgeproxy-h","cross-origin-opener-policy":"same-origin"},"url":"https://deno.land/std@0.216.0/path/posix/join_globs.ts","time":1728247645}

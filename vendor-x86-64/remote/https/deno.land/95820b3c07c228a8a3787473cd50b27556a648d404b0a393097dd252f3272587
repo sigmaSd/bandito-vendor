@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import {
+  assertArgs,
+  lastPathSegment,
+  stripSuffix,
+} from "../_common/basename.ts";
+import { stripTrailingSeparators } from "../_common/strip_trailing_separators.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Return the last portion of a `path`.
+ * Trailing directory separators are ignored, and optional suffix is removed.
+ *
+ * @param path - path to extract the name from.
+ * @param [suffix] - suffix to remove from extracted name.
+ */
+export function basename(path: string, suffix = ""): string {
+  assertArgs(path, suffix);
+
+  const lastSegment = lastPathSegment(path, isPosixPathSeparator);
+  const strippedSegment = stripTrailingSeparators(
+    lastSegment,
+    isPosixPathSeparator,
+  );
+  return suffix ? stripSuffix(strippedSegment, suffix) : strippedSegment;
+}
+
+// denoCacheMetadata={"headers":{"x-amz-cf-pop":"FRA56-P5","vary":"Accept-Encoding, Origin","cross-origin-resource-policy":"same-origin","x-content-type-options":"nosniff","x-amz-replication-status":"PENDING","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","server-timing":"fetchSource;dur=6","x-amz-version-id":"eDsBK__rsQtYmzzqqLZt7I93ivROY9lA","x-amz-cf-id":"t_OSNwJZg3w22L0TwVMQPF942BguNwehUJoYBu_WUctE-vtYlBmC3A==","x-amz-server-side-encryption":"AES256","x-cache":"Hit from cloudfront","accept-ranges":"bytes","age":"20274276","cross-origin-embedder-policy":"same-origin","date":"Thu, 15 Feb 2024 05:02:50 GMT","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","etag":"\"68e672e076f46cfa4c0fe257bf528c1b\"","content-type":"application/typescript; charset=utf-8","referrer-policy":"strict-origin-when-cross-origin","content-length":"908","x-frame-options":"DENY","cross-origin-opener-policy":"same-origin","server":"deno/gcp-europe-west3","strict-transport-security":"max-age=63072000; includeSubDomains; preload","via":"http/2 edgeproxy-h"},"url":"https://deno.land/std@0.216.0/path/posix/basename.ts","time":1728247645}

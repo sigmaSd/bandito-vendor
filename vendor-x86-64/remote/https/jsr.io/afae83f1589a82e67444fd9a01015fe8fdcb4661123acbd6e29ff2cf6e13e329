@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { toFileUrl as posixToFileUrl } from "./posix/to_file_url.ts";
+import { toFileUrl as windowsToFileUrl } from "./windows/to_file_url.ts";
+
+/**
+ * Converts a path string to a file URL.
+ *
+ * ```ts
+ * import { toFileUrl } from "@std/path/to_file_url";
+ *
+ * // posix
+ * toFileUrl("/home/foo"); // new URL("file:///home/foo")
+ *
+ * // win32
+ * toFileUrl("\\home\\foo"); // new URL("file:///home/foo")
+ * toFileUrl("C:\\Users\\foo"); // new URL("file:///C:/Users/foo")
+ * toFileUrl("\\\\127.0.0.1\\home\\foo"); // new URL("file://127.0.0.1/home/foo")
+ * ```
+ * @param path to convert to file URL
+ */
+export function toFileUrl(path: string): URL {
+  return isWindows ? windowsToFileUrl(path) : posixToFileUrl(path);
+}
+
+// denoCacheMetadata={"headers":{"content-length":"871","x-content-type-options":"nosniff","x-goog-metageneration":"1","x-jsr-cache-id":"MRS-e5589c6c","content-type":"text/typescript","expires":"Mon, 06 Oct 2025 20:47:29 GMT","via":"1.1 google","x-guploader-uploadid":"AHmUCY2gW9P7nGRvmNjx9WmgjyqRAXqZNA-FGiBIFG2ht6bnxcET7YhT20GEmGVyuQwEGJMG9CH6TlogKw","cross-origin-resource-policy":"cross-origin","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","x-goog-stored-content-encoding":"identity","server":"UploadServer","x-jsr-cache-status":"miss","x-goog-stored-content-length":"871","x-goog-hash":"crc32c=Go+qPA==,md5=4XHPqHz/nmIjsc1dA5BKMQ==","x-goog-generation":"1706296079025329","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","etag":"\"e171cfa87cff9e6223b1cd5d03904a31\"","accept-ranges":"bytes","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-storage-class":"STANDARD","x-robots-tag":"noindex","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","date":"Sun, 06 Oct 2024 20:47:29 GMT"},"url":"https://jsr.io/@std/path/0.213.1/to_file_url.ts","time":1728247650}

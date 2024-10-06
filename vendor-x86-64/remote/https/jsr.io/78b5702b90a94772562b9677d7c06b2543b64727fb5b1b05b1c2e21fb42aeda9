@@ -1,0 +1,37 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Test whether the given string is a glob */
+export function isGlob(str: string): boolean {
+  const chars: Record<string, string> = { "{": "}", "(": ")", "[": "]" };
+  const regex =
+    /\\(.)|(^!|\*|\?|[\].+)]\?|\[[^\\\]]+\]|\{[^\\}]+\}|\(\?[:!=][^\\)]+\)|\([^|]+\|[^\\)]+\))/;
+
+  if (str === "") {
+    return false;
+  }
+
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(str))) {
+    if (match[2]) return true;
+    let idx = match.index + match[0].length;
+
+    // if an open bracket/brace/paren is escaped,
+    // set the index to the next closing character
+    const open = match[1];
+    const close = open ? chars[open] : null;
+    if (open && close) {
+      const n = str.indexOf(close, idx);
+      if (n !== -1) {
+        idx = n + 1;
+      }
+    }
+
+    str = str.slice(idx);
+  }
+
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","x-content-type-options":"nosniff","x-goog-storage-class":"STANDARD","x-jsr-cache-id":"MRS-e5589c6c","cache-control":"public, max-age=31536000, immutable","x-guploader-uploadid":"AD-8ljtx-jDc2VDWNXGiGTB_N7dF0ddLrNhcrljGu6mAcQbWcDwRFBXJvjUMAOBgIJ1L6COnoRvH9-G_1Q","last-modified":"Thu, 28 Mar 2024 00:04:18 GMT","x-goog-generation":"1711584258871809","x-goog-metageneration":"1","server":"UploadServer","x-goog-hash":"crc32c=ydX5ww==,md5=qtvC4yUIrehbfK3AX7K10w==","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","via":"1.1 google","etag":"\"aadbc2e32508ade85b7cadc05fb2b5d3\"","expires":"Mon, 06 Oct 2025 20:47:21 GMT","x-goog-stored-content-length":"938","x-robots-tag":"noindex","x-jsr-cache-status":"miss","x-goog-stored-content-encoding":"identity","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","accept-ranges":"bytes","content-length":"938","content-type":"text/typescript","date":"Sun, 06 Oct 2024 20:47:21 GMT"},"url":"https://jsr.io/@std/path/0.221.0/is_glob.ts","time":1728247641}

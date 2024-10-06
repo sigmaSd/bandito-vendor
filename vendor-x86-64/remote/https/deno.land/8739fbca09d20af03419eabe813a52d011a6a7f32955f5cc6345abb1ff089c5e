@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { format } from "./_format.ts";
+import { AssertionError } from "./assertion_error.ts";
+
+/**
+ * Make an assertion that `actual` is greater than or equal to `expected`.
+ * If not then throw.
+ *
+ * @example
+ * ```ts
+ * import { assertGreaterOrEqual } from "https://deno.land/std@$STD_VERSION/assert/assert_greater_or_equal.ts";
+ *
+ * assertGreaterOrEqual(2, 1); // Doesn't throw
+ * assertGreaterOrEqual(1, 1); // Doesn't throw
+ * assertGreaterOrEqual(0, 1); // Throws
+ * ```
+ */
+export function assertGreaterOrEqual<T>(
+  actual: T,
+  expected: T,
+  msg?: string,
+) {
+  if (actual >= expected) return;
+
+  const actualString = format(actual);
+  const expectedString = format(expected);
+  throw new AssertionError(
+    msg ?? `Expect ${actualString} >= ${expectedString}`,
+  );
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","content-length":"857","content-type":"application/typescript; charset=utf-8","date":"Thu, 15 Feb 2024 05:09:46 GMT","server-timing":"fetchSource;dur=32","vary":"Accept-Encoding, Origin","x-amz-cf-pop":"FRA56-P5","x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","age":"20273860","x-amz-cf-id":"IM54KPvsqF5eTxWqPprgvIpZQyKFQWDwj-Px1p2xzdpI4uaXB5I_Og==","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","cross-origin-opener-policy":"same-origin","x-amz-replication-status":"COMPLETED","x-frame-options":"DENY","x-amz-server-side-encryption":"AES256","accept-ranges":"bytes","cross-origin-resource-policy":"same-origin","referrer-policy":"strict-origin-when-cross-origin","x-amz-version-id":"704I28Qgx8etTt7BkgPXUV86hCZWHME6","etag":"\"edc68a82b94787e5164138c6acafacea\"","strict-transport-security":"max-age=63072000; includeSubDomains; preload","cross-origin-embedder-policy":"same-origin","last-modified":"Thu, 15 Feb 2024 05:02:27 GMT","server":"deno/gcp-europe-west3","via":"http/2 edgeproxy-h"},"url":"https://deno.land/std@0.216.0/assert/assert_greater_or_equal.ts","time":1728247645}

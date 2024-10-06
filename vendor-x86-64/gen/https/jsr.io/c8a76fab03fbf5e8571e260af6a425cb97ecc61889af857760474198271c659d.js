@@ -1,0 +1,23 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { assertArg } from "./../_common/normalize.ts";
+import { normalizeString } from "./../_common/normalize_string.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+/**
+ * Normalize the `path`, resolving `'..'` and `'.'` segments.
+ * Note that resolving these segments does not necessarily mean that all will be eliminated.
+ * A `'..'` at the top-level will be preserved, and an empty path is canonically `'.'`.
+ * @param path to be normalized
+ */ export function normalize(path) {
+  assertArg(path);
+  const isAbsolute = isPosixPathSeparator(path.charCodeAt(0));
+  const trailingSeparator = isPosixPathSeparator(path.charCodeAt(path.length - 1));
+  // Normalize the path
+  path = normalizeString(path, !isAbsolute, "/", isPosixPathSeparator);
+  if (path.length === 0 && !isAbsolute) path = ".";
+  if (path.length > 0 && trailingSeparator) path += "/";
+  if (isAbsolute) return `/${path}`;
+  return path;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvcGF0aC8wLjIxMy4xL3Bvc2l4L25vcm1hbGl6ZS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBDb3B5cmlnaHQgMjAxOC0yMDI0IHRoZSBEZW5vIGF1dGhvcnMuIEFsbCByaWdodHMgcmVzZXJ2ZWQuIE1JVCBsaWNlbnNlLlxuLy8gVGhpcyBtb2R1bGUgaXMgYnJvd3NlciBjb21wYXRpYmxlLlxuXG5pbXBvcnQgeyBhc3NlcnRBcmcgfSBmcm9tIFwiLi8uLi9fY29tbW9uL25vcm1hbGl6ZS50c1wiO1xuaW1wb3J0IHsgbm9ybWFsaXplU3RyaW5nIH0gZnJvbSBcIi4vLi4vX2NvbW1vbi9ub3JtYWxpemVfc3RyaW5nLnRzXCI7XG5pbXBvcnQgeyBpc1Bvc2l4UGF0aFNlcGFyYXRvciB9IGZyb20gXCIuL191dGlsLnRzXCI7XG5cbi8qKlxuICogTm9ybWFsaXplIHRoZSBgcGF0aGAsIHJlc29sdmluZyBgJy4uJ2AgYW5kIGAnLidgIHNlZ21lbnRzLlxuICogTm90ZSB0aGF0IHJlc29sdmluZyB0aGVzZSBzZWdtZW50cyBkb2VzIG5vdCBuZWNlc3NhcmlseSBtZWFuIHRoYXQgYWxsIHdpbGwgYmUgZWxpbWluYXRlZC5cbiAqIEEgYCcuLidgIGF0IHRoZSB0b3AtbGV2ZWwgd2lsbCBiZSBwcmVzZXJ2ZWQsIGFuZCBhbiBlbXB0eSBwYXRoIGlzIGNhbm9uaWNhbGx5IGAnLidgLlxuICogQHBhcmFtIHBhdGggdG8gYmUgbm9ybWFsaXplZFxuICovXG5leHBvcnQgZnVuY3Rpb24gbm9ybWFsaXplKHBhdGg6IHN0cmluZyk6IHN0cmluZyB7XG4gIGFzc2VydEFyZyhwYXRoKTtcblxuICBjb25zdCBpc0Fic29sdXRlID0gaXNQb3NpeFBhdGhTZXBhcmF0b3IocGF0aC5jaGFyQ29kZUF0KDApKTtcbiAgY29uc3QgdHJhaWxpbmdTZXBhcmF0b3IgPSBpc1Bvc2l4UGF0aFNlcGFyYXRvcihcbiAgICBwYXRoLmNoYXJDb2RlQXQocGF0aC5sZW5ndGggLSAxKSxcbiAgKTtcblxuICAvLyBOb3JtYWxpemUgdGhlIHBhdGhcbiAgcGF0aCA9IG5vcm1hbGl6ZVN0cmluZyhwYXRoLCAhaXNBYnNvbHV0ZSwgXCIvXCIsIGlzUG9zaXhQYXRoU2VwYXJhdG9yKTtcblxuICBpZiAocGF0aC5sZW5ndGggPT09IDAgJiYgIWlzQWJzb2x1dGUpIHBhdGggPSBcIi5cIjtcbiAgaWYgKHBhdGgubGVuZ3RoID4gMCAmJiB0cmFpbGluZ1NlcGFyYXRvcikgcGF0aCArPSBcIi9cIjtcblxuICBpZiAoaXNBYnNvbHV0ZSkgcmV0dXJuIGAvJHtwYXRofWA7XG4gIHJldHVybiBwYXRoO1xufVxuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDBFQUEwRTtBQUMxRSxxQ0FBcUM7QUFFckMsU0FBUyxTQUFTLFFBQVEsNEJBQTRCO0FBQ3RELFNBQVMsZUFBZSxRQUFRLG1DQUFtQztBQUNuRSxTQUFTLG9CQUFvQixRQUFRLGFBQWE7QUFFbEQ7Ozs7O0NBS0MsR0FDRCxPQUFPLFNBQVMsVUFBVSxJQUFZO0VBQ3BDLFVBQVU7RUFFVixNQUFNLGFBQWEscUJBQXFCLEtBQUssVUFBVSxDQUFDO0VBQ3hELE1BQU0sb0JBQW9CLHFCQUN4QixLQUFLLFVBQVUsQ0FBQyxLQUFLLE1BQU0sR0FBRztFQUdoQyxxQkFBcUI7RUFDckIsT0FBTyxnQkFBZ0IsTUFBTSxDQUFDLFlBQVksS0FBSztFQUUvQyxJQUFJLEtBQUssTUFBTSxLQUFLLEtBQUssQ0FBQyxZQUFZLE9BQU87RUFDN0MsSUFBSSxLQUFLLE1BQU0sR0FBRyxLQUFLLG1CQUFtQixRQUFRO0VBRWxELElBQUksWUFBWSxPQUFPLENBQUMsQ0FBQyxFQUFFLEtBQUssQ0FBQztFQUNqQyxPQUFPO0FBQ1QifQ==
+// denoCacheMetadata=13611636383664160278,9079338112910161347

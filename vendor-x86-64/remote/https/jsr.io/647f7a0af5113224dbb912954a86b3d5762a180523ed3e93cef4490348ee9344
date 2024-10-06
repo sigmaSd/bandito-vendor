@@ -1,0 +1,26 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { _common } from "../_common/common.ts";
+import { SEPARATOR } from "./constants.ts";
+
+/** Determines the common path from a set of paths, using an optional separator,
+ * which defaults to the OS default separator.
+ *
+ * ```ts
+ *       import { common } from "@std/path";
+ *       const p = common([
+ *         "./deno/std/path/mod.ts",
+ *         "./deno/std/fs/mod.ts",
+ *       ]);
+ *       console.log(p); // "./deno/std/"
+ * ```
+ */
+export function common(
+  paths: string[],
+  sep: string = SEPARATOR,
+): string {
+  return _common(paths, sep);
+}
+
+// denoCacheMetadata={"headers":{"server":"UploadServer","content-length":"672","via":"1.1 google","x-jsr-cache-status":"miss","content-type":"text/typescript","x-jsr-cache-id":"MRS-e5589c6c","x-robots-tag":"noindex","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","date":"Sun, 06 Oct 2024 20:47:20 GMT","x-goog-generation":"1711584259107880","x-goog-storage-class":"STANDARD","x-goog-stored-content-encoding":"identity","x-guploader-uploadid":"AHmUCY0dsgCwZk7IZHFIxIK1DT3znWxc4iQiJHmeAFP8LqFprgrtmxvPxj9BFPeCh7_3w2D0WA","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-stored-content-length":"672","expires":"Mon, 06 Oct 2025 20:47:20 GMT","last-modified":"Thu, 28 Mar 2024 00:04:19 GMT","etag":"\"c276490e553b4cc15809743a1d7426b5\"","x-goog-metageneration":"1","accept-ranges":"bytes","x-goog-hash":"crc32c=eiR+pw==,md5=wnZJDlU7TMFYCXQ6HXQmtQ=="},"url":"https://jsr.io/@std/path/0.221.0/posix/common.ts","time":1728247640}

@@ -1,0 +1,25 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { CHAR_COLON } from "./../_common/constants.ts";
+import { assertPath } from "./../_common/assert_path.ts";
+import { isPathSeparator, isWindowsDeviceRoot } from "./_util.ts";
+/**
+ * Verifies whether provided path is absolute
+ * @param path to be verified as absolute
+ */ export function isAbsolute(path) {
+  assertPath(path);
+  const len = path.length;
+  if (len === 0) return false;
+  const code = path.charCodeAt(0);
+  if (isPathSeparator(code)) {
+    return true;
+  } else if (isWindowsDeviceRoot(code)) {
+    // Possible device root
+    if (len > 2 && path.charCodeAt(1) === CHAR_COLON) {
+      if (isPathSeparator(path.charCodeAt(2))) return true;
+    }
+  }
+  return false;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvcGF0aC8wLjIxMy4xL3dpbmRvd3MvaXNfYWJzb2x1dGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gQ29weXJpZ2h0IDIwMTgtMjAyNCB0aGUgRGVubyBhdXRob3JzLiBBbGwgcmlnaHRzIHJlc2VydmVkLiBNSVQgbGljZW5zZS5cbi8vIFRoaXMgbW9kdWxlIGlzIGJyb3dzZXIgY29tcGF0aWJsZS5cblxuaW1wb3J0IHsgQ0hBUl9DT0xPTiB9IGZyb20gXCIuLy4uL19jb21tb24vY29uc3RhbnRzLnRzXCI7XG5pbXBvcnQgeyBhc3NlcnRQYXRoIH0gZnJvbSBcIi4vLi4vX2NvbW1vbi9hc3NlcnRfcGF0aC50c1wiO1xuaW1wb3J0IHsgaXNQYXRoU2VwYXJhdG9yLCBpc1dpbmRvd3NEZXZpY2VSb290IH0gZnJvbSBcIi4vX3V0aWwudHNcIjtcblxuLyoqXG4gKiBWZXJpZmllcyB3aGV0aGVyIHByb3ZpZGVkIHBhdGggaXMgYWJzb2x1dGVcbiAqIEBwYXJhbSBwYXRoIHRvIGJlIHZlcmlmaWVkIGFzIGFic29sdXRlXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBpc0Fic29sdXRlKHBhdGg6IHN0cmluZyk6IGJvb2xlYW4ge1xuICBhc3NlcnRQYXRoKHBhdGgpO1xuXG4gIGNvbnN0IGxlbiA9IHBhdGgubGVuZ3RoO1xuICBpZiAobGVuID09PSAwKSByZXR1cm4gZmFsc2U7XG5cbiAgY29uc3QgY29kZSA9IHBhdGguY2hhckNvZGVBdCgwKTtcbiAgaWYgKGlzUGF0aFNlcGFyYXRvcihjb2RlKSkge1xuICAgIHJldHVybiB0cnVlO1xuICB9IGVsc2UgaWYgKGlzV2luZG93c0RldmljZVJvb3QoY29kZSkpIHtcbiAgICAvLyBQb3NzaWJsZSBkZXZpY2Ugcm9vdFxuXG4gICAgaWYgKGxlbiA+IDIgJiYgcGF0aC5jaGFyQ29kZUF0KDEpID09PSBDSEFSX0NPTE9OKSB7XG4gICAgICBpZiAoaXNQYXRoU2VwYXJhdG9yKHBhdGguY2hhckNvZGVBdCgyKSkpIHJldHVybiB0cnVlO1xuICAgIH1cbiAgfVxuICByZXR1cm4gZmFsc2U7XG59XG4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsMEVBQTBFO0FBQzFFLHFDQUFxQztBQUVyQyxTQUFTLFVBQVUsUUFBUSw0QkFBNEI7QUFDdkQsU0FBUyxVQUFVLFFBQVEsOEJBQThCO0FBQ3pELFNBQVMsZUFBZSxFQUFFLG1CQUFtQixRQUFRLGFBQWE7QUFFbEU7OztDQUdDLEdBQ0QsT0FBTyxTQUFTLFdBQVcsSUFBWTtFQUNyQyxXQUFXO0VBRVgsTUFBTSxNQUFNLEtBQUssTUFBTTtFQUN2QixJQUFJLFFBQVEsR0FBRyxPQUFPO0VBRXRCLE1BQU0sT0FBTyxLQUFLLFVBQVUsQ0FBQztFQUM3QixJQUFJLGdCQUFnQixPQUFPO0lBQ3pCLE9BQU87RUFDVCxPQUFPLElBQUksb0JBQW9CLE9BQU87SUFDcEMsdUJBQXVCO0lBRXZCLElBQUksTUFBTSxLQUFLLEtBQUssVUFBVSxDQUFDLE9BQU8sWUFBWTtNQUNoRCxJQUFJLGdCQUFnQixLQUFLLFVBQVUsQ0FBQyxLQUFLLE9BQU87SUFDbEQ7RUFDRjtFQUNBLE9BQU87QUFDVCJ9
+// denoCacheMetadata=4827178640201211210,16586551744742013531

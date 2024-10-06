@@ -1,0 +1,57 @@
+import { JSX, options as preactOptions, VNode } from "preact";
+import { Configuration, setup as twSetup, Sheet, tw } from "twind";
+
+type PreactOptions = typeof preactOptions & { __b?: (vnode: VNode) => void };
+
+export const STYLE_ELEMENT_ID = "__FRSH_TWIND";
+
+export interface Options extends Omit<Configuration, "mode" | "sheet"> {
+  /** The import.meta.url of the module defining these options. */
+  selfURL: string;
+}
+
+declare module "preact" {
+  namespace JSX {
+    interface DOMAttributes<Target extends EventTarget> {
+      class?: string;
+      className?: string;
+    }
+  }
+}
+
+export function setup(options: Options, sheet: Sheet) {
+  const config: Configuration = {
+    ...options,
+    mode: "silent",
+    sheet,
+  };
+  twSetup(config);
+
+  // Hook into options._diff which is called whenever a new comparison
+  // starts in Preact.
+  const originalHook = (preactOptions as PreactOptions).__b;
+  (preactOptions as PreactOptions).__b = (
+    // deno-lint-ignore no-explicit-any
+    vnode: VNode<JSX.DOMAttributes<any>>,
+  ) => {
+    if (typeof vnode.type === "string" && typeof vnode.props === "object") {
+      const { props } = vnode;
+      const classes: string[] = [];
+      if (props.class) {
+        classes.push(tw(props.class));
+        props.class = undefined;
+      }
+      if (props.className) {
+        classes.push(tw(props.className));
+        props.className = undefined;
+      }
+      if (classes.length) {
+        props.class = classes.join(" ");
+      }
+    }
+
+    originalHook?.(vnode);
+  };
+}
+
+// denoCacheMetadata={"headers":{"server":"deno/gcp-europe-west3","x-amz-server-side-encryption":"AES256","x-content-type-options":"nosniff","content-length":"1520","accept-ranges":"bytes","cross-origin-opener-policy":"same-origin","x-amz-cf-id":"i0FJ4ZkPmcS0FIZTtPtCuNyJtFT63boxAxIZcRUC3DFAZMnRWa6-4A==","x-amz-replication-status":"COMPLETED","access-control-allow-origin":"*","server-timing":"fetchSource;dur=6","cross-origin-resource-policy":"same-origin","date":"Fri, 22 Mar 2024 23:34:22 GMT","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","x-frame-options":"DENY","content-type":"application/typescript; charset=utf-8","x-amz-cf-pop":"FRA56-P5","strict-transport-security":"max-age=63072000; includeSubDomains; preload","age":"17097183","x-amz-version-id":"lgHQ5HMusd5JAcw7h_l.IOvOB13u0mz7","x-cache":"Hit from cloudfront","etag":"\"856f9a7d74a23a20138b7a72afbd896a\"","vary":"Accept-Encoding, Origin","via":"http/2 edgeproxy-h","cache-control":"public, max-age=31536000, immutable","cross-origin-embedder-policy":"same-origin","referrer-policy":"strict-origin-when-cross-origin","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT"},"url":"https://deno.land/x/fresh@1.6.8/plugins/twind/shared.ts","time":1728247644}

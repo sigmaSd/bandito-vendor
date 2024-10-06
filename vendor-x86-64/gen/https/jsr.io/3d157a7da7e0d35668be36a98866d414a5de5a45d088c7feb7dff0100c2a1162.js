@@ -1,0 +1,16 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { isWindows } from "./_os.ts";
+import { basename as posixBasename } from "./posix/basename.ts";
+import { basename as windowsBasename } from "./windows/basename.ts";
+/**
+ * Return the last portion of a `path`.
+ * Trailing directory separators are ignored, and optional suffix is removed.
+ *
+ * @param path - path to extract the name from.
+ * @param [suffix] - suffix to remove from extracted name.
+ */ export function basename(path, suffix = "") {
+  return isWindows ? windowsBasename(path, suffix) : posixBasename(path, suffix);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvcGF0aC8wLjIxMy4xL2Jhc2VuYW1lLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAyMDE4LTIwMjQgdGhlIERlbm8gYXV0aG9ycy4gQWxsIHJpZ2h0cyByZXNlcnZlZC4gTUlUIGxpY2Vuc2UuXG4vLyBUaGlzIG1vZHVsZSBpcyBicm93c2VyIGNvbXBhdGlibGUuXG5cbmltcG9ydCB7IGlzV2luZG93cyB9IGZyb20gXCIuL19vcy50c1wiO1xuaW1wb3J0IHsgYmFzZW5hbWUgYXMgcG9zaXhCYXNlbmFtZSB9IGZyb20gXCIuL3Bvc2l4L2Jhc2VuYW1lLnRzXCI7XG5pbXBvcnQgeyBiYXNlbmFtZSBhcyB3aW5kb3dzQmFzZW5hbWUgfSBmcm9tIFwiLi93aW5kb3dzL2Jhc2VuYW1lLnRzXCI7XG5cbi8qKlxuICogUmV0dXJuIHRoZSBsYXN0IHBvcnRpb24gb2YgYSBgcGF0aGAuXG4gKiBUcmFpbGluZyBkaXJlY3Rvcnkgc2VwYXJhdG9ycyBhcmUgaWdub3JlZCwgYW5kIG9wdGlvbmFsIHN1ZmZpeCBpcyByZW1vdmVkLlxuICpcbiAqIEBwYXJhbSBwYXRoIC0gcGF0aCB0byBleHRyYWN0IHRoZSBuYW1lIGZyb20uXG4gKiBAcGFyYW0gW3N1ZmZpeF0gLSBzdWZmaXggdG8gcmVtb3ZlIGZyb20gZXh0cmFjdGVkIG5hbWUuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBiYXNlbmFtZShwYXRoOiBzdHJpbmcsIHN1ZmZpeCA9IFwiXCIpOiBzdHJpbmcge1xuICByZXR1cm4gaXNXaW5kb3dzXG4gICAgPyB3aW5kb3dzQmFzZW5hbWUocGF0aCwgc3VmZml4KVxuICAgIDogcG9zaXhCYXNlbmFtZShwYXRoLCBzdWZmaXgpO1xufVxuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDBFQUEwRTtBQUMxRSxxQ0FBcUM7QUFFckMsU0FBUyxTQUFTLFFBQVEsV0FBVztBQUNyQyxTQUFTLFlBQVksYUFBYSxRQUFRLHNCQUFzQjtBQUNoRSxTQUFTLFlBQVksZUFBZSxRQUFRLHdCQUF3QjtBQUVwRTs7Ozs7O0NBTUMsR0FDRCxPQUFPLFNBQVMsU0FBUyxJQUFZLEVBQUUsU0FBUyxFQUFFO0VBQ2hELE9BQU8sWUFDSCxnQkFBZ0IsTUFBTSxVQUN0QixjQUFjLE1BQU07QUFDMUIifQ==
+// denoCacheMetadata=16076667892161547003,5767508638510000167

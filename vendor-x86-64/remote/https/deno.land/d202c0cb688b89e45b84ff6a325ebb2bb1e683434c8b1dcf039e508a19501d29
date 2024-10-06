@@ -1,0 +1,29 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { AssertionError } from "./assertion_error.ts";
+
+/**
+ * Make an assertion that `actual` not match RegExp `expected`. If match
+ * then throw.
+ *
+ * @example
+ * ```ts
+ * import { assertNotMatch } from "https://deno.land/std@$STD_VERSION/assert/assert_not_match.ts";
+ *
+ * assertNotMatch("Denosaurus", RegExp(/Raptor/)); // Doesn't throw
+ * assertNotMatch("Raptor", RegExp(/Raptor/)); // Throws
+ * ```
+ */
+export function assertNotMatch(
+  actual: string,
+  expected: RegExp,
+  msg?: string,
+) {
+  if (expected.test(actual)) {
+    const msgSuffix = msg ? `: ${msg}` : ".";
+    msg =
+      `Expected actual: "${actual}" to not match: "${expected}"${msgSuffix}`;
+    throw new AssertionError(msg);
+  }
+}
+
+// denoCacheMetadata={"headers":{"via":"http/2 edgeproxy-h","age":"20273860","x-amz-cf-id":"djCbLNvp3TRuLiYoE9BWVMIbM-Qv-L2bpKbZsvytpT_nZUyysuri9Q==","vary":"Accept-Encoding, Origin","x-amz-replication-status":"COMPLETED","accept-ranges":"bytes","cross-origin-embedder-policy":"same-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","referrer-policy":"strict-origin-when-cross-origin","content-length":"781","x-frame-options":"DENY","x-amz-cf-pop":"FRA56-P5","last-modified":"Thu, 15 Feb 2024 05:02:27 GMT","cross-origin-resource-policy":"same-origin","server-timing":"fetchSource;dur=6","server":"deno/gcp-europe-west3","etag":"\"d145f6e293d2231c8c88ccbd090a2234\"","x-content-type-options":"nosniff","x-amz-server-side-encryption":"AES256","x-amz-version-id":"ssBAA6lPu5wAKy2CEdlaSg09A9sUzJEU","x-cache":"Hit from cloudfront","content-type":"application/typescript; charset=utf-8","strict-transport-security":"max-age=63072000; includeSubDomains; preload","cache-control":"public, max-age=31536000, immutable","cross-origin-opener-policy":"same-origin","date":"Thu, 15 Feb 2024 05:09:46 GMT","access-control-allow-origin":"*"},"url":"https://deno.land/std@0.216.0/assert/assert_not_match.ts","time":1728247645}

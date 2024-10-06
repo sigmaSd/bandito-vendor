@@ -1,0 +1,33 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+// Keep this up-to-date with Deno.build.os
+export type OSType =
+  | "darwin"
+  | "linux"
+  | "windows"
+  | "freebsd"
+  | "netbsd"
+  | "aix"
+  | "solaris"
+  | "illumos";
+
+export const osType: OSType = (() => {
+  // deno-lint-ignore no-explicit-any
+  const { Deno } = globalThis as any;
+  if (typeof Deno?.build?.os === "string") {
+    return Deno.build.os;
+  }
+
+  // deno-lint-ignore no-explicit-any
+  const { navigator } = globalThis as any;
+  if (navigator?.appVersion?.includes?.("Win")) {
+    return "windows";
+  }
+
+  return "linux";
+})();
+
+export const isWindows = osType === "windows";
+
+// denoCacheMetadata={"headers":{"x-jsr-cache-id":"MRS-e5589c6c","x-goog-hash":"crc32c=YY3+FQ==,md5=8/h96PetsozjjyXtrMYvvg==","x-guploader-uploadid":"AHmUCY03wcnera_L4fIPBoKi1kodpEcygBP5aHK36jGZrnReb_ofnDGLj25Y-XLwF3Fvm06XIWeTwnOeGA","etag":"\"f3f87de8f7adb28ce38f25edacc62fbe\"","x-jsr-cache-status":"miss","access-control-allow-origin":"*","access-control-expose-headers":"*","x-content-type-options":"nosniff","server":"UploadServer","date":"Sun, 06 Oct 2024 20:47:29 GMT","expires":"Mon, 06 Oct 2025 20:47:29 GMT","x-goog-stored-content-encoding":"identity","content-length":"705","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","x-goog-generation":"1706296079317711","x-goog-metageneration":"1","accept-ranges":"bytes","cache-control":"public, max-age=31536000, immutable","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-storage-class":"STANDARD","content-type":"text/typescript","via":"1.1 google","x-robots-tag":"noindex","x-goog-stored-content-length":"705","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},"url":"https://jsr.io/@std/path/0.213.1/_os.ts","time":1728247650}

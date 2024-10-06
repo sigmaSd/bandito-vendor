@@ -1,0 +1,105 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertArg } from "../_common/dirname.ts";
+import { CHAR_COLON } from "../_common/constants.ts";
+import { stripTrailingSeparators } from "../_common/strip_trailing_separators.ts";
+import {
+  isPathSeparator,
+  isPosixPathSeparator,
+  isWindowsDeviceRoot,
+} from "./_util.ts";
+
+/**
+ * Return the directory path of a `path`.
+ * @param path - path to extract the directory from.
+ */
+export function dirname(path: string): string {
+  assertArg(path);
+
+  const len = path.length;
+  let rootEnd = -1;
+  let end = -1;
+  let matchedSlash = true;
+  let offset = 0;
+  const code = path.charCodeAt(0);
+
+  // Try to match a root
+  if (len > 1) {
+    if (isPathSeparator(code)) {
+      // Possible UNC root
+
+      rootEnd = offset = 1;
+
+      if (isPathSeparator(path.charCodeAt(1))) {
+        // Matched double path separator at beginning
+        let j = 2;
+        let last = j;
+        // Match 1 or more non-path separators
+        for (; j < len; ++j) {
+          if (isPathSeparator(path.charCodeAt(j))) break;
+        }
+        if (j < len && j !== last) {
+          // Matched!
+          last = j;
+          // Match 1 or more path separators
+          for (; j < len; ++j) {
+            if (!isPathSeparator(path.charCodeAt(j))) break;
+          }
+          if (j < len && j !== last) {
+            // Matched!
+            last = j;
+            // Match 1 or more non-path separators
+            for (; j < len; ++j) {
+              if (isPathSeparator(path.charCodeAt(j))) break;
+            }
+            if (j === len) {
+              // We matched a UNC root only
+              return path;
+            }
+            if (j !== last) {
+              // We matched a UNC root with leftovers
+
+              // Offset by 1 to include the separator after the UNC root to
+              // treat it as a "normal root" on top of a (UNC) root
+              rootEnd = offset = j + 1;
+            }
+          }
+        }
+      }
+    } else if (isWindowsDeviceRoot(code)) {
+      // Possible device root
+
+      if (path.charCodeAt(1) === CHAR_COLON) {
+        rootEnd = offset = 2;
+        if (len > 2) {
+          if (isPathSeparator(path.charCodeAt(2))) rootEnd = offset = 3;
+        }
+      }
+    }
+  } else if (isPathSeparator(code)) {
+    // `path` contains just a path separator, exit early to avoid
+    // unnecessary work
+    return path;
+  }
+
+  for (let i = len - 1; i >= offset; --i) {
+    if (isPathSeparator(path.charCodeAt(i))) {
+      if (!matchedSlash) {
+        end = i;
+        break;
+      }
+    } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+
+  if (end === -1) {
+    if (rootEnd === -1) return ".";
+    else end = rootEnd;
+  }
+  return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator);
+}
+
+// denoCacheMetadata={"headers":{"x-cache":"Hit from cloudfront","content-length":"2879","date":"Thu, 15 Feb 2024 05:02:50 GMT","x-content-type-options":"nosniff","accept-ranges":"bytes","content-type":"application/typescript; charset=utf-8","cross-origin-opener-policy":"same-origin","cross-origin-resource-policy":"same-origin","vary":"Accept-Encoding, Origin","server-timing":"fetchSource;dur=10","cache-control":"public, max-age=31536000, immutable","via":"http/2 edgeproxy-h","etag":"\"67f064bdde076a0cc726e186a72cdece\"","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","server":"deno/gcp-europe-west3","age":"20274276","cross-origin-embedder-policy":"same-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","x-amz-cf-id":"yV9V7kMsAVcUG49uWXrILpBPFqGsLmUQ73yObvn4aGmDX8VUlb5jhg==","x-amz-cf-pop":"FRA56-P5","access-control-allow-origin":"*","x-frame-options":"DENY","referrer-policy":"strict-origin-when-cross-origin","x-amz-replication-status":"PENDING","x-amz-version-id":"6zjsX_yvTJiG9hW2qkqYNMc_FJVKjseM","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-server-side-encryption":"AES256"},"url":"https://deno.land/std@0.216.0/path/windows/dirname.ts","time":1728247645}

@@ -1,0 +1,58 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { normalizeString } from "./../_common/normalize_string.ts";
+import { assertPath } from "./../_common/assert_path.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Resolves path segments into a `path`
+ * @param pathSegments to process to path
+ */
+export function resolve(...pathSegments: string[]): string {
+  let resolvedPath = "";
+  let resolvedAbsolute = false;
+
+  for (let i = pathSegments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    let path: string;
+
+    if (i >= 0) path = pathSegments[i];
+    else {
+      // deno-lint-ignore no-explicit-any
+      const { Deno } = globalThis as any;
+      if (typeof Deno?.cwd !== "function") {
+        throw new TypeError("Resolved a relative path without a CWD.");
+      }
+      path = Deno.cwd();
+    }
+
+    assertPath(path);
+
+    // Skip empty entries
+    if (path.length === 0) {
+      continue;
+    }
+
+    resolvedPath = `${path}/${resolvedPath}`;
+    resolvedAbsolute = isPosixPathSeparator(path.charCodeAt(0));
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when Deno.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeString(
+    resolvedPath,
+    !resolvedAbsolute,
+    "/",
+    isPosixPathSeparator,
+  );
+
+  if (resolvedAbsolute) {
+    if (resolvedPath.length > 0) return `/${resolvedPath}`;
+    else return "/";
+  } else if (resolvedPath.length > 0) return resolvedPath;
+  else return ".";
+}
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","x-jsr-cache-id":"MRS-e5589c6c","x-goog-generation":"1706296079123304","etag":"\"4b8130171300064ef09358465e8b1c05\"","x-guploader-uploadid":"AHmUCY10_79CYnIUdrS8hHz4T3pLsW2NWUXPpmeahjduHg00T-nXzbw04GOg5DQtIqaJpdj3YXY","cross-origin-resource-policy":"cross-origin","x-goog-hash":"crc32c=JxojBg==,md5=S4EwFxMABk7wk1hGXoscBQ==","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","accept-ranges":"bytes","server":"UploadServer","content-length":"1589","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-goog-storage-class":"STANDARD","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-status":"miss","x-goog-metageneration":"1","content-type":"text/typescript","expires":"Mon, 06 Oct 2025 20:47:29 GMT","x-goog-stored-content-encoding":"identity","x-robots-tag":"noindex","via":"1.1 google","access-control-allow-origin":"*","x-goog-stored-content-length":"1589","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},"url":"https://jsr.io/@std/path/0.213.1/posix/resolve.ts","time":1728247649}

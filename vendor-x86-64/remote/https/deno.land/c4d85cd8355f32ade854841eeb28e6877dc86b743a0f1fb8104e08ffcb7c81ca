@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { fromFileUrl as posixFromFileUrl } from "./posix/from_file_url.ts";
+import { fromFileUrl as windowsFromFileUrl } from "./windows/from_file_url.ts";
+
+/**
+ * Converts a file URL to a path string.
+ *
+ * ```ts
+ * import { fromFileUrl } from "https://deno.land/std@$STD_VERSION/path/from_file_url.ts";
+ *
+ * // posix
+ * fromFileUrl("file:///home/foo"); // "/home/foo"
+ *
+ * // win32
+ * fromFileUrl("file:///home/foo"); // "\\home\\foo"
+ * fromFileUrl("file:///C:/Users/foo"); // "C:\\Users\\foo"
+ * fromFileUrl("file://localhost/home/foo"); // "\\\\localhost\\home\\foo"
+ * ```
+ * @param url of a file URL
+ */
+export function fromFileUrl(url: string | URL): string {
+  return isWindows ? windowsFromFileUrl(url) : posixFromFileUrl(url);
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","content-length":"894","cross-origin-embedder-policy":"same-origin","server-timing":"fetchSource;dur=38","x-amz-cf-pop":"FRA56-P5","x-amz-version-id":"NtAaIB8A880NPiIyWHWEgJnoBzfK79yd","x-amz-server-side-encryption":"AES256","x-frame-options":"DENY","vary":"Accept-Encoding, Origin","content-type":"application/typescript; charset=utf-8","x-amz-replication-status":"PENDING","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","referrer-policy":"strict-origin-when-cross-origin","cache-control":"public, max-age=31536000, immutable","etag":"\"8f5bc611030b6bc505c56d711168e7be\"","strict-transport-security":"max-age=63072000; includeSubDomains; preload","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","via":"http/2 edgeproxy-h","accept-ranges":"bytes","cross-origin-resource-policy":"same-origin","server":"deno/gcp-europe-west3","cross-origin-opener-policy":"same-origin","x-amz-cf-id":"1t3-V0AMVTnu2mwfNWMIxPHGas_QuqpDutjDvzfI_EfRPra15eF7FA==","x-cache":"Hit from cloudfront","age":"20274276","date":"Thu, 15 Feb 2024 05:02:49 GMT","x-content-type-options":"nosniff"},"url":"https://deno.land/std@0.216.0/path/from_file_url.ts","time":1728247645}

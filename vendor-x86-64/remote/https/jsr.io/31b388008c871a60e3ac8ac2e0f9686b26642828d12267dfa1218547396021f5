@@ -1,0 +1,37 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Test whether the given string is a glob */
+export function isGlob(str: string): boolean {
+  const chars: Record<string, string> = { "{": "}", "(": ")", "[": "]" };
+  const regex =
+    /\\(.)|(^!|\*|\?|[\].+)]\?|\[[^\\\]]+\]|\{[^\\}]+\}|\(\?[:!=][^\\)]+\)|\([^|]+\|[^\\)]+\))/;
+
+  if (str === "") {
+    return false;
+  }
+
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(str))) {
+    if (match[2]) return true;
+    let idx = match.index + match[0].length;
+
+    // if an open bracket/brace/paren is escaped,
+    // set the index to the next closing character
+    const open = match[1];
+    const close = open ? chars[open] : null;
+    if (open && close) {
+      const n = str.indexOf(close, idx);
+      if (n !== -1) {
+        idx = n + 1;
+      }
+    }
+
+    str = str.slice(idx);
+  }
+
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"aadbc2e32508ade85b7cadc05fb2b5d3\"","x-goog-generation":"1706296079174657","access-control-expose-headers":"*","access-control-allow-origin":"*","server":"UploadServer","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-stored-content-length":"938","cache-control":"public, max-age=31536000, immutable","accept-ranges":"bytes","x-jsr-cache-status":"miss","x-robots-tag":"noindex","x-content-type-options":"nosniff","x-goog-stored-content-encoding":"identity","x-goog-hash":"crc32c=ydX5ww==,md5=qtvC4yUIrehbfK3AX7K10w==","content-length":"938","x-goog-metageneration":"1","x-guploader-uploadid":"AHmUCY25n_bWdL7T7uUwoNveV21SeiAfGI9lBFLbZ0s8z42ODfOXgAoHnU1TSAM5Esff4hfI8BNcqUPtAw","x-goog-storage-class":"STANDARD","via":"1.1 google","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-jsr-cache-id":"MRS-e5589c6c","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","expires":"Mon, 06 Oct 2025 20:47:29 GMT","content-type":"text/typescript"},"url":"https://jsr.io/@std/path/0.213.1/is_glob.ts","time":1728247649}

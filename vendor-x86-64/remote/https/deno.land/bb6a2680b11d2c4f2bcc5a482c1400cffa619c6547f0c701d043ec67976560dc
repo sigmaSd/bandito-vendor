@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { globToRegExp as _globToRegExp } from "./glob_to_regexp.ts";
+import { GlobOptions } from "../_common/glob_to_reg_exp.ts";
+import { normalize } from "./normalize.ts";
+import { SEPARATOR_PATTERN } from "./constants.ts";
+
+export type { GlobOptions };
+
+/** Like normalize(), but doesn't collapse "**\/.." when `globstar` is true. */
+export function normalizeGlob(
+  glob: string,
+  { globstar = false }: GlobOptions = {},
+): string {
+  if (glob.match(/\0/g)) {
+    throw new Error(`Glob contains invalid characters: "${glob}"`);
+  }
+  if (!globstar) {
+    return normalize(glob);
+  }
+  const s = SEPARATOR_PATTERN.source;
+  const badParentPattern = new RegExp(
+    `(?<=(${s}|^)\\*\\*${s})\\.\\.(?=${s}|$)`,
+    "g",
+  );
+  return normalize(glob.replace(badParentPattern, "\0")).replace(/\0/g, "..");
+}
+
+// denoCacheMetadata={"headers":{"age":"20274276","cross-origin-opener-policy":"same-origin","x-amz-version-id":"lrO3BQ5P2vMwfEM_t9_5wi7jXvHL6SPs","server":"deno/gcp-europe-west3","cross-origin-embedder-policy":"same-origin","content-length":"921","date":"Thu, 15 Feb 2024 05:02:50 GMT","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","vary":"Accept-Encoding, Origin","cross-origin-resource-policy":"same-origin","x-content-type-options":"nosniff","etag":"\"61129a53109aa25011fa4322d248314d\"","server-timing":"fetchSource;dur=10","x-amz-server-side-encryption":"AES256","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-cf-pop":"FRA56-P5","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","referrer-policy":"strict-origin-when-cross-origin","cache-control":"public, max-age=31536000, immutable","accept-ranges":"bytes","x-frame-options":"DENY","via":"http/2 edgeproxy-h","x-amz-cf-id":"WKtOLW7ewb3Ar-YZZWPLch_GUL1U90F_sMj6oyzW9FFM8gk0Ewt0jQ==","x-cache":"Hit from cloudfront","access-control-allow-origin":"*","content-type":"application/typescript; charset=utf-8","x-amz-replication-status":"PENDING"},"url":"https://deno.land/std@0.216.0/path/windows/normalize_glob.ts","time":1728247645}

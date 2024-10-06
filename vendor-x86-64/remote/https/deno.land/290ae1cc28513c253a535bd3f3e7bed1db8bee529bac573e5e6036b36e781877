@@ -1,0 +1,27 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { FormatInputPathObject } from "../_interface.ts";
+
+export function _format(
+  sep: string,
+  pathObject: FormatInputPathObject,
+): string {
+  const dir: string | undefined = pathObject.dir || pathObject.root;
+  const base: string = pathObject.base ||
+    (pathObject.name || "") + (pathObject.ext || "");
+  if (!dir) return base;
+  if (base === sep) return dir;
+  if (dir === pathObject.root) return dir + base;
+  return dir + sep + base;
+}
+
+export function assertArg(pathObject: FormatInputPathObject) {
+  if (pathObject === null || typeof pathObject !== "object") {
+    throw new TypeError(
+      `The "pathObject" argument must be of type Object. Received type ${typeof pathObject}`,
+    );
+  }
+}
+
+// denoCacheMetadata={"headers":{"x-cache":"Hit from cloudfront","cache-control":"public, max-age=31536000, immutable","x-frame-options":"DENY","vary":"Accept-Encoding, Origin","via":"http/2 edgeproxy-h","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","referrer-policy":"strict-origin-when-cross-origin","x-content-type-options":"nosniff","server-timing":"fetchSource;dur=20","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","accept-ranges":"bytes","cross-origin-resource-policy":"same-origin","x-amz-cf-pop":"FRA56-P5","cross-origin-opener-policy":"same-origin","age":"20274276","content-length":"827","content-type":"application/typescript; charset=utf-8","server":"deno/gcp-europe-west3","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-replication-status":"PENDING","x-amz-server-side-encryption":"AES256","x-amz-cf-id":"9jD6khhdDV9EUeMXzFxu_YG1AZSr4GWJKA_IiwdTPt2UxmF7yVihTQ==","date":"Thu, 15 Feb 2024 05:02:50 GMT","cross-origin-embedder-policy":"same-origin","access-control-allow-origin":"*","etag":"\"7cebbe047e5b02bcb4a1136d3f879a94\"","x-amz-version-id":"rnZG0JL7FjSk0tcO1qyj8jAjCNYp53Ts"},"url":"https://deno.land/std@0.216.0/path/_common/format.ts","time":1728247645}

@@ -1,0 +1,81 @@
+import type * as esbuild from "./src/esbuild_types.ts";
+
+import {
+  denoResolverPlugin,
+  type DenoResolverPluginOptions,
+} from "./src/plugin_deno_resolver.ts";
+export { denoResolverPlugin, DenoResolverPluginOptions };
+
+import {
+  DEFAULT_LOADER,
+  denoLoaderPlugin,
+  type DenoLoaderPluginOptions,
+} from "./src/plugin_deno_loader.ts";
+export { DEFAULT_LOADER, denoLoaderPlugin, DenoLoaderPluginOptions };
+
+export {
+  type EsbuildResolution,
+  esbuildResolutionToURL,
+  urlToEsbuildResolution,
+} from "./src/shared.ts";
+
+/** Options for the {@link denoPlugins} function. */
+export interface DenoPluginsOptions {
+  /**
+   * Specify which loader to use. By default this will use the `native` loader,
+   * unless the `--allow-run` permission has not been given.
+   *
+   * See {@link denoLoaderPlugin} for more information on the different loaders.
+   */
+  loader?: "native" | "portable";
+
+  /**
+   * Specify the path to a deno.json config file to use. This is equivalent to
+   * the `--config` flag to the Deno executable. This path must be absolute.
+   */
+  configPath?: string;
+  /**
+   * Specify a URL to an import map file to use when resolving import
+   * specifiers. This is equivalent to the `--import-map` flag to the Deno
+   * executable. This URL may be remote or a local file URL.
+   *
+   * If this option is not specified, the deno.json config file is consulted to
+   * determine what import map to use, if any.
+   */
+  importMapURL?: string;
+  /**
+   * Specify the path to a deno.lock file to use. This is equivalent to the
+   * `--lock` flag to the Deno executable. This path must be absolute.
+   *
+   * If this option is not specified, the deno.json config file is consulted to
+   * determine what lock file to use, if any.
+   *
+   * A lockfile must be present to resolve `jsr:` specifiers with the `portable`
+   * loader. When using the `native` loader, a lockfile is not required, but to
+   * ensure dependencies are de-duplicated correctly, it is recommended to use a
+   * lockfile.
+   */
+  lockPath?: string;
+  /**
+   * Specify whether to generate and use a local `node_modules` directory when
+   * using the `native` loader. This is equivalent to the `--node-modules-dir`
+   * flag to the Deno executable.
+   *
+   * This option is ignored when using the `portable` loader, as the portable
+   * loader always uses a local `node_modules` directory.
+   */
+  nodeModulesDir?: boolean;
+}
+
+/**
+ * A convenience function to enable both the Deno resolver plugin, and Deno
+ * loader plugin.
+ */
+export function denoPlugins(opts: DenoPluginsOptions = {}): esbuild.Plugin[] {
+  return [
+    denoResolverPlugin(opts),
+    denoLoaderPlugin(opts),
+  ];
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","expires":"Mon, 06 Oct 2025 20:47:27 GMT","x-jsr-cache-status":"miss","x-goog-stored-content-encoding":"identity","x-goog-storage-class":"STANDARD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","access-control-expose-headers":"*","x-goog-metageneration":"1","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","via":"1.1 google","date":"Sun, 06 Oct 2024 20:47:27 GMT","etag":"\"13c02a5229c5517d840c045f8f14812b\"","x-goog-hash":"crc32c=QtT46Q==,md5=E8AqUinFUX2EDARfjxSBKw==","accept-ranges":"bytes","server":"UploadServer","x-jsr-cache-id":"MRS-e5589c6c","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-generation":"1710509196033113","last-modified":"Fri, 15 Mar 2024 13:26:36 GMT","x-goog-stored-content-length":"2660","content-length":"2660","x-guploader-uploadid":"AHmUCY1kC_wWjOqRZ7iq8ntJJUu90jz_sXUPSBhm3ec-i_BVqzFO3CXU2Ppap7HSY-uLXOtN2C5r8eTCWw"},"url":"https://jsr.io/@luca/esbuild-deno-loader/0.10.3/mod.ts","time":1728247647}

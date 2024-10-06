@@ -1,0 +1,47 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+import { basename } from "../path/basename.ts";
+import { normalize } from "../path/normalize.ts";
+import { toPathString } from "./_to_path_string.ts";
+
+/**
+ * Walk entry for {@linkcode walk}, {@linkcode walkSync},
+ * {@linkcode expandGlob} and {@linkcode expandGlobSync}.
+ */
+export interface WalkEntry extends Deno.DirEntry {
+  /** Full path of the entry. */
+  path: string;
+}
+
+/** Create {@linkcode WalkEntry} for the `path` synchronously. */
+export function createWalkEntrySync(path: string | URL): WalkEntry {
+  path = toPathString(path);
+  path = normalize(path);
+  const name = basename(path);
+  const info = Deno.statSync(path);
+  return {
+    path,
+    name,
+    isFile: info.isFile,
+    isDirectory: info.isDirectory,
+    isSymlink: info.isSymlink,
+  };
+}
+
+/** Create {@linkcode WalkEntry} for the `path` asynchronously. */
+export async function createWalkEntry(path: string | URL): Promise<WalkEntry> {
+  path = toPathString(path);
+  path = normalize(path);
+  const name = basename(path);
+  const info = await Deno.stat(path);
+  return {
+    path,
+    name,
+    isFile: info.isFile,
+    isDirectory: info.isDirectory,
+    isSymlink: info.isSymlink,
+  };
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","x-frame-options":"DENY","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Accept-Encoding, Origin","x-amz-cf-pop":"FRA56-P5","cross-origin-embedder-policy":"same-origin","x-content-type-options":"nosniff","accept-ranges":"bytes","age":"20264472","content-type":"application/typescript; charset=utf-8","content-length":"1292","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","etag":"\"45d851f92048ef9b398ab07ce9a8a761\"","access-control-allow-origin":"*","referrer-policy":"strict-origin-when-cross-origin","server":"deno/gcp-europe-west3","server-timing":"fetchSource;dur=26","via":"http/2 edgeproxy-h","x-amz-cf-id":"L0m73djxYD5g3xhKaxi-mnw7y9npa7ekvu37s58RASFPnKMjGLAFfA==","cross-origin-resource-policy":"same-origin","x-amz-replication-status":"COMPLETED","x-amz-version-id":"e8DyRXAZgyC_oDWob7s6xYQNYrVuzEjj","x-amz-server-side-encryption":"AES256","x-cache":"Hit from cloudfront","cross-origin-opener-policy":"same-origin","date":"Thu, 15 Feb 2024 07:46:14 GMT","last-modified":"Thu, 15 Feb 2024 05:02:28 GMT"},"url":"https://deno.land/std@0.216.0/fs/_create_walk_entry.ts","time":1728247645}

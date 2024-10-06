@@ -1,0 +1,21 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { basename as posixBasename } from "./posix/basename.ts";
+import { basename as windowsBasename } from "./windows/basename.ts";
+
+/**
+ * Return the last portion of a `path`.
+ * Trailing directory separators are ignored, and optional suffix is removed.
+ *
+ * @param path - path to extract the name from.
+ * @param [suffix] - suffix to remove from extracted name.
+ */
+export function basename(path: string, suffix = ""): string {
+  return isWindows
+    ? windowsBasename(path, suffix)
+    : posixBasename(path, suffix);
+}
+
+// denoCacheMetadata={"headers":{"x-goog-stored-content-encoding":"identity","x-guploader-uploadid":"AHmUCY2vAsV4i-36AZB6KQF29FYAZzwdOsbByIyhKaBtFcCELf5rCrYxDTWQ1-Yd185vZ01-pzw","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","cross-origin-resource-policy":"cross-origin","access-control-allow-origin":"*","accept-ranges":"bytes","x-content-type-options":"nosniff","x-goog-generation":"1706296079178784","x-goog-stored-content-length":"677","content-length":"677","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-robots-tag":"noindex","x-goog-storage-class":"STANDARD","x-goog-hash":"crc32c=P6mO8g==,md5=mxf9ZcDuYYELaiR5K/jrwQ==","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-status":"miss","via":"1.1 google","expires":"Mon, 06 Oct 2025 20:47:29 GMT","access-control-expose-headers":"*","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-metageneration":"1","cache-control":"public, max-age=31536000, immutable","etag":"\"9b17fd65c0ee61810b6a24792bf8ebc1\"","content-type":"text/typescript","server":"UploadServer","x-jsr-cache-id":"MRS-e5589c6c"},"url":"https://jsr.io/@std/path/0.213.1/basename.ts","time":1728247649}

@@ -1,0 +1,57 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+// Ported mostly from https://github.com/browserify/path-browserify/
+// This module is browser compatible.
+
+/**
+ * Utilities for working with OS-specific file paths.
+ *
+ * Codes in the examples uses POSIX path but it automatically use Windows path
+ * on Windows. Use methods under `posix` or `win32` object instead to handle non
+ * platform specific path like:
+ * ```ts
+ * import { posix, win32 } from "@std/path";
+ * const p1 = posix.fromFileUrl("file:///home/foo");
+ * const p2 = win32.fromFileUrl("file:///home/foo");
+ * console.log(p1); // "/home/foo"
+ * console.log(p2); // "\\home\\foo"
+ * ```
+ *
+ * This module is browser compatible.
+ *
+ * @module
+ */
+
+/**
+ * @deprecated (will be removed in 0.215.0) Use {@linkcode SEPARATOR} from {@link https://deno.land/std/path/windows/constants.ts} instead.
+ */
+export const sep = "\\";
+
+/**
+ * @deprecated (will be removed in 0.215.0) Use {@linkcode DELIMITER} from {@link https://deno.land/std/path/windows/constants.ts} instead.
+ */
+export const delimiter = ";";
+
+export * from "./basename.ts";
+export * from "./constants.ts";
+export * from "./dirname.ts";
+export * from "./extname.ts";
+export * from "./format.ts";
+export * from "./from_file_url.ts";
+export * from "./is_absolute.ts";
+export * from "./join.ts";
+export * from "./normalize.ts";
+export * from "./parse.ts";
+export * from "./relative.ts";
+export * from "./resolve.ts";
+export * from "./to_file_url.ts";
+export * from "./to_namespaced_path.ts";
+export * from "./common.ts";
+export * from "./separator.ts";
+export * from "./../_interface.ts";
+export * from "./glob_to_regexp.ts";
+export * from "./is_glob.ts";
+export * from "./join_globs.ts";
+export * from "./normalize_glob.ts";
+
+// denoCacheMetadata={"headers":{"x-guploader-uploadid":"AHmUCY1KyuZ-fA2HY-hv2k1LiYEIoLebAeN-sl_y0R6GwjPrLwFzV4dA7DMpycH2ar56_NM7wbHcdroupQ","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-generation":"1706296079155651","x-goog-stored-content-encoding":"identity","x-goog-storage-class":"STANDARD","x-jsr-cache-id":"MRS-e5589c6c","x-robots-tag":"noindex","access-control-allow-origin":"*","server":"UploadServer","access-control-expose-headers":"*","x-content-type-options":"nosniff","x-jsr-cache-status":"miss","x-goog-metageneration":"1","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","expires":"Mon, 06 Oct 2025 20:47:29 GMT","etag":"\"13ccc191a6397777df71f44f53a479f4\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","accept-ranges":"bytes","date":"Sun, 06 Oct 2024 20:47:29 GMT","content-type":"text/typescript","via":"1.1 google","x-goog-stored-content-length":"1817","x-goog-hash":"crc32c=/3OKVg==,md5=E8zBkaY5d3ffcfRPU6R59A==","content-length":"1817"},"url":"https://jsr.io/@std/path/0.213.1/windows/mod.ts","time":1728247650}

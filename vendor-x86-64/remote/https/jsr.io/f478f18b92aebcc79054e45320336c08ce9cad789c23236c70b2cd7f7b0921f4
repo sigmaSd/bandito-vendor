@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import {
+  assertArgs,
+  lastPathSegment,
+  stripSuffix,
+} from "./../_common/basename.ts";
+import { stripTrailingSeparators } from "./../_common/strip_trailing_separators.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Return the last portion of a `path`.
+ * Trailing directory separators are ignored, and optional suffix is removed.
+ *
+ * @param path - path to extract the name from.
+ * @param [suffix] - suffix to remove from extracted name.
+ */
+export function basename(path: string, suffix = ""): string {
+  assertArgs(path, suffix);
+
+  const lastSegment = lastPathSegment(path, isPosixPathSeparator);
+  const strippedSegment = stripTrailingSeparators(
+    lastSegment,
+    isPosixPathSeparator,
+  );
+  return suffix ? stripSuffix(strippedSegment, suffix) : strippedSegment;
+}
+
+// denoCacheMetadata={"headers":{"server":"UploadServer","x-jsr-cache-id":"MRS-e5589c6c","x-robots-tag":"noindex","x-content-type-options":"nosniff","access-control-allow-origin":"*","x-jsr-cache-status":"miss","x-goog-stored-content-length":"912","content-type":"text/typescript","etag":"\"925ed8e1f7446651b7381c4815da084d\"","x-goog-storage-class":"STANDARD","cache-control":"public, max-age=31536000, immutable","date":"Sun, 06 Oct 2024 20:47:29 GMT","accept-ranges":"bytes","expires":"Mon, 06 Oct 2025 20:47:29 GMT","x-goog-stored-content-encoding":"identity","x-guploader-uploadid":"AHmUCY2jJhRMVEiPXZZFWPTPmQCwdzlqfZF-wBwJCPYOKIo2567cfg6az1HaAi56Rx0jcN0Mp9JM2sO6OA","via":"1.1 google","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","content-length":"912","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-metageneration":"1","x-goog-hash":"crc32c=2W2JsA==,md5=kl7Y4fdEZlG3OBxIFdoITQ==","x-goog-generation":"1706296079218591"},"url":"https://jsr.io/@std/path/0.213.1/posix/basename.ts","time":1728247650}

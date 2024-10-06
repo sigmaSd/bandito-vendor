@@ -1,0 +1,4 @@
+/* esm.sh - twind@0.16.17/sheets */
+export * from "/v135/twind@0.16.17/denonext/sheets.js";
+
+// denoCacheMetadata={"headers":{"x-esm-id":"v135/twind@0.16.17/denonext/sheets.js","server":"cloudflare","access-control-allow-methods":"*","cache-control":"public, max-age=604800","content-type":"application/javascript; charset=utf-8","access-control-expose-headers":"X-Esm-Id, X-TypeScript-Types","vary":"Origin, User-Agent, Accept-Encoding","date":"Sun, 06 Oct 2024 20:47:24 GMT","x-content-source":"origin-server","x-typescript-types":"https://esm.sh/v135/twind@0.16.17/sheets/sheets.d.ts","cf-ray":"8ce881a1581c5bce-TUN","access-control-allow-origin":"*"},"url":"https://esm.sh/twind@0.16.17/sheets","time":1728247644}

@@ -1,0 +1,39 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import {
+  assertArgs,
+  lastPathSegment,
+  stripSuffix,
+} from "../_common/basename.ts";
+import { stripTrailingSeparators } from "../_common/strip_trailing_separators.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Return the last portion of a `path`.
+ * Trailing directory separators are ignored, and optional suffix is removed.
+ *
+ * @example
+ * ```ts
+ * import { basename } from "@std/path/basename";
+ *
+ * console.log(basename("/home/user/Documents/")); // "Documents"
+ * console.log(basename("/home/user/Documents/image.png")); // "image.png"
+ * console.log(basename("/home/user/Documents/image.png", ".png")); // "image"
+ * ```
+ *
+ * @param path - path to extract the name from.
+ * @param [suffix] - suffix to remove from extracted name.
+ */
+export function basename(path: string, suffix = ""): string {
+  assertArgs(path, suffix);
+
+  const lastSegment = lastPathSegment(path, isPosixPathSeparator);
+  const strippedSegment = stripTrailingSeparators(
+    lastSegment,
+    isPosixPathSeparator,
+  );
+  return suffix ? stripSuffix(strippedSegment, suffix) : strippedSegment;
+}
+
+// denoCacheMetadata={"headers":{"x-goog-metageneration":"1","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"1212","content-type":"text/typescript","x-goog-storage-class":"STANDARD","x-content-type-options":"nosniff","x-jsr-cache-id":"MRS-e5589c6c","x-jsr-cache-status":"miss","accept-ranges":"bytes","x-goog-hash":"crc32c=L+FrZw==,md5=VtcR+odjioAjwaPrbotNqQ==","last-modified":"Thu, 28 Mar 2024 00:04:19 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","etag":"\"56d711fa87638a8023c1a3eb6e8b4da9\"","via":"1.1 google","access-control-allow-origin":"*","date":"Sun, 06 Oct 2024 20:47:20 GMT","content-length":"1212","expires":"Mon, 06 Oct 2025 20:47:20 GMT","server":"UploadServer","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-guploader-uploadid":"AHmUCY3RBbyl4s8kaCXzZZet4unuNnehy9HFB9jBwFOFuTztGUKnKttltR2oFKw8QRfqVG7J9mzvqXfkTA","access-control-expose-headers":"*","x-goog-generation":"1711584259030200"},"url":"https://jsr.io/@std/path/0.221.0/posix/basename.ts","time":1728247640}

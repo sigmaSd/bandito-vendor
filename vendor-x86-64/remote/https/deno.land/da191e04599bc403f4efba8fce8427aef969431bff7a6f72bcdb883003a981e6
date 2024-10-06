@@ -1,0 +1,15 @@
+export {
+  deflate,
+  inflate,
+  gzip,
+  gunzip,
+  zlib,
+  unzlib,
+} from "./pkg/denoflate.js";
+
+import init from "./pkg/denoflate.js";
+import { wasm } from "./pkg/denoflate_bg.wasm.js";
+
+await init(wasm);
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","etag":"\"c63f54032d828d73a2ca054bae0f0b92\"","last-modified":"Sun, 02 May 2021 11:22:29 GMT","vary":"Accept-Encoding, Origin","cross-origin-resource-policy":"same-origin","cross-origin-opener-policy":"same-origin","server":"deno/gcp-europe-west3","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-replication-status":"COMPLETED","x-amz-version-id":"8nrERqlWozCeXwWcmKMx.taYdOnuFMXW","age":"22879143","content-length":"206","cross-origin-embedder-policy":"same-origin","content-type":"application/typescript; charset=utf-8","server-timing":"fetchSource;dur=14","via":"http/2 edgeproxy-h","x-cache":"Hit from cloudfront","accept-ranges":"bytes","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","x-frame-options":"DENY","referrer-policy":"strict-origin-when-cross-origin","x-amz-cf-id":"Rt8Ljv-86ZzHh2GSyQRYSfqlLnhwERVir-BcbRUR3HShrnx9_BwAkQ==","cache-control":"public, max-age=31536000, immutable","x-amz-cf-pop":"FRA56-P5","date":"Tue, 16 Jan 2024 01:28:23 GMT"},"url":"https://deno.land/x/denoflate@1.2.1/mod.ts","time":1728247645}

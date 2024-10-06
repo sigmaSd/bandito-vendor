@@ -1,0 +1,121 @@
+import { ServerContext } from "./context.ts";
+export type { FromManifestConfig, FromManifestOptions } from "./context.ts";
+export { STATUS_CODE } from "./deps.ts";
+import {
+  ErrorHandler,
+  FreshConfig,
+  Handler,
+  Handlers,
+  IslandModule,
+  LayoutConfig,
+  MiddlewareModule,
+  RouteConfig,
+  ServeHandlerInfo,
+  UnknownHandler,
+} from "./types.ts";
+import { startServer } from "./boot.ts";
+export {
+  defineApp,
+  defineConfig,
+  defineLayout,
+  defineRoute,
+} from "./defines.ts";
+export type {
+  AppContext,
+  AppProps,
+  DenoConfig,
+  ErrorHandler,
+  ErrorHandlerContext,
+  ErrorPageProps,
+  FreshConfig,
+  FreshContext,
+  FreshOptions,
+  Handler,
+  HandlerContext,
+  Handlers,
+  LayoutConfig,
+  LayoutContext,
+  LayoutProps,
+  MiddlewareHandler,
+  MiddlewareHandlerContext,
+  MultiHandler,
+  PageProps,
+  Plugin,
+  PluginAsyncRenderContext,
+  PluginAsyncRenderFunction,
+  PluginIslands,
+  PluginMiddleware,
+  PluginRenderContext,
+  PluginRenderFunction,
+  PluginRenderFunctionResult,
+  PluginRenderResult,
+  PluginRenderScripts,
+  PluginRenderStyleTag,
+  PluginRoute,
+  RenderFunction,
+  ResolvedFreshConfig,
+  RouteConfig,
+  RouteContext,
+  RouterOptions,
+  ServeHandlerInfo,
+  StartOptions,
+  UnknownHandler,
+  UnknownHandlerContext,
+  UnknownPageProps,
+} from "./types.ts";
+export { RenderContext } from "./render.ts";
+export type { InnerRenderFunction } from "./render.ts";
+export type { DestinationKind } from "./router.ts";
+
+export interface Manifest {
+  routes: Record<
+    string,
+    {
+      // Use a more loose route definition type because
+      // TS has trouble inferring normal vs aync functions. It cannot infer based on function arity
+      default?: (
+        // deno-lint-ignore no-explicit-any
+        propsOrRequest: any,
+        // deno-lint-ignore no-explicit-any
+        ctx: any,
+        // deno-lint-ignore no-explicit-any
+      ) => Promise<any | Response> | any;
+      handler?:
+        // deno-lint-ignore no-explicit-any
+        | Handler<any, any>
+        // deno-lint-ignore no-explicit-any
+        | Handlers<any, any>
+        | UnknownHandler
+        | ErrorHandler;
+      config?: RouteConfig | LayoutConfig;
+    } | MiddlewareModule
+  >;
+  islands: Record<string, IslandModule>;
+  baseUrl: string;
+}
+
+export { ServerContext };
+
+export async function createHandler(
+  manifest: Manifest,
+  config: FreshConfig = {},
+): Promise<
+  (req: Request, connInfo?: ServeHandlerInfo) => Promise<Response>
+> {
+  const ctx = await ServerContext.fromManifest(manifest, config);
+  return ctx.handler();
+}
+
+export async function start(manifest: Manifest, config: FreshConfig = {}) {
+  const ctx = await ServerContext.fromManifest(manifest, {
+    ...config,
+    dev: false,
+  });
+  const realConfig = config.server ?? config;
+  await startServer(ctx.handler(), {
+    ...realConfig,
+    basePath: config?.router?.basePath ?? "",
+  });
+}
+
+// denoCacheMetadata={"headers":{"x-cache":"Hit from cloudfront","x-content-type-options":"nosniff","via":"http/2 edgeproxy-h","x-amz-server-side-encryption":"AES256","content-type":"application/typescript; charset=utf-8","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","x-amz-cf-pop":"FRA56-P5","x-frame-options":"DENY","date":"Fri, 22 Mar 2024 21:41:25 GMT","accept-ranges":"bytes","access-control-allow-origin":"*","age":"17103960","cross-origin-opener-policy":"same-origin","content-length":"2862","referrer-policy":"strict-origin-when-cross-origin","server":"deno/gcp-europe-west3","x-amz-cf-id":"F_ao5uQ7sqMzYigK7Bd6H0nBDLpOsGJZ-izhOoJMq4FpfiB03RirRg==","vary":"Accept-Encoding, Origin","x-amz-replication-status":"COMPLETED","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT","cache-control":"public, max-age=31536000, immutable","etag":"\"19825647daef5eaa2239ddfb10d5a68f\"","cross-origin-embedder-policy":"same-origin","server-timing":"fetchSource;dur=4","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-version-id":"VGWLedvQkmVNa2367NvJYMJXF3wuYBHF","cross-origin-resource-policy":"same-origin"},"url":"https://deno.land/x/fresh@1.6.8/src/server/mod.ts","time":1728247644}

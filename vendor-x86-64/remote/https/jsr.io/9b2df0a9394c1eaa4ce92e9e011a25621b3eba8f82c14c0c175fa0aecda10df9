@@ -1,0 +1,26 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { _common } from "./_common/common.ts";
+import { SEPARATOR } from "./constants.ts";
+
+/** Determines the common path from a set of paths, using an optional separator,
+ * which defaults to the OS default separator.
+ *
+ * ```ts
+ *       import { common } from "@std/path";
+ *       const p = common([
+ *         "./deno/std/path/mod.ts",
+ *         "./deno/std/fs/mod.ts",
+ *       ]);
+ *       console.log(p); // "./deno/std/"
+ * ```
+ */
+export function common(
+  paths: string[],
+  sep: string = SEPARATOR,
+): string {
+  return _common(paths, sep);
+}
+
+// denoCacheMetadata={"headers":{"last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","cross-origin-resource-policy":"cross-origin","expires":"Mon, 06 Oct 2025 20:47:29 GMT","etag":"\"97f7a6caba4ef26198e4ef93bd8eb6d1\"","x-jsr-cache-id":"MRS-e5589c6c","x-jsr-cache-status":"miss","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","x-goog-generation":"1706296079157999","x-goog-hash":"crc32c=d0Cg2Q==,md5=l/emyrpO8mGY5O+TvY620Q==","x-goog-storage-class":"STANDARD","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"671","via":"1.1 google","x-robots-tag":"noindex","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","accept-ranges":"bytes","date":"Sun, 06 Oct 2024 20:47:29 GMT","content-length":"671","x-goog-metageneration":"1","content-type":"text/typescript","x-guploader-uploadid":"AHmUCY2iVLiympt6W7sNmLlQxIArX6Zp72-C-Ya4byDGJNPuxjPR0xzV45hnMGGmDBQh1gZLk_61UjMG9A","server":"UploadServer","access-control-expose-headers":"*"},"url":"https://jsr.io/@std/path/0.213.1/common.ts","time":1728247650}

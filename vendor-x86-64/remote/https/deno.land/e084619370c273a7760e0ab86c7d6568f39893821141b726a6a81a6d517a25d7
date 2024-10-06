@@ -1,0 +1,17 @@
+// This utility is based on https://github.com/zertosh/htmlescape
+// License: https://github.com/zertosh/htmlescape/blob/0527ca7156a524d256101bb310a9f970f63078ad/LICENSE
+
+const ESCAPE_LOOKUP: { [match: string]: string } = {
+  ">": "\\u003e",
+  "<": "\\u003c",
+  "\u2028": "\\u2028",
+  "\u2029": "\\u2029",
+};
+
+const ESCAPE_REGEX = /[><\u2028\u2029]/g;
+
+export function htmlEscapeJsonString(str: string): string {
+  return str.replace(ESCAPE_REGEX, (match) => ESCAPE_LOOKUP[match]);
+}
+
+// denoCacheMetadata={"headers":{"x-amz-cf-id":"waeJpFYtUVnKMK6LDMjB_QW4lHfTdgU3fIGK1ka5gmauPpy9BM23rA==","x-amz-cf-pop":"FRA56-P5","x-amz-version-id":"WkGkDO5SzBFIyAw6NgySbxhGojCxUlWt","x-frame-options":"DENY","age":"17103957","cache-control":"public, max-age=31536000, immutable","date":"Fri, 22 Mar 2024 21:41:29 GMT","referrer-policy":"strict-origin-when-cross-origin","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT","server-timing":"fetchSource;dur=46","x-amz-replication-status":"COMPLETED","x-cache":"Hit from cloudfront","server":"deno/gcp-europe-west3","x-content-type-options":"nosniff","content-length":"484","cross-origin-embedder-policy":"same-origin","content-type":"application/typescript; charset=utf-8","etag":"\"162c6336f95c12d48897c9ca1189db82\"","accept-ranges":"bytes","vary":"Accept-Encoding, Origin","access-control-allow-origin":"*","cross-origin-opener-policy":"same-origin","cross-origin-resource-policy":"same-origin","strict-transport-security":"max-age=63072000; includeSubDomains; preload","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","via":"http/2 edgeproxy-h","x-amz-server-side-encryption":"AES256"},"url":"https://deno.land/x/fresh@1.6.8/src/server/htmlescape.ts","time":1728247645}

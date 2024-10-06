@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+export function _common(paths: string[], sep: string): string {
+  const [first = "", ...remaining] = paths;
+  if (first === "" || remaining.length === 0) {
+    return first.substring(0, first.lastIndexOf(sep) + 1);
+  }
+  const parts = first.split(sep);
+
+  let endOfPrefix = parts.length;
+  for (const path of remaining) {
+    const compare = path.split(sep);
+    for (let i = 0; i < endOfPrefix; i++) {
+      if (compare[i] !== parts[i]) {
+        endOfPrefix = i;
+      }
+    }
+
+    if (endOfPrefix === 0) {
+      return "";
+    }
+  }
+  const prefix = parts.slice(0, endOfPrefix).join(sep);
+  return prefix.endsWith(sep) ? prefix : `${prefix}${sep}`;
+}
+
+// denoCacheMetadata={"headers":{"x-goog-metageneration":"1","access-control-allow-origin":"*","x-goog-stored-content-length":"768","date":"Sun, 06 Oct 2024 20:47:29 GMT","x-guploader-uploadid":"AHmUCY0NrPpalIbL6eUfpR-xberLTh0P_qwudVuIEq1SH2MHmXnkponO8gHKabUJ2Ik8-Twqwu89osXBjA","access-control-expose-headers":"*","accept-ranges":"bytes","content-type":"text/typescript","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","etag":"\"94c21a4f6062e0e31141355bcc666b1c\"","content-length":"768","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","x-jsr-cache-status":"miss","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","x-goog-stored-content-encoding":"identity","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","cross-origin-resource-policy":"cross-origin","expires":"Mon, 06 Oct 2025 20:47:29 GMT","x-goog-hash":"crc32c=qZ7ytQ==,md5=lMIaT2Bi4OMRQTVbzGZrHA==","x-robots-tag":"noindex","x-goog-storage-class":"STANDARD","server":"UploadServer","x-goog-generation":"1706296079051625","via":"1.1 google"},"url":"https://jsr.io/@std/path/0.213.1/_common/common.ts","time":1728247649}

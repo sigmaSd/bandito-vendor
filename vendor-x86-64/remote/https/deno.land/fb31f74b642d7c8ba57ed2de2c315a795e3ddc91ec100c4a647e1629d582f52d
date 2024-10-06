@@ -1,0 +1,16 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { dirname as posixDirname } from "./posix/dirname.ts";
+import { dirname as windowsDirname } from "./windows/dirname.ts";
+
+/**
+ * Return the directory path of a `path`.
+ * @param path - path to extract the directory from.
+ */
+export function dirname(path: string): string {
+  return isWindows ? windowsDirname(path) : posixDirname(path);
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","server":"deno/gcp-europe-west3","cache-control":"public, max-age=31536000, immutable","vary":"Accept-Encoding, Origin","server-timing":"fetchSource;dur=38","referrer-policy":"strict-origin-when-cross-origin","cross-origin-resource-policy":"same-origin","cross-origin-opener-policy":"same-origin","date":"Thu, 15 Feb 2024 05:02:49 GMT","via":"http/2 edgeproxy-h","x-amz-replication-status":"PENDING","x-amz-version-id":"qMAmtsOmZJc3yu5.9IgCGsStXhQwFWt8","content-type":"application/typescript; charset=utf-8","accept-ranges":"bytes","cross-origin-embedder-policy":"same-origin","etag":"\"4628881f519bbe6543ae3ace61a1a660\"","last-modified":"Thu, 15 Feb 2024 05:02:29 GMT","x-frame-options":"DENY","access-control-allow-origin":"*","age":"20274276","content-length":"498","x-amz-cf-pop":"FRA56-P5","x-content-type-options":"nosniff","x-amz-cf-id":"0O6PFjt-1tl7GDvPCMD8beZFhkkVxmpAJUZl21eSh1F8RAUzUmg1JQ==","x-cache":"Hit from cloudfront","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-server-side-encryption":"AES256"},"url":"https://deno.land/std@0.216.0/path/dirname.ts","time":1728247645}

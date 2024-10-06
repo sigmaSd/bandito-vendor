@@ -1,0 +1,29 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { encodeWhitespace } from "./../_common/to_file_url.ts";
+import { isAbsolute } from "./is_absolute.ts";
+
+/**
+ * Converts a path string to a file URL.
+ *
+ * ```ts
+ * import { toFileUrl } from "@std/path/posix/to_file_url";
+ *
+ * toFileUrl("/home/foo"); // new URL("file:///home/foo")
+ * ```
+ * @param path to convert to file URL
+ */
+export function toFileUrl(path: string): URL {
+  if (!isAbsolute(path)) {
+    throw new TypeError("Must be an absolute path.");
+  }
+
+  const url = new URL("file:///");
+  url.pathname = encodeWhitespace(
+    path.replace(/%/g, "%25").replace(/\\/g, "%5C"),
+  );
+  return url;
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","x-goog-storage-class":"STANDARD","x-goog-stored-content-encoding":"identity","server":"UploadServer","x-goog-stored-content-length":"730","x-jsr-cache-id":"MRS-e5589c6c","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-status":"miss","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","date":"Sun, 06 Oct 2024 20:47:29 GMT","via":"1.1 google","expires":"Mon, 06 Oct 2025 20:47:29 GMT","access-control-allow-origin":"*","etag":"\"1f4c466d069630073915d42a41f02990\"","x-goog-generation":"1706296079176666","accept-ranges":"bytes","cross-origin-resource-policy":"cross-origin","content-length":"730","content-type":"text/typescript","x-robots-tag":"noindex","x-content-type-options":"nosniff","x-goog-hash":"crc32c=Q3HdOA==,md5=H0xGbQaWMAc5FdQqQfApkA==","last-modified":"Fri, 26 Jan 2024 19:07:59 GMT","x-goog-metageneration":"1","x-guploader-uploadid":"AHmUCY2RsfIxbH50IrrRGSat0HQUfdQr_QfcaNLJH-nuH1J-OCNT0g7lxlvE3mcA3HenL9cS3y0qmdmGyg"},"url":"https://jsr.io/@std/path/0.213.1/posix/to_file_url.ts","time":1728247650}
