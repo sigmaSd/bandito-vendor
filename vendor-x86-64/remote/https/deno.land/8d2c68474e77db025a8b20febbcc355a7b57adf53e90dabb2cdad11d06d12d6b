@@ -1,0 +1,32 @@
+import { Sheet } from "twind";
+import { Options, setup, STYLE_ELEMENT_ID } from "./shared.ts";
+
+type State = [string, string][];
+
+export default function hydrate(options: Options, state: State) {
+  const el = document.getElementById(STYLE_ELEMENT_ID) as HTMLStyleElement;
+  const rules = new Set<string>();
+  const precedences: number[] = [];
+  const mappings = new Map(
+    state.map((v) => typeof v === "string" ? [v, v] : v),
+  );
+  // deno-lint-ignore no-explicit-any
+  const sheetState: any[] = [precedences, rules, mappings, true];
+  const target = el.sheet!;
+  const ruleText = Array.from(target.cssRules).map((r) => r.cssText);
+  for (const r of ruleText) {
+    const m = r.lastIndexOf("/*");
+    const precedence = parseInt(r.slice(m + 2, -2), 36);
+    const rule = r.slice(0, m);
+    rules.add(rule);
+    precedences.push(precedence);
+  }
+  const sheet: Sheet = {
+    target,
+    insert: (rule, index) => target.insertRule(rule, index),
+    init: (cb) => cb(sheetState.shift()),
+  };
+  setup(options, sheet);
+}
+
+// denoCacheMetadata={"headers":{"date":"Wed, 12 Nov 2025 21:19:30 GMT","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT","referrer-policy":"strict-origin-when-cross-origin","via":"1.1 a44309111e5e1050ff485adaa4681ad0.cloudfront.net (CloudFront),HTTP/2 ams.vultr.prod.deno-cluster.net","cache-control":"public, max-age=31536000, immutable","vary":"Accept-Encoding, Origin","content-length":"1021","x-content-type-options":"nosniff","content-type":"application/typescript; charset=utf-8","x-cache":"Hit from cloudfront","cross-origin-embedder-policy":"same-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","server-timing":"fetchSource;dur=47","access-control-allow-origin":"*","x-amz-server-side-encryption":"AES256","x-amz-cf-id":"GnbsliuPDKDj3JETMFSpuk4Rl4zvz_-pN_xZikZFGNw8wD2cQo5a7A==","cross-origin-resource-policy":"same-origin","age":"1208099","cross-origin-opener-policy":"same-origin","accept-ranges":"bytes","x-frame-options":"DENY","x-amz-version-id":"Julk3kQjURq8c.Js8GgB.g2llCfdVgUB","etag":"\"e835cdf2adf3d06eb24db09bac09265c\"","x-amz-cf-pop":"AMS58-P5","server":"AmazonS3,deployd","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-amz-replication-status":"COMPLETED","x-deno-trace-id":"f1548c96acb99633622194dfb0a4d899","alt-svc":"h3=\":443\"; ma=86400","cache-status":"deno; hit"},"url":"https://deno.land/x/fresh@1.6.8/plugins/twind/main.ts","time":1764190468}

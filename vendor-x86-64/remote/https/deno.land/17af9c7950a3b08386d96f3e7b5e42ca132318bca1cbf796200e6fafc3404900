@@ -1,0 +1,9 @@
+// deno-lint-ignore-file ban-unknown-rule-code ban-unused-ignore
+// Polyfill for old safari versions
+if (typeof globalThis === "undefined") {
+  // @ts-ignore polyfill
+  // deno-lint-ignore no-window
+  window.globalThis = window;
+}
+
+// denoCacheMetadata={"headers":{"accept-ranges":"bytes","x-amz-cf-pop":"AMS58-P5","cross-origin-embedder-policy":"same-origin","vary":"Accept-Encoding, Origin","cross-origin-opener-policy":"same-origin","content-type":"application/typescript; charset=utf-8","last-modified":"Fri, 22 Mar 2024 21:26:14 GMT","x-content-type-options":"nosniff","x-frame-options":"DENY","x-amz-server-side-encryption":"AES256","server-timing":"fetchSource;dur=345","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","strict-transport-security":"max-age=63072000; includeSubDomains; preload","etag":"\"a3415648c6f8f7b0a659ccdb7859bfa0\"","cache-control":"public, max-age=31536000, immutable","x-cache":"Hit from cloudfront","cache-status":"deno; hit","x-amz-replication-status":"COMPLETED","age":"167772","cross-origin-resource-policy":"same-origin","via":"1.1 a44309111e5e1050ff485adaa4681ad0.cloudfront.net (CloudFront),HTTP/2 ams.vultr.prod.deno-cluster.net","referrer-policy":"strict-origin-when-cross-origin","x-amz-version-id":"_70etNmYZ90Fh6F95yyt3n1.0di8F4hv","x-amz-cf-id":"rE2i5ZvcYtIFMi0u6WlrneKf2ZG8eZASz4Mf9-h7_sdQmmEohScz4g==","access-control-allow-origin":"*","content-length":"231","server":"AmazonS3,deployd","date":"Mon, 24 Nov 2025 22:18:17 GMT","x-deno-trace-id":"92d207a8b33cb504700dfe466ef7938f"},"url":"https://deno.land/x/fresh@1.6.8/src/runtime/polyfills.ts","time":1764190468}

@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** The type of the result of parsing JSON. */
+export type JsonValue =
+  | { [key: string]: JsonValue | undefined }
+  | JsonValue[]
+  | string
+  | number
+  | boolean
+  | null;
+
+/**
+ * Options for {@linkcode JsonParseStream} and
+ * {@linkcode ConcatenatedJsonParseStream}.
+ */
+export interface ParseStreamOptions {
+  /**
+   * Controls the buffer of the {@linkcode TransformStream} used internally.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#writablestrategy}
+   */
+  readonly writableStrategy?: QueuingStrategy<string>;
+  /**
+   * Controls the buffer of the {@linkcode TransformStream} used internally.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#readablestrategy}
+   */
+  readonly readableStrategy?: QueuingStrategy<JsonValue>;
+}
+
+// denoCacheMetadata={"headers":{"x-goog-storage-class":"STANDARD","accept-ranges":"bytes","via":"1.1 google","x-content-type-options":"nosniff","x-jsr-cache-status":"miss","content-length":"963","x-jsr-cache-id":"MRS-fea0badd","x-goog-hash":"crc32c=qnATKg==,md5=zh+5ukxedWwNgWxtPx4p1w==","x-robots-tag":"noindex","last-modified":"Fri, 26 Jan 2024 19:08:13 GMT","server":"UploadServer","content-type":"text/typescript","date":"Wed, 26 Nov 2025 20:54:31 GMT","etag":"\"ce1fb9ba4c5e756c0d816c6d3f1e29d7\"","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-generation":"1706296093948517","cache-control":"public, max-age=31536000, immutable","x-goog-stored-content-encoding":"identity","x-guploader-uploadid":"AOCedOFl487Aw6HL17hkbR_QD2j1cuR5uUEznDJZ7bj_oDCpPkxuvZnqQg9SXcm33MJ37xZbNlBybNY","x-goog-stored-content-length":"963","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","access-control-expose-headers":"*","expires":"Thu, 26 Nov 2026 20:54:31 GMT","x-goog-metageneration":"1"},"url":"https://jsr.io/@std/json/0.213.1/common.ts","time":1764190471}

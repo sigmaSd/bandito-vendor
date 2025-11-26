@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** The type of the result of parsing JSON. */
+export type JsonValue =
+  | { [key: string]: JsonValue | undefined }
+  | JsonValue[]
+  | string
+  | number
+  | boolean
+  | null;
+
+/**
+ * Options for {@linkcode JsonParseStream} and
+ * {@linkcode ConcatenatedJsonParseStream}.
+ */
+export interface ParseStreamOptions {
+  /**
+   * Controls the buffer of the {@linkcode TransformStream} used internally.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#writablestrategy}
+   */
+  readonly writableStrategy?: QueuingStrategy<string>;
+  /**
+   * Controls the buffer of the {@linkcode TransformStream} used internally.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#readablestrategy}
+   */
+  readonly readableStrategy?: QueuingStrategy<JsonValue>;
+}
+
+// denoCacheMetadata={"headers":{"x-amz-cf-id":"FIRqJlJqZi-ioFo6sxBV0gZDZsb9SdE0YU4ZpWuwK9Do5G9p5OimTQ==","age":"164483","x-cache":"Miss from cloudfront","last-modified":"Thu, 15 Feb 2024 05:02:28 GMT","server":"AmazonS3,deployd","vary":"Accept-Encoding, Origin","cache-status":"deno; hit","content-type":"application/typescript; charset=utf-8","x-amz-replication-status":"COMPLETED","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","via":"1.1 a44309111e5e1050ff485adaa4681ad0.cloudfront.net (CloudFront),HTTP/2 ams.vultr.prod.deno-cluster.net","date":"Mon, 24 Nov 2025 23:13:08 GMT","x-amz-version-id":"t6Esv8TqS3K7AhBc7WzJNyzu5rCVwndH","accept-ranges":"bytes","referrer-policy":"strict-origin-when-cross-origin","x-frame-options":"DENY","x-amz-cf-pop":"AMS58-P5","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","x-amz-server-side-encryption":"AES256","access-control-allow-origin":"*","cross-origin-resource-policy":"same-origin","server-timing":"fetchSource;dur=411","cross-origin-embedder-policy":"same-origin","x-deno-trace-id":"f6309283a87211fbf6286a12b0f57e15","strict-transport-security":"max-age=63072000; includeSubDomains; preload","x-content-type-options":"nosniff","cross-origin-opener-policy":"same-origin","etag":"\"ce1fb9ba4c5e756c0d816c6d3f1e29d7\"","content-length":"963"},"url":"https://deno.land/std@0.216.0/json/common.ts","time":1764190470}

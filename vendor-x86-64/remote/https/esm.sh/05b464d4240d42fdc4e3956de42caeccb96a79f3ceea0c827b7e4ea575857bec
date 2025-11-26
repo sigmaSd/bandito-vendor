@@ -1,0 +1,24 @@
+declare const identifier: unique symbol;
+declare function batch<T>(callback: () => T): T;
+declare function untracked<T>(callback: () => T): T;
+declare class Signal<T = any> {
+    constructor(value?: T);
+    subscribe(fn: (value: T) => void): () => void;
+    valueOf(): T;
+    toString(): string;
+    toJSON(): T;
+    peek(): T;
+    brand: typeof identifier;
+    get value(): T;
+    set value(value: T);
+}
+declare function signal<T>(value: T): Signal<T>;
+interface ReadonlySignal<T = any> extends Signal<T> {
+    readonly value: T;
+}
+declare function computed<T>(compute: () => T): ReadonlySignal<T>;
+declare type EffectCleanup = () => unknown;
+declare function effect(compute: () => unknown | EffectCleanup): () => void;
+export { signal, computed, effect, batch, Signal, ReadonlySignal, untracked, };
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","cf-cache-status":"HIT","vary":"accept-encoding","accept-ranges":"bytes","cache-control":"public, max-age=31536000, immutable","cf-ray":"9a4c48045ef8e181-MRS","last-modified":"Mon, 28 Jul 2025 08:47:06 GMT","content-type":"application/typescript; charset=utf-8","alt-svc":"h3=\":443\"; ma=86400","date":"Wed, 26 Nov 2025 20:54:29 GMT","content-length":"801","server":"cloudflare"},"url":"https://esm.sh/@preact/signals-core@1.5.1/dist/signals-core.d.ts","time":1764190470}

@@ -1,0 +1,9 @@
+import { VNode } from 'https://esm.sh/preact@10.25.4/src/index.d.ts';
+
+export default function renderToString(vnode: VNode, context?: any): string;
+
+export function render(vnode: VNode, context?: any): string;
+export function renderToString(vnode: VNode, context?: any): string;
+export function renderToStaticMarkup(vnode: VNode, context?: any): string;
+
+// denoCacheMetadata={"headers":{"date":"Wed, 26 Nov 2025 20:54:30 GMT","server":"cloudflare","last-modified":"Tue, 05 Aug 2025 07:55:38 GMT","access-control-allow-origin":"*","accept-ranges":"bytes","alt-svc":"h3=\":443\"; ma=86400","cf-cache-status":"HIT","vary":"accept-encoding","cache-control":"public, max-age=31536000, immutable","content-length":"354","cf-ray":"9a4c4806ac42e181-MRS","age":"458770","content-type":"application/typescript; charset=utf-8"},"url":"https://esm.sh/preact-render-to-string@6.3.1/src/index.d.ts","time":1764190470}
