@@ -1,0 +1,32 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "jsr:@std/internal@^1.0.12/os";
+import { isAbsolute as posixIsAbsolute } from "./posix/is_absolute.ts";
+import { isAbsolute as windowsIsAbsolute } from "./windows/is_absolute.ts";
+
+/**
+ * Verifies whether provided path is absolute.
+ *
+ * @example Usage
+ * ```ts
+ * import { isAbsolute } from "@std/path/is-absolute";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * if (Deno.build.os === "windows") {
+ *   assert(isAbsolute("C:\\home\\foo"));
+ *   assertFalse(isAbsolute("home\\foo"));
+ * } else {
+ *   assert(isAbsolute("/home/foo"));
+ *   assertFalse(isAbsolute("home/foo"));
+ * }
+ * ```
+ *
+ * @param path Path to be verified as absolute.
+ * @returns `true` if path is absolute, `false` otherwise
+ */
+export function isAbsolute(path: string): boolean {
+  return isWindows ? windowsIsAbsolute(path) : posixIsAbsolute(path);
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","etag":"\"256b0cf0d0db6e9731560322351bcc41\"","content-length":"957","via":"1.1 google","expires":"Thu, 26 Nov 2026 20:33:53 GMT","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","date":"Wed, 26 Nov 2025 20:33:53 GMT","access-control-expose-headers":"*","x-goog-storage-class":"STANDARD","x-goog-hash":"crc32c=B+OStg==,md5=JWsM8NDbbpcxVgMiNRvMQQ==","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-generation":"1763367882852855","x-jsr-cache-id":"MRS-e5589c6c","server":"UploadServer","age":"33","accept-ranges":"bytes","x-guploader-uploadid":"AOCedOG30Bb9O95CK5n0bT8LJ8tpZCol1qnJ5Lb_DNxQoTjXHLK1Z4-CWc_az1bT8tqoOkpH7XP9Fac","x-jsr-cache-status":"hit","x-goog-metageneration":"1","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"957","access-control-allow-origin":"*","last-modified":"Mon, 17 Nov 2025 08:24:42 GMT"},"url":"https://jsr.io/@std/path/1.1.3/is_absolute.ts","time":1764189267}

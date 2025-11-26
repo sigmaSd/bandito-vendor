@@ -1,0 +1,75 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+
+/** End-of-line character for POSIX platforms such as macOS and Linux. */
+export const LF = "\n" as const;
+
+/** End-of-line character for Windows platforms. */
+export const CRLF = "\r\n" as const;
+
+/**
+ * End-of-line character evaluated for the current platform.
+ *
+ * @example Usage
+ * ```ts ignore
+ * import { EOL } from "@std/fs/eol";
+ *
+ * EOL; // "\n" on POSIX platforms and "\r\n" on Windows
+ * ```
+ */
+export const EOL: "\n" | "\r\n" =
+  // deno-lint-ignore no-explicit-any
+  (globalThis as any).Deno?.build.os === "windows" ? CRLF : LF;
+
+const regDetect = /(?:\r?\n)/g;
+
+/**
+ * Returns the detected EOL character(s) detected in the input string. If no EOL
+ * character is detected, `null` is returned.
+ *
+ * @param content The input string to detect EOL characters.
+ *
+ * @returns The detected EOL character(s) or `null` if no EOL character is detected.
+ *
+ * @example Usage
+ * ```ts ignore
+ * import { detect } from "@std/fs/eol";
+ *
+ * detect("deno\r\nis not\r\nnode"); // "\r\n"
+ * detect("deno\nis not\r\nnode"); // "\r\n"
+ * detect("deno\nis not\nnode"); // "\n"
+ * detect("deno is not node"); // null
+ * ```
+ */
+export function detect(content: string): typeof EOL | null {
+  const d = content.match(regDetect);
+  if (!d || d.length === 0) {
+    return null;
+  }
+  const hasCRLF = d.some((x: string): boolean => x === CRLF);
+
+  return hasCRLF ? CRLF : LF;
+}
+
+/**
+ * Normalize the input string to the targeted EOL.
+ *
+ * @param content The input string to normalize.
+ * @param eol The EOL character(s) to normalize the input string to.
+ *
+ * @returns The input string normalized to the targeted EOL.
+ *
+ * @example Usage
+ * ```ts ignore
+ * import { LF, format } from "@std/fs/eol";
+ *
+ * const CRLFinput = "deno\r\nis not\r\nnode";
+ *
+ * format(CRLFinput, LF); // "deno\nis not\nnode"
+ * ```
+ */
+export function format(content: string, eol: typeof EOL): string {
+  return content.replace(regDetect, eol);
+}
+
+// denoCacheMetadata={"headers":{"x-goog-generation":"1763367901894955","last-modified":"Mon, 17 Nov 2025 08:25:01 GMT","content-type":"text/typescript","x-robots-tag":"noindex","x-goog-metageneration":"1","access-control-allow-origin":"*","accept-ranges":"bytes","x-goog-hash":"crc32c=jsch/w==,md5=4NSlNY+f4mnBTB29YXWGAw==","via":"1.1 google","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","cache-control":"public, max-age=31536000, immutable","server":"UploadServer","content-length":"2012","x-goog-stored-content-encoding":"identity","etag":"\"e0d4a5358f9fe269c14c1dbd61758603\"","expires":"Thu, 26 Nov 2026 20:33:53 GMT","x-jsr-cache-status":"hit","age":"33","x-guploader-uploadid":"AOCedOHN8qpTl4Vk53h1dwZfkvuxelvr6mcjW_4aTEVi9M1ZBIWq27A9olGH4f_B8IxAb5ecthPy64M","access-control-expose-headers":"*","x-goog-storage-class":"STANDARD","x-goog-stored-content-length":"2012","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","date":"Wed, 26 Nov 2025 20:33:53 GMT","x-jsr-cache-id":"MRS-e5589c6c"},"url":"https://jsr.io/@std/fs/1.0.20/eol.ts","time":1764189267}

@@ -1,9 +1,11 @@
 {
   "scope": "webview",
   "name": "webview",
-  "latest": "0.8.0",
+  "latest": "0.9.0",
   "versions": {
-    "0.8.0": {}
+    "0.8.0": {},
+    "0.9.0": {},
+    "0.8.1": {}
   }
 }
-// denoCacheMetadata={"headers":{"etag":"\"b7af81ee9fe925e51cbb24df0d764829\"","x-goog-generation":"1709478428959324","x-goog-stored-content-encoding":"identity","content-type":"application/json","last-modified":"Sun, 03 Mar 2024 15:07:08 GMT","x-guploader-uploadid":"AHmUCY2hgzIrmAgHn2Zr_4PJFr_wROXgjwO84dPdrMY_bGFc8xRgDx-AqoRXeKQupj9X_wkfrA","date":"Sun, 06 Oct 2024 20:47:16 GMT","server":"UploadServer","accept-ranges":"bytes","via":"1.1 google","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","x-goog-hash":"crc32c=Mf3SMg==,md5=t6+B7p/pJeUcuyTfDXZIKQ==","expires":"Sun, 06 Oct 2024 20:47:16 GMT","cache-control":"no-cache, no-store, max-age=0","x-goog-storage-class":"STANDARD","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-jsr-cache-status":"miss","x-goog-stored-content-length":"103","content-length":"103","x-goog-metageneration":"1","access-control-allow-origin":"*"},"url":"https://jsr.io/@webview/webview/meta.json","time":1728247636}
+// denoCacheMetadata={"headers":{"x-goog-metageneration":"1","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","expires":"Wed, 26 Nov 2025 20:34:25 GMT","content-length":"137","accept-ranges":"bytes","content-type":"application/json","date":"Wed, 26 Nov 2025 20:34:25 GMT","last-modified":"Wed, 29 Jan 2025 09:38:30 GMT","cache-control":"no-cache, no-store, max-age=0","x-goog-stored-content-length":"137","x-goog-storage-class":"STANDARD","x-guploader-uploadid":"AOCedOHLOk6q7OZx6CsTL748OVKBu15a7OwNRKU4pATPRn3UFvYng0Ojq5oLDeYHuWxO-GSD597L4t8","server":"UploadServer","via":"1.1 google","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-e5589c6c","x-jsr-cache-status":"miss","etag":"\"f8f4c866bf754a738558fc333b8837c5\"","x-robots-tag":"noindex","access-control-allow-origin":"*","x-goog-hash":"crc32c=8QbqqQ==,md5=+PTIZr91SnOFWPwzO4g3xQ==","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","x-goog-generation":"1738143510889549","x-content-type-options":"nosniff","x-goog-stored-content-encoding":"identity"},"url":"https://jsr.io/@webview/webview/meta.json","time":1764189265}

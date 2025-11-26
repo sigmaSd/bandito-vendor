@@ -1,0 +1,55 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+
+import { assertPath } from "./assert_path.ts";
+
+export function stripSuffix(name: string, suffix: string): string {
+  if (suffix.length >= name.length) {
+    return name;
+  }
+
+  const lenDiff = name.length - suffix.length;
+
+  for (let i = suffix.length - 1; i >= 0; --i) {
+    if (name.charCodeAt(lenDiff + i) !== suffix.charCodeAt(i)) {
+      return name;
+    }
+  }
+
+  return name.slice(0, -suffix.length);
+}
+
+export function lastPathSegment(
+  path: string,
+  isSep: (char: number) => boolean,
+  start = 0,
+): string {
+  let matchedNonSeparator = false;
+  let end = path.length;
+
+  for (let i = path.length - 1; i >= start; --i) {
+    if (isSep(path.charCodeAt(i))) {
+      if (matchedNonSeparator) {
+        start = i + 1;
+        break;
+      }
+    } else if (!matchedNonSeparator) {
+      matchedNonSeparator = true;
+      end = i + 1;
+    }
+  }
+
+  return path.slice(start, end);
+}
+
+export function assertArgs(path: string, suffix: string) {
+  assertPath(path);
+  if (path.length === 0) return path;
+  if (typeof suffix !== "string") {
+    throw new TypeError(
+      `Suffix must be a string, received "${JSON.stringify(suffix)}"`,
+    );
+  }
+}
+
+// denoCacheMetadata={"headers":{"date":"Wed, 26 Nov 2025 20:33:53 GMT","expires":"Thu, 26 Nov 2026 20:33:53 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","server":"UploadServer","access-control-allow-origin":"*","last-modified":"Mon, 17 Nov 2025 08:24:43 GMT","cache-control":"public, max-age=31536000, immutable","x-goog-metageneration":"1","content-type":"text/typescript","access-control-expose-headers":"*","age":"33","x-goog-hash":"crc32c=Se+50g==,md5=ABPJMiIHwFZzjrqX8lAjDA==","accept-ranges":"bytes","x-jsr-cache-status":"hit","cross-origin-resource-policy":"cross-origin","x-guploader-uploadid":"AOCedOHbgH3i3fiFXKnPWwt834ZWnWOkgb_-dVy-1eNCcgnS0LIGZC-sQNv4j5R70uSsY0QTohmM00Y","via":"1.1 google","x-goog-generation":"1763367883125578","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"1243","x-goog-storage-class":"STANDARD","content-length":"1243","etag":"\"0013c9322207c056738eba97f250230c\"","x-jsr-cache-id":"MRS-e5589c6c","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},"url":"https://jsr.io/@std/path/1.1.3/_common/basename.ts","time":1764189267}

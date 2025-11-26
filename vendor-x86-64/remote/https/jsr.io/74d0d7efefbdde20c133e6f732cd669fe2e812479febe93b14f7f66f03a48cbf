@@ -1,0 +1,31 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "jsr:@std/internal@^1.0.12/os";
+import { extname as posixExtname } from "./posix/extname.ts";
+import { extname as windowsExtname } from "./windows/extname.ts";
+/**
+ * Return the extension of the path with leading period (".").
+ *
+ * @example Usage
+ * ```ts
+ * import { extname } from "@std/path/extname";
+ * import { assertEquals } from "@std/assert";
+ *
+ * if (Deno.build.os === "windows") {
+ *   assertEquals(extname("C:\\home\\user\\Documents\\image.png"), ".png");
+ *   assertEquals(extname(new URL("file:///C:/home/user/Documents/image.png")), ".png");
+ * } else {
+ *   assertEquals(extname("/home/user/Documents/image.png"), ".png");
+ *   assertEquals(extname(new URL("file:///home/user/Documents/image.png")), ".png");
+ * }
+ * ```
+ *
+ * @param path Path with extension.
+ * @returns The file extension. E.g. returns `.ts` for `file.ts`.
+ */
+export function extname(path: string | URL): string {
+  return isWindows ? windowsExtname(path) : posixExtname(path);
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","x-content-type-options":"nosniff","last-modified":"Mon, 17 Nov 2025 08:24:43 GMT","content-type":"text/typescript","x-goog-stored-content-length":"1086","x-goog-metageneration":"1","age":"33","via":"1.1 google","date":"Wed, 26 Nov 2025 20:33:53 GMT","x-goog-hash":"crc32c=LuyNKw==,md5=NIIXiq2IXkqM3Yd7w7t9gw==","x-goog-generation":"1763367883127699","expires":"Thu, 26 Nov 2026 20:33:53 GMT","cache-control":"public, max-age=31536000, immutable","content-length":"1086","x-jsr-cache-status":"hit","x-goog-storage-class":"STANDARD","x-robots-tag":"noindex","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","etag":"\"3482178aad885e4a8cdd877bc3bb7d83\"","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","accept-ranges":"bytes","x-goog-stored-content-encoding":"identity","x-guploader-uploadid":"AOCedOGdlzrNBblhgaaZWWb-TrrxffuIjwtfraV9UUpcYtmLUVoRw47M9iIAJU1VUA67uGmfRK50Frw","x-jsr-cache-id":"MRS-e5589c6c","access-control-expose-headers":"*","server":"UploadServer"},"url":"https://jsr.io/@std/path/1.1.3/extname.ts","time":1764189267}

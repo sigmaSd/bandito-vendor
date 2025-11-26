@@ -1,0 +1,20 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+import { isWindows } from "jsr:@std/internal@^1.0.12/os";
+
+/**
+ * The character used to separate entries in the PATH environment variable.
+ * On Windows, this is `;`. On all other platforms, this is `:`.
+ */
+export const DELIMITER = isWindows ? ";" as const : ":" as const;
+/**
+ * The character used to separate components of a file path.
+ * On Windows, this is `\`. On all other platforms, this is `/`.
+ */
+export const SEPARATOR = isWindows ? "\\" as const : "/" as const;
+/**
+ * A regular expression that matches one or more path separators.
+ */
+export const SEPARATOR_PATTERN = isWindows ? /[\\/]+/ : /\/+/;
+
+// denoCacheMetadata={"headers":{"age":"33","x-goog-stored-content-encoding":"identity","x-jsr-cache-status":"hit","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","x-goog-generation":"1763367882802325","via":"1.1 google","date":"Wed, 26 Nov 2025 20:33:53 GMT","x-goog-storage-class":"STANDARD","x-goog-hash":"crc32c=O5pNng==,md5=+mCY0vaXiIYQW23Oy9x8zg==","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","server":"UploadServer","x-guploader-uploadid":"AOCedOHAlIRLg9GBFCPtwNMi1C4o31lSl3noFO6wV9624fyouloKCj5w-G0mcaDMjMFi2-Ot6hZU-rM","x-goog-metageneration":"1","content-length":"704","last-modified":"Mon, 17 Nov 2025 08:24:42 GMT","accept-ranges":"bytes","content-type":"text/typescript","x-jsr-cache-id":"MRS-e5589c6c","access-control-expose-headers":"*","x-goog-stored-content-length":"704","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","x-content-type-options":"nosniff","expires":"Thu, 26 Nov 2026 20:33:53 GMT","etag":"\"fa6098d2f6978886105b6dcecbdc7cce\""},"url":"https://jsr.io/@std/path/1.1.3/constants.ts","time":1764189267}

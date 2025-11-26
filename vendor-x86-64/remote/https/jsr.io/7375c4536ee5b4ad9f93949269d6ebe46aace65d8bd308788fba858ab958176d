@@ -1,0 +1,33 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "jsr:@std/internal@^1.0.12/os";
+import { join as posixJoin } from "./posix/join.ts";
+import { join as windowsJoin } from "./windows/join.ts";
+
+/**
+ * Joins a sequence of paths, then normalizes the resulting path.
+ *
+ * @example Usage
+ * ```ts
+ * import { join } from "@std/path/join";
+ * import { assertEquals } from "@std/assert";
+ *
+ * if (Deno.build.os === "windows") {
+ *   assertEquals(join("C:\\foo", "bar", "baz\\quux", "garply", ".."), "C:\\foo\\bar\\baz\\quux");
+ *   assertEquals(join(new URL("file:///C:/foo"), "bar", "baz/asdf", "quux", ".."), "C:\\foo\\bar\\baz\\asdf");
+ * } else {
+ *   assertEquals(join("/foo", "bar", "baz/quux", "garply", ".."), "/foo/bar/baz/quux");
+ *   assertEquals(join(new URL("file:///foo"), "bar", "baz/asdf", "quux", ".."), "/foo/bar/baz/asdf");
+ * }
+ * ```
+ *
+ * @param path The path to join. This can be string or file URL.
+ * @param paths Paths to be joined and normalized.
+ * @returns The joined and normalized path.
+ */
+export function join(path: string | URL, ...paths: string[]): string {
+  return isWindows ? windowsJoin(path, ...paths) : posixJoin(path, ...paths);
+}
+
+// denoCacheMetadata={"headers":{"x-goog-metageneration":"1","server":"UploadServer","x-guploader-uploadid":"AOCedOFpA4qyxpVoVNncGLVX2FqLG7Zd0cnmaomlJMChyxw8CyAXhkGvwhWBpuc8L9E2N7w8JQbLbaw","etag":"\"ca35484c7a982de7b324df00a03a1936\"","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","expires":"Thu, 26 Nov 2026 20:33:53 GMT","last-modified":"Mon, 17 Nov 2025 08:24:43 GMT","x-jsr-cache-status":"hit","accept-ranges":"bytes","access-control-allow-origin":"*","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","x-goog-generation":"1763367883032895","cache-control":"public, max-age=31536000, immutable","x-goog-stored-content-encoding":"identity","x-goog-hash":"crc32c=+K0cUw==,md5=yjVITHqYLeezJN8AoDoZNg==","via":"1.1 google","age":"33","content-type":"text/typescript","date":"Wed, 26 Nov 2025 20:33:53 GMT","access-control-expose-headers":"*","x-goog-storage-class":"STANDARD","content-length":"1237","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-stored-content-length":"1237","x-jsr-cache-id":"MRS-e5589c6c"},"url":"https://jsr.io/@std/path/1.1.3/join.ts","time":1764189267}

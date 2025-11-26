@@ -1,8 +1,0 @@
-// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
-// This module is browser compatible.
-
-export const DELIMITER = ":" as const;
-export const SEPARATOR = "/" as const;
-export const SEPARATOR_PATTERN = /\/+/;
-
-// denoCacheMetadata={"headers":{"x-goog-metageneration":"1","expires":"Mon, 06 Oct 2025 20:47:21 GMT","cache-control":"public, max-age=31536000, immutable","x-jsr-cache-status":"miss","accept-ranges":"bytes","x-content-type-options":"nosniff","date":"Sun, 06 Oct 2024 20:47:21 GMT","etag":"\"0bb57637bb8a3393c26bb1ed58188113\"","content-length":"232","x-guploader-uploadid":"AHmUCY1NilzS_sN5UGPlIODgqIW9O76o9z1OiecwD3gv3U7S0qO-FrM5gWKnf2tk49ndsjogUA","content-type":"text/typescript","x-goog-storage-class":"STANDARD","access-control-expose-headers":"*","x-jsr-cache-id":"MRS-e5589c6c","x-goog-stored-content-length":"232","cross-origin-resource-policy":"cross-origin","via":"1.1 google","x-goog-generation":"1711584258874442","x-goog-stored-content-encoding":"identity","x-goog-hash":"crc32c=a3bjvg==,md5=C7V2N7uKM5PCa7HtWBiBEw==","server":"UploadServer","last-modified":"Thu, 28 Mar 2024 00:04:18 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},"url":"https://jsr.io/@std/path/0.221.0/posix/constants.ts","time":1728247641}

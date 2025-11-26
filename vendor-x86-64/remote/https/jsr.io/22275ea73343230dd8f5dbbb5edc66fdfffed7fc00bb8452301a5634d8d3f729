@@ -1,12 +1,14 @@
 {
   "scope": "luca",
   "name": "esbuild-deno-loader",
-  "latest": "0.10.3",
+  "latest": "0.11.1",
   "versions": {
-    "0.10.3": {},
-    "0.9.0": {},
+    "0.10.2": {},
     "0.11.0-rc.1": {},
-    "0.10.2": {}
+    "0.11.1": {},
+    "0.9.0": {},
+    "0.11.0": {},
+    "0.10.3": {}
   }
 }
-// denoCacheMetadata={"headers":{"x-goog-generation":"1727436503181956","cross-origin-resource-policy":"cross-origin","date":"Sun, 06 Oct 2024 20:47:26 GMT","content-length":"172","cache-control":"no-cache, no-store, max-age=0","expires":"Sun, 06 Oct 2024 20:47:26 GMT","etag":"\"de44804ba3eafe7f9aa66a751a02f96a\"","last-modified":"Fri, 27 Sep 2024 11:28:23 GMT","x-goog-stored-content-encoding":"identity","x-goog-hash":"crc32c=56k06g==,md5=3kSAS6Pq/n+apmp1GgL5ag==","x-goog-storage-class":"STANDARD","accept-ranges":"bytes","x-jsr-cache-id":"MRS-e5589c6c","x-guploader-uploadid":"AHmUCY0PWHWQWsKjCIk4C0t0BAlviX5_5SCi7qLUkSutCN4Y8gARgob7Z45wFE9yrvDIkNl-1hnLCNsCeg","x-robots-tag":"noindex","x-content-type-options":"nosniff","server":"UploadServer","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","access-control-allow-origin":"*","x-goog-metageneration":"1","content-type":"application/json","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","x-jsr-cache-status":"miss","x-goog-stored-content-length":"172","via":"1.1 google"},"url":"https://jsr.io/@luca/esbuild-deno-loader/meta.json","time":1728247647}
+// denoCacheMetadata={"headers":{"content-type":"application/json","x-robots-tag":"noindex","x-guploader-uploadid":"AOCedOH4eb1JPXbqZ3MB9LFTdt8cMN6GJo_CGPKPVOXVfV1ahrBQkuesVdzHTCh31GXFeILw2cB4z3o","x-goog-stored-content-encoding":"identity","expires":"Wed, 26 Nov 2025 20:34:30 GMT","last-modified":"Fri, 06 Dec 2024 13:03:35 GMT","x-goog-hash":"crc32c=QBpd2A==,md5=8RhmoDcghxGpB0KWagBfYQ==","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","content-length":"208","x-jsr-cache-status":"miss","via":"1.1 google","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-cache-id":"MRS-fea0badd","etag":"\"f11866a037208711a90742966a005f61\"","x-goog-stored-content-length":"208","server":"UploadServer","accept-ranges":"bytes","access-control-allow-origin":"*","access-control-expose-headers":"*","x-goog-generation":"1733490215676528","x-content-type-options":"nosniff","x-goog-storage-class":"STANDARD","date":"Wed, 26 Nov 2025 20:34:30 GMT","cache-control":"no-cache, no-store, max-age=0","x-goog-metageneration":"1"},"url":"https://jsr.io/@luca/esbuild-deno-loader/meta.json","time":1764189270}

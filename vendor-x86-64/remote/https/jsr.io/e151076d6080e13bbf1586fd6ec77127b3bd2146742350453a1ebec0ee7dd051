@@ -1,0 +1,34 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "jsr:@std/internal@^1.0.12/os";
+import { relative as posixRelative } from "./posix/relative.ts";
+import { relative as windowsRelative } from "./windows/relative.ts";
+
+/**
+ * Return the relative path from `from` to `to` based on current working
+ * directory.
+ *
+ * @example Usage
+ * ```ts
+ * import { relative } from "@std/path/relative";
+ * import { assertEquals } from "@std/assert";
+ *
+ * if (Deno.build.os === "windows") {
+ *   const path = relative("C:\\foobar\\test\\aaa", "C:\\foobar\\impl\\bbb");
+ *   assertEquals(path, "..\\..\\impl\\bbb");
+ * } else {
+ *   const path = relative("/data/foobar/test/aaa", "/data/foobar/impl/bbb");
+ *   assertEquals(path, "../../impl/bbb");
+ * }
+ * ```
+ *
+ * @param from Path in current working directory.
+ * @param to Path in current working directory.
+ * @returns The relative path from `from` to `to`.
+ */
+export function relative(from: string, to: string): string {
+  return isWindows ? windowsRelative(from, to) : posixRelative(from, to);
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","etag":"\"f42d923c9c74f48fafe621ee271d685c\"","x-guploader-uploadid":"AOCedOFh0Wepc64kdyVcOS6KrcEeI-HXyjU6_23M_BwdpwdAoogyNth-SKRDneNgbOF4C_JMr9y1EVA","x-content-type-options":"nosniff","x-goog-hash":"crc32c=BedPEw==,md5=9C2SPJx09I+v5iHuJx1oXA==","x-goog-stored-content-encoding":"identity","accept-ranges":"bytes","content-length":"1107","last-modified":"Mon, 17 Nov 2025 08:24:43 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-goog-stored-content-length":"1107","x-goog-generation":"1763367882984134","cache-control":"public, max-age=31536000, immutable","server":"UploadServer","access-control-allow-origin":"*","x-goog-metageneration":"1","content-type":"text/typescript","x-jsr-cache-status":"hit","x-jsr-cache-id":"MRS-e5589c6c","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","date":"Wed, 26 Nov 2025 20:33:53 GMT","via":"1.1 google","expires":"Thu, 26 Nov 2026 20:33:53 GMT","age":"33","x-goog-storage-class":"STANDARD","access-control-expose-headers":"*"},"url":"https://jsr.io/@std/path/1.1.3/relative.ts","time":1764189267}

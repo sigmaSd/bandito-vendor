@@ -1,0 +1,15 @@
+// Copyright 2018-2025 the Deno authors. MIT license.
+// Copyright the Browserify authors. MIT License.
+/**
+ * Get a human readable file type string.
+ *
+ * @param file File information, as returned by {@linkcode Deno.stat} or
+ * {@linkcode Deno.lstat}.
+ *
+ * @returns The file type as a string, or `undefined` if the file type is
+ * unknown.
+ */ export function getFileInfoType(fileInfo) {
+  return fileInfo.isFile ? "file" : fileInfo.isDirectory ? "dir" : fileInfo.isSymlink ? "symlink" : undefined;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvZnMvMS4wLjIwL19nZXRfZmlsZV9pbmZvX3R5cGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gQ29weXJpZ2h0IDIwMTgtMjAyNSB0aGUgRGVubyBhdXRob3JzLiBNSVQgbGljZW5zZS5cbi8vIENvcHlyaWdodCB0aGUgQnJvd3NlcmlmeSBhdXRob3JzLiBNSVQgTGljZW5zZS5cblxuZXhwb3J0IHR5cGUgUGF0aFR5cGUgPSBcImZpbGVcIiB8IFwiZGlyXCIgfCBcInN5bWxpbmtcIjtcblxuLyoqXG4gKiBHZXQgYSBodW1hbiByZWFkYWJsZSBmaWxlIHR5cGUgc3RyaW5nLlxuICpcbiAqIEBwYXJhbSBmaWxlIEZpbGUgaW5mb3JtYXRpb24sIGFzIHJldHVybmVkIGJ5IHtAbGlua2NvZGUgRGVuby5zdGF0fSBvclxuICoge0BsaW5rY29kZSBEZW5vLmxzdGF0fS5cbiAqXG4gKiBAcmV0dXJucyBUaGUgZmlsZSB0eXBlIGFzIGEgc3RyaW5nLCBvciBgdW5kZWZpbmVkYCBpZiB0aGUgZmlsZSB0eXBlIGlzXG4gKiB1bmtub3duLlxuICovXG5leHBvcnQgZnVuY3Rpb24gZ2V0RmlsZUluZm9UeXBlKGZpbGVJbmZvOiBEZW5vLkZpbGVJbmZvKTogUGF0aFR5cGUgfCB1bmRlZmluZWQge1xuICByZXR1cm4gZmlsZUluZm8uaXNGaWxlXG4gICAgPyBcImZpbGVcIlxuICAgIDogZmlsZUluZm8uaXNEaXJlY3RvcnlcbiAgICA/IFwiZGlyXCJcbiAgICA6IGZpbGVJbmZvLmlzU3ltbGlua1xuICAgID8gXCJzeW1saW5rXCJcbiAgICA6IHVuZGVmaW5lZDtcbn1cbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxxREFBcUQ7QUFDckQsaURBQWlEO0FBSWpEOzs7Ozs7OztDQVFDLEdBQ0QsT0FBTyxTQUFTLGdCQUFnQixRQUF1QjtFQUNyRCxPQUFPLFNBQVMsTUFBTSxHQUNsQixTQUNBLFNBQVMsV0FBVyxHQUNwQixRQUNBLFNBQVMsU0FBUyxHQUNsQixZQUNBO0FBQ04ifQ==
+// denoCacheMetadata=13786108703432429215,14013574743622609214

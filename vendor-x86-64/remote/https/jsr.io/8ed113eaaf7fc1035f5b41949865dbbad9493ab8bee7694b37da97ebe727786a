@@ -1,12 +1,2 @@
-{
-  "scope": "denosaurs",
-  "name": "plug",
-  "latest": "1.0.6",
-  "versions": {
-    "1.0.4": {},
-    "1.0.5": {},
-    "1.0.6": {},
-    "1.0.3": {}
-  }
-}
-// denoCacheMetadata={"headers":{"x-jsr-cache-status":"miss","server":"UploadServer","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-metageneration":"1","content-type":"application/json","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","x-jsr-cache-id":"MRS-e5589c6c","last-modified":"Tue, 09 Apr 2024 10:20:29 GMT","etag":"\"182e165649dd8ef130b88041239bff09\"","x-goog-hash":"crc32c=ObeUmw==,md5=GC4WVkndjvEwuIBBI5v/CQ==","access-control-allow-origin":"*","x-guploader-uploadid":"AD-8ljseSlVMr0hRmPv6iKRj-A_8-ui7NVjYNmeBfbRTx0QKPIcMmLkPB4CgR9YfV5CCmEekiVMe-knA1Q","x-goog-generation":"1712658029860177","x-robots-tag":"noindex","x-goog-stored-content-encoding":"identity","x-goog-stored-content-length":"153","content-length":"153","accept-ranges":"bytes","cache-control":"no-cache, no-store, max-age=0","access-control-expose-headers":"*","expires":"Sun, 06 Oct 2024 20:47:17 GMT","x-goog-storage-class":"STANDARD","via":"1.1 google","date":"Sun, 06 Oct 2024 20:47:17 GMT"},"url":"https://jsr.io/@denosaurs/plug/meta.json","time":1728247637}
+{"scope":"denosaurs","name":"plug","latest":"1.1.0","versions":{"1.0.4":{},"1.0.3":{},"1.0.6":{},"1.1.0":{},"1.0.5":{}}}
+// denoCacheMetadata={"headers":{"content-type":"application/json","date":"Wed, 26 Nov 2025 20:34:25 GMT","last-modified":"Wed, 07 May 2025 19:15:24 GMT","x-goog-stored-content-encoding":"identity","x-goog-hash":"crc32c=Y8c55Q==,md5=6GMsjw7ynnh17+3huHFjGA==","content-length":"120","x-jsr-cache-id":"MRS-e5589c6c","cache-control":"no-cache, no-store, max-age=0","x-goog-storage-class":"STANDARD","x-jsr-cache-status":"miss","x-robots-tag":"noindex","access-control-expose-headers":"*","x-content-type-options":"nosniff","etag":"\"e8632c8f0ef29e7875efede1b8716318\"","x-guploader-uploadid":"AOCedOGBawKBm3Z5Xrvb-EoGdSimKJPZhZmmQAgRtzIMLPsRaYsSFfcu4YwsPnUlRAIms3co","x-goog-metageneration":"1","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","x-goog-stored-content-length":"120","x-goog-generation":"1746645324085633","access-control-allow-origin":"*","server":"UploadServer","via":"1.1 google","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","accept-ranges":"bytes","expires":"Wed, 26 Nov 2025 20:34:25 GMT"},"url":"https://jsr.io/@denosaurs/plug/meta.json","time":1764189265}

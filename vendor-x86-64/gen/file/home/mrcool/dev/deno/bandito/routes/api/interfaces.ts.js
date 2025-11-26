@@ -1,0 +1,16 @@
+const ifconfig = async ()=>{
+  const rawData = await Deno.readTextFile("/proc/net/dev");
+  //TODO: actually parse interface status
+  return rawData.split("\n").slice(2).filter((line)=>line).map((line)=>{
+    return {
+      name: line.split(":")[0]
+    };
+  });
+};
+export const handler = {
+  async GET () {
+    return new Response(JSON.stringify(await ifconfig()));
+  }
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS9tcmNvb2wvZGV2L2Rlbm8vYmFuZGl0by9yb3V0ZXMvYXBpL2ludGVyZmFjZXMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSGFuZGxlcnMgfSBmcm9tIFwiJGZyZXNoL3NlcnZlci50c1wiO1xuXG5jb25zdCBpZmNvbmZpZyA9IGFzeW5jICgpID0+IHtcbiAgY29uc3QgcmF3RGF0YSA9IGF3YWl0IERlbm8ucmVhZFRleHRGaWxlKFwiL3Byb2MvbmV0L2RldlwiKTtcblxuICAvL1RPRE86IGFjdHVhbGx5IHBhcnNlIGludGVyZmFjZSBzdGF0dXNcbiAgcmV0dXJuIHJhd0RhdGFcbiAgICAuc3BsaXQoXCJcXG5cIilcbiAgICAuc2xpY2UoMilcbiAgICAuZmlsdGVyKChsaW5lKSA9PiBsaW5lKVxuICAgIC5tYXAoKGxpbmUpID0+IHtcbiAgICAgIHJldHVybiB7XG4gICAgICAgIG5hbWU6IGxpbmUuc3BsaXQoXCI6XCIpWzBdLFxuICAgICAgfTtcbiAgICB9KTtcbn07XG5cbmV4cG9ydCBjb25zdCBoYW5kbGVyOiBIYW5kbGVycyA9IHtcbiAgYXN5bmMgR0VUKCkge1xuICAgIHJldHVybiBuZXcgUmVzcG9uc2UoSlNPTi5zdHJpbmdpZnkoYXdhaXQgaWZjb25maWcoKSkpO1xuICB9LFxufTtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQSxNQUFNLFdBQVc7RUFDZixNQUFNLFVBQVUsTUFBTSxLQUFLLFlBQVksQ0FBQztFQUV4Qyx1Q0FBdUM7RUFDdkMsT0FBTyxRQUNKLEtBQUssQ0FBQyxNQUNOLEtBQUssQ0FBQyxHQUNOLE1BQU0sQ0FBQyxDQUFDLE9BQVMsTUFDakIsR0FBRyxDQUFDLENBQUM7SUFDSixPQUFPO01BQ0wsTUFBTSxLQUFLLEtBQUssQ0FBQyxJQUFJLENBQUMsRUFBRTtJQUMxQjtFQUNGO0FBQ0o7QUFFQSxPQUFPLE1BQU0sVUFBb0I7RUFDL0IsTUFBTTtJQUNKLE9BQU8sSUFBSSxTQUFTLEtBQUssU0FBUyxDQUFDLE1BQU07RUFDM0M7QUFDRixFQUFFIn0=
+// denoCacheMetadata=16408565240161644672,8107815864897850957
